@@ -1,0 +1,37 @@
+﻿@model List<Club>
+@{
+    ViewData["Title"] = "Clubs";
+}
+<div class="container mt-3 d-flex justify-content-end">
+    <a asp-action="Create" asp-controller="Club" class="btn btn-primary">
+        +Create Club
+    </a>
+</div>
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @{
+            foreach (Club club in Model)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="d-flex justify-content-center">
+                            <div id=@("spinner" + club.Id) class="spinner-border m-5" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <img id=@("image"+club.Id) style="display: none" src=@club.Image class="card-img-top card-img-custom" alt="Image @club.Id" onload="onImageLoadById(@club.Id)">
+                        <div class="card-body">
+                            <h5 class="card-title">@club.Title</h5>
+                            <h6 class="text-muted">@club.Category</h6>
+                            <p class="card-text">@club.Description</p>
+                            <a class="btn w-25 btn-sm btn-outline-primary" asp-action="Detail" asp-controller="Club" asp-route-id=@club.Id>View</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 5 min ago</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

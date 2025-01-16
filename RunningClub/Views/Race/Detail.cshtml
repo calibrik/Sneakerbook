@@ -1,0 +1,55 @@
+﻿@model Race
+@{
+    ViewData["Title"] = Model.Title;
+}
+<div class="row">
+    <div class="container mt-3 col-md-6">
+        <a asp-action="Index" asp-controller="Race" class="btn btn-secondary">
+            ← Back
+        </a>
+    </div>
+    <div class="container mt-3 d-flex justify-content-end  col-md-6">
+        <a asp-action="Edit" asp-controller="Race" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
+            Edit
+        </a>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <!-- Club Detail Section -->
+                @{
+                    <div class="col-md-6">
+                        <!-- Club Image -->
+                        <div class="d-flex justify-content-center">
+                            <div id="spinner" class="spinner-border m-5" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <img id="image" style="display: none" src=@Model.Image class="img-fluid" alt="Club Image" onload="onImageLoad()">
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Club Information -->
+                        <h1 class="display-4">@Model.Title</h1>
+                        <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
+                        @if (Model.Address != null)
+                        {
+                            <p><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
+                        }
+                        else
+                        {
+                            <p><strong>Address: </strong> Not found </p>
+                        }
+                        <p><strong>Description: </strong>@Model.Description</p>
+                        <p><strong>Number of Participants: </strong> 0</p>
+
+                        <!-- Button or any additional info -->
+                        <a class="btn btn-primary">Join the Race</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

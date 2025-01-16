@@ -1,0 +1,58 @@
+﻿@model RunningClub.ViewModels.CreateClubViewModel
+@{
+    ViewData["Title"] = "Create Club";
+}
+<div class="container mt-3">
+    <a asp-action="Index" asp-controller="Club" class="btn btn-secondary">
+        ← Back
+    </a>
+</div>
+
+<h2 class="text-center mb-4">Create Club</h2>
+<div class="outer-container">
+    <form class="row g-3 needs-validation" method="post" asp-controller="Club" asp-action="CreateClub" enctype="multipart/form-data">
+        <div class="col-md-12 form-floating mb-3">
+            <input type="text" class="form-control" asp-for="@Model.Title" placeholder="" required/>
+            <label for="floatingInput">Title</label>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="col-md-12 form-floating mb-3">
+            <textarea class="form-control" asp-for="@Model.Description" placeholder="" style="height: 150px"></textarea>
+            <label for="floatingInput">Description</label>
+        </div>
+        <div class="col-md-3 form-floating mb-3">
+            <input type="text" class="form-control" asp-for="@Model.Address.Country" placeholder="" required/>
+            <label for="floatingInput">Country</label>
+            <span asp-validation-for="Address.Country" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 form-floating mb-3">
+            <input type="text" class="form-control" asp-for="@Model.Address.City" placeholder="" required/>
+            <label for="floatingInput">City</label>
+            <span asp-validation-for="Address.City" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 form-floating mb-3">
+            <input type="text" class="form-control" asp-for="@Model.Address.Street" placeholder="" required/>
+            <label for="floatingInput">Street</label>
+            <span asp-validation-for="Address.City" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <select class="form-select" asp-for="@Model.Category" aria-label="Default select example" required>
+                <option selected disabled value="">Choose the category</option>
+                @{
+                    foreach (ClubCategory category in Enum.GetValues(typeof(ClubCategory)))
+                    {
+                        <option value=@category>@category</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+        <div class="col-md-9 mb-3">
+            <input type="file" class="form-control" asp-for="@Model.Image"/>
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="col-md-12 form-floating mb-3 d-flex justify-content-center">
+            <button class="btn-primary w-50 btn-lg rounded-2" type="submit">Create Club</button>
+        </div>
+    </form>
+</div>
