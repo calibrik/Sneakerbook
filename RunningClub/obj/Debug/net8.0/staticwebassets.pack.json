@@ -1,275 +1,283 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\RunningClub.bundle.scp.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\RunningClub.bundle.scp.css",
       "PackagePath": "staticwebassets\\RunningClub.5pis2jfebm.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\gifs\\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif",
       "PackagePath": "staticwebassets\\uploads\\gifs\\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\gifs\\d8ab4317-d26b-4aec-8932-3d50ed878483.gif",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\d8ab4317-d26b-4aec-8932-3d50ed878483.gif",
       "PackagePath": "staticwebassets\\uploads\\gifs\\d8ab4317-d26b-4aec-8932-3d50ed878483.gif"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\gifs\\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif",
       "PackagePath": "staticwebassets\\uploads\\gifs\\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\gifs\\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif",
       "PackagePath": "staticwebassets\\uploads\\gifs\\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\images\\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\0e0aeacd-9b38-4771-a358-b6e56967ccb5.png",
+      "PackagePath": "staticwebassets\\uploads\\images\\0e0aeacd-9b38-4771-a358-b6e56967ccb5.png"
+    },
+    {
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\356d415c-4ba7-4e15-9b26-11ba72db85f1.png",
+      "PackagePath": "staticwebassets\\uploads\\images\\356d415c-4ba7-4e15-9b26-11ba72db85f1.png"
+    },
+    {
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png",
       "PackagePath": "staticwebassets\\uploads\\images\\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\images\\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png",
       "PackagePath": "staticwebassets\\uploads\\images\\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\wwwroot\\uploads\\images\\defaultImage.jpg",
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\defaultImage.jpg",
       "PackagePath": "staticwebassets\\uploads\\images\\defaultImage.jpg"
     },
     {

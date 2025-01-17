@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\RunningClub.csproj": {}
+    "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\RunningClub.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\RunningClub.csproj": {
+    "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\RunningClub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\RunningClub.csproj",
+        "projectUniqueName": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\RunningClub.csproj",
         "projectName": "RunningClub",
-        "projectPath": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\RunningClub.csproj",
+        "projectPath": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\RunningClub.csproj",
         "packagesPath": "C:\\Users\\maslo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\RunningClub\\RunningClub\\obj\\",
+        "outputPath": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\obj\\",
         "projectStyle": "PackageReference",
         "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
@@ -49,6 +49,10 @@
             "CloudinaryDotNet": {
               "target": "Package",
               "version": "[1.27.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.12, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

@@ -23,7 +23,7 @@ public class Race
     public int AddressId { get; set; }
     public required Address Address { get; set; }
     [ForeignKey("AppUser")]
-    public int? AppUserId { get; set; }
+    public string? AppUserId { get; set; }
     public AppUser? AppUser { get; set; }
     [ForeignKey("Club")]
     public int? ClubId { get; set; }
