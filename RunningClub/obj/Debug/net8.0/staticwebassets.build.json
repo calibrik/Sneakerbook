@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6sk3XvLuYpC95p55f00JOjtVTZ4XUclkvlf+TriGIXY=",
+  "Hash": "WhJCMsy7/KZ3UDu/dKx0dejvWRBIIQ3vk2p55IlwFpc=",
   "Source": "RunningClub",
   "BasePath": "_content/RunningClub",
   "Mode": "Default",
@@ -115,8 +115,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "odsepl2kpp",
-      "Integrity": "1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU=",
+      "Fingerprint": "9focvjpry0",
+      "Integrity": "pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
@@ -1674,6 +1674,51 @@
       ]
     },
     {
+      "Route": "js/site.9focvjpry0.js",
+      "AssetFile": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "524"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 20 Jan 2025 09:13:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9focvjpry0"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\js\\site.js",
       "Selectors": [],
@@ -1684,7 +1729,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "476"
+          "Value": "524"
         },
         {
           "Name": "Content-Type",
@@ -1692,11 +1737,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU=\""
+          "Value": "\"pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 27 Dec 2024 05:26:27 GMT"
+          "Value": "Mon, 20 Jan 2025 09:13:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1706,52 +1751,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU="
-        }
-      ]
-    },
-    {
-      "Route": "js/site.odsepl2kpp.js",
-      "AssetFile": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\js\\site.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "476"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 27 Dec 2024 05:26:27 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "odsepl2kpp"
-        },
-        {
-          "Name": "label",
-          "Value": "js/site.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU="
+          "Value": "sha256-pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo="
         }
       ]
     },

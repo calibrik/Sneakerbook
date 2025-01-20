@@ -20,12 +20,12 @@ public class RaceController: Controller
 
     public async Task<IActionResult> Detail(int id)
     {
-        Race? race = await _raceRepo.GetRaceByIdAsync(id, true);
+        Race? race = await _raceRepo.GetRaceByIdAsyncRO(id, true);
         return View(race);
     }
     public async Task<IActionResult> Index()
     {
-        List<Race> raceList = await _raceRepo.GetRacesAsync();
+        List<Race> raceList = await _raceRepo.GetRacesAsyncRO();
         return View(raceList);
     }
     public IActionResult Create()
@@ -56,13 +56,13 @@ public class RaceController: Controller
         return null;
     }
     [HttpPost]
-    public async Task<IActionResult> CreateRace(CreateRaceViewModel createRaceModel)
+    public async Task<IActionResult> Create(CreateRaceViewModel createRaceModel)
     {
         if (!ModelState.IsValid) 
-            return View("Create",createRaceModel);
+            return View(createRaceModel);
         string? path = await ProcessImageAdd(createRaceModel.Image);
         if (path==null)
-            return View("Create",createRaceModel);
+            return View(createRaceModel);
         
         Race race = new Race
         {
@@ -72,13 +72,13 @@ public class RaceController: Controller
             Address = createRaceModel.Address,
             Category = createRaceModel.Category
         };
-        _raceRepo.AddRace(race);
+        await _raceRepo.AddRace(race);
         return RedirectToAction("Index");
     }
     
     public async Task<IActionResult> Edit(int id)
     {
-        Race? club = await _raceRepo.GetRaceByIdAsync(id, true);
+        Race? club = await _raceRepo.GetRaceByIdAsyncRO(id, true);
         if (club==null)
             return View("Error");
         EditRaceViewModel editClubModel = new EditRaceViewModel
@@ -93,11 +93,11 @@ public class RaceController: Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> EditRace(EditRaceViewModel editRaceModel)
+    public async Task<IActionResult> Edit(EditRaceViewModel editRaceModel)
     {
         if (!ModelState.IsValid)
             return View("Edit",editRaceModel);
-        Race? race = await _raceRepo.GetRaceByIdAsyncNoTracking(editRaceModel.Id, true);
+        Race? race = await _raceRepo.GetRaceByIdAsync(editRaceModel.Id, true);
         if (race==null)
             return View("Error");
         if (editRaceModel.IsImageChanged)
@@ -105,20 +105,22 @@ public class RaceController: Controller
             if (editRaceModel.Image == null)
             {
                 ModelState.AddModelError("Image","Please choose a image");
-                return View("Edit", editRaceModel);
+                return View(editRaceModel);
             }
             string? path = await ProcessImageAdd(editRaceModel.Image);
             if (path == null)
-                return View("Edit", editRaceModel);
+                return View(editRaceModel);
             _photoService.DeletePhoto(race.Image);
             race.Image = path;
         }
         race.Title = editRaceModel.Title;
         race.Description = editRaceModel.Description;
-        race.Address = editRaceModel.Address;
+        race.Address.City = editRaceModel.Address.City;
+        race.Address.Country = editRaceModel.Address.Country;
+        race.Address.Street = editRaceModel.Address.Street;
         race.Category = editRaceModel.Category;
         race.AddressId = editRaceModel.Address.Id;
-        _raceRepo.UpdateRace(race);
+        await _raceRepo.Save();
         return RedirectToAction("Detail",new {id=race.Id});
     }
 }

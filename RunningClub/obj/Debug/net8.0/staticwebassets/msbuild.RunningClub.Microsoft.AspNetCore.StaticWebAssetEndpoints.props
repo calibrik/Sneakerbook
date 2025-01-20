@@ -24,17 +24,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5430"},{"Name":"Content-Type","Value":"image/x-icon"},{"Name":"ETag","Value":"\u0022Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 11 Dec 2024 13:28:06 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/RunningClub/js/site.9focvjpry0.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"9focvjpry0"},{"Name":"integrity","Value":"sha256-pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo="},{"Name":"label","Value":"_content/RunningClub/js/site.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"524"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Jan 2025 09:13:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"476"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00221CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU=\u0022"},{"Name":"Last-Modified","Value":"Fri, 27 Dec 2024 05:26:27 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/RunningClub/js/site.odsepl2kpp.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"odsepl2kpp"},{"Name":"integrity","Value":"sha256-1CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU="},{"Name":"label","Value":"_content/RunningClub/js/site.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"476"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00221CuNqfk0GKbZCwWRyuCvDfAaigfetKFaCySWtXIf/VU=\u0022"},{"Name":"Last-Modified","Value":"Fri, 27 Dec 2024 05:26:27 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"524"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Jan 2025 09:13:48 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/lib/bootstrap/dist/css/bootstrap-grid.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css'))</AssetFile>

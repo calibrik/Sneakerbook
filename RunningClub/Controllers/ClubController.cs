@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RunningClub.Interfaces;
 using RunningClub.Models;
-using RunningClub.Repository;
 using RunningClub.Services;
 using RunningClub.ViewModels;
 
@@ -14,7 +12,7 @@ public class ClubController:Controller
     private readonly PhotoService _photoService;
     public async Task<IActionResult> Index()
     {
-        List<Club> clubs = await _clubRepo.GetClubsAsync();
+        List<Club> clubs = await _clubRepo.GetClubsAsyncRO();
         return View(clubs);
     }
 
@@ -30,7 +28,7 @@ public class ClubController:Controller
     }
     public async Task<IActionResult> Detail(int id)
     {
-        Club? club = await _clubRepo.GetClubByIdAsync(id, true);
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(id, true);
         return View(club);
     }
 
@@ -58,13 +56,13 @@ public class ClubController:Controller
         return null;
     }
     [HttpPost]
-    public async Task<IActionResult> CreateClub(CreateClubViewModel createClubModel)
+    public async Task<IActionResult> Create(CreateClubViewModel createClubModel)
     {
         if (!ModelState.IsValid) 
-            return View("Create",createClubModel);
+            return View(createClubModel);
         string? path = await ProcessImageAdd(createClubModel.Image);
         if (path == null)
-            return View("Create", createClubModel);
+            return View(createClubModel);
         Club club = new Club
         {
             Title = createClubModel.Title,
@@ -73,13 +71,13 @@ public class ClubController:Controller
             Address = createClubModel.Address,
             Category = createClubModel.Category
         };
-        _clubRepo.AddClub(club);
+        await _clubRepo.AddClub(club);
         return RedirectToAction("Index");
     }
 
     public async Task<IActionResult> Edit(int id)
     {
-        Club? club = await _clubRepo.GetClubByIdAsync(id, true);
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(id, true);
         if (club==null)
             return View("Error");
         EditClubViewModel editClubModel = new EditClubViewModel
@@ -94,11 +92,11 @@ public class ClubController:Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> EditClub(EditClubViewModel editClubModel)
+    public async Task<IActionResult> Edit(EditClubViewModel editClubModel)
     {
         if (!ModelState.IsValid)
-            return View("Edit",editClubModel);
-        Club? club = await _clubRepo.GetClubByIdAsyncNoTracking(editClubModel.Id, true);
+            return View(editClubModel);
+        Club? club = await _clubRepo.GetClubByIdAsync(editClubModel.Id, true);
         if (club==null)
             return View("Error");
         if (editClubModel.IsImageChanged)
@@ -106,20 +104,22 @@ public class ClubController:Controller
             if (editClubModel.Image == null)
             {
                 ModelState.AddModelError("Image","Please choose a image");
-                return View("Edit", editClubModel);
+                return View(editClubModel);
             }
             string? path = await ProcessImageAdd(editClubModel.Image);
             if (path == null)
-                return View("Edit", editClubModel);
+                return View(editClubModel);
             _photoService.DeletePhoto(club.Image);
             club.Image = path;
         }
         club.Title = editClubModel.Title;
         club.Description = editClubModel.Description;
-        club.Address = editClubModel.Address;
+        club.Address.City = editClubModel.Address.City;
+        club.Address.Country = editClubModel.Address.Country;
+        club.Address.Street = editClubModel.Address.Street;
         club.Category = editClubModel.Category;
         club.AddressId = editClubModel.Address.Id;
-        _clubRepo.UpdateClub(club);
+        await _clubRepo.Save();
         return RedirectToAction("Detail",new {id=club.Id});
     }
 }

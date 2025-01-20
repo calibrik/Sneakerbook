@@ -13,3 +13,7 @@ function DisableOnChange(inputId,checkboxId)
 {
     document.getElementById(inputId).disabled = !document.getElementById(checkboxId).checked;
 }
+function onConfirmPasswordChange()
+{
+    
+}

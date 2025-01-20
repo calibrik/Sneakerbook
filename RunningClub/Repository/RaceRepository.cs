@@ -15,6 +15,10 @@ public class RaceRepository
     {
         return await _context.Races.ToListAsync();
     }
+    public async Task<List<Race>> GetRacesAsyncRO()
+    {
+        return await _context.Races.AsNoTracking().ToListAsync();
+    }
 
     public async Task<Race?> GetRaceByIdAsync(int id,bool withAddress)
     {
@@ -22,39 +26,33 @@ public class RaceRepository
             return await _context.Races.FirstOrDefaultAsync(a=>a.Id == id);
         return await _context.Races.Include(c=>c.Address).FirstOrDefaultAsync(a=>a.Id == id);
     }
-    public async Task<Race?> GetRaceByIdAsyncNoTracking(int id,bool withAddress)
+    public async Task<Race?> GetRaceByIdAsyncRO(int id,bool withAddress)
     {
         if (!withAddress)
             return await _context.Races.AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
         return await _context.Races.Include(c=>c.Address).AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
     }
 
-    public async Task<List<Race>> GetRacesByCityAsync(string city)
+    public async Task<List<Race>> GetRacesByCityAsyncRO(string city)
     {
-        return await _context.Races.Where(c=>c.Address.City.Contains(city)).ToListAsync();
+        return await _context.Races.AsNoTracking().Where(c=>c.Address.City.Contains(city)).ToListAsync();
     }
 
-    public bool AddRace(Race race)
+    public async Task<bool> AddRace(Race race)
     {
         _context.Races.Add(race);
-        return Save();
+        return await Save();
     }
 
-    public bool UpdateRace(Race race)
-    {
-        _context.Update(race);
-        return Save();
-    }
-
-    public bool DeleteRace(Race race)
+    public async Task<bool> DeleteRace(Race race)
     {
         _context.Races.Remove(race);
-        return Save();
+        return await Save();
     }
 
-    public bool Save()
+    public async Task<bool> Save()
     {
-        int saved= _context.SaveChanges();
+        int saved= await _context.SaveChangesAsync();
         return saved>0;
     }
 }
