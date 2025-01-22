@@ -25,6 +25,11 @@ public class AccountController:Controller
         return View();
     }
 
+    public IActionResult Dashboard()
+    {
+        return View();
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel loginViewModel)
     {

@@ -1,0 +1,47 @@
+﻿@model RunningClub.ViewModels.UploadPhotoInRegisterViewModel
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Upload Profile Photo</h2>
+
+    <form asp-action="UploadPhoto" method="post" enctype="multipart/form-data" class="row g-3">
+        <!-- Profile Image Preview -->
+        <div class="col-12 text-center">
+            <div id="imagePreview" class="rounded-circle border" style="width: 150px; height: 150px; overflow: hidden;">
+                <img id="previewImg" src="https://via.placeholder.com/150" alt="Profile Image" class="img-fluid h-100 w-100">
+            </div>
+        </div>
+
+        <!-- File Upload -->
+        <div class="col-12">
+            <label asp-for="Photo" class="form-label"></label>
+            <input asp-for="Photo" accept="image/*" onchange="previewPhoto(this)">
+            <span asp-validation-for="Photo" class="text-danger"></span>
+        </div>
+        
+        <div class="col-12  row g-3 d-flex justify-content-end">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Upload Photo</button>
+            </div>
+            <div class="col-md-6">
+                <a class="btn-secondary" asp-action="Index" asp-controller="Club">Skip for now</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function previewPhoto(input) {
+            const preview = document.getElementById("previewImg");
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}

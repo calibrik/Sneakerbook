@@ -15,41 +15,47 @@ public class PhotoService
         Unknown
     }
 
+    public enum ImageType
+    {
+        Race,
+        Club,
+        Profile
+    }
     public struct UploadResult
     {
         public UploadResultCode Code;
         public string Path;
     }
-    private readonly Cloudinary _cloudinary;
-    public PhotoService(IOptions<CloudinarySettings> config)
-    {
-        Account acc = new Account(
-            config.Value.CloudName,
-            config.Value.ApiKey,
-            config.Value.ApiSecret
-        );
-        _cloudinary = new Cloudinary(acc);
-    }
-    public async Task<ImageUploadResult> AddPhotoToCloudinaryAsync(IFormFile file)
-    {
-        if (file.Length == 0)
-            return new ImageUploadResult();
-        await using var stream = file.OpenReadStream();
-        ImageUploadParams uploadParams = new ImageUploadParams
-        {
-            File = new FileDescription(file.FileName, stream),
-            Transformation = new Transformation().Height(600).Height(600).Crop("fill").Gravity("face")
-        };
-        return await _cloudinary.UploadAsync(uploadParams);
-    }
+    // private readonly Cloudinary _cloudinary;
+    // public PhotoService(IOptions<CloudinarySettings> config)
+    // {
+    //     Account acc = new Account(
+    //         config.Value.CloudName,
+    //         config.Value.ApiKey,
+    //         config.Value.ApiSecret
+    //     );
+    //     _cloudinary = new Cloudinary(acc);
+    // }
+    // public async Task<ImageUploadResult> AddPhotoToCloudinaryAsync(IFormFile file)
+    // {
+    //     if (file.Length == 0)
+    //         return new ImageUploadResult();
+    //     await using var stream = file.OpenReadStream();
+    //     ImageUploadParams uploadParams = new ImageUploadParams
+    //     {
+    //         File = new FileDescription(file.FileName, stream),
+    //         Transformation = new Transformation().Height(600).Height(600).Crop("fill").Gravity("face")
+    //     };
+    //     return await _cloudinary.UploadAsync(uploadParams);
+    // }
+    //
+    // public async Task<DeletionResult> DeletePhotoFromCloudinaryAsync(string photoId)
+    // {
+    //     DeletionParams deletionParams = new DeletionParams(photoId);
+    //     return await _cloudinary.DestroyAsync(deletionParams);
+    // }
 
-    public async Task<DeletionResult> DeletePhotoFromCloudinaryAsync(string photoId)
-    {
-        DeletionParams deletionParams = new DeletionParams(photoId);
-        return await _cloudinary.DestroyAsync(deletionParams);
-    }
-
-    public async Task<UploadResult> AddPhotoAsync(IFormFile file)
+    public async Task<UploadResult> AddPhotoAsync(IFormFile file,ImageType imageType)
     {
         List<string> allowedExt=new List<string> { ".jpg", ".png", ".gif", ".bmp" };
         string ext = Path.GetExtension(file.FileName).ToLower();
@@ -58,8 +64,26 @@ public class PhotoService
             {
                 Code = UploadResultCode.WrongExt
             };
-
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", ext==".gif" ? "uploads/gifs" : "uploads/images");
+        string folder="";
+        switch (imageType)
+        {
+            case ImageType.Race:
+            {
+                folder = "race";
+                break;
+            }
+            case ImageType.Club:
+            {
+                folder = "club";
+                break;
+            }
+            case ImageType.Profile:
+            {
+                folder = "profile";
+                break;
+            }
+        }
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads",folder);
         string fileName = Guid.NewGuid() + ext;
         string filePath = Path.Combine(uploadsFolder, fileName);
         
@@ -75,7 +99,7 @@ public class PhotoService
         return new UploadResult
         {
             Code = UploadResultCode.Success,
-            Path=Path.Combine("/uploads",ext==".gif" ? "gifs" : "images",fileName)
+            Path=Path.Combine("/uploads",folder,fileName)
         };
     }
 

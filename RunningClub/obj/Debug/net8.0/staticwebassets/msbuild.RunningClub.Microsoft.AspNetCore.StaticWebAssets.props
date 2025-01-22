@@ -1098,156 +1098,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\RunningClub.5pis2jfebm.bundle.scp.css'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\club\defaultImage.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>RunningClub</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/gifs/0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>83q9571kba</Fingerprint>
-      <Integrity>rGKPCAYLpaq3OIm3b34CG4RSb6YPMrZ5xujeG6+Q9k8=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\d8ab4317-d26b-4aec-8932-3d50ed878483.gif'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/gifs/d8ab4317-d26b-4aec-8932-3d50ed878483.gif</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>83q9571kba</Fingerprint>
-      <Integrity>rGKPCAYLpaq3OIm3b34CG4RSb6YPMrZ5xujeG6+Q9k8=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\d8ab4317-d26b-4aec-8932-3d50ed878483.gif'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/gifs/f6faa3c4-10e7-4297-94fd-62f99af306cb.gif</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>83q9571kba</Fingerprint>
-      <Integrity>rGKPCAYLpaq3OIm3b34CG4RSb6YPMrZ5xujeG6+Q9k8=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/gifs/ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>83q9571kba</Fingerprint>
-      <Integrity>rGKPCAYLpaq3OIm3b34CG4RSb6YPMrZ5xujeG6+Q9k8=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\gifs\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\0e0aeacd-9b38-4771-a358-b6e56967ccb5.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/images/0e0aeacd-9b38-4771-a358-b6e56967ccb5.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>s9ocl0pbk1</Fingerprint>
-      <Integrity>IHVf9Q6nZxjc9bCSe6n3q9Auonj55TTD9S83k0k70pw=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\0e0aeacd-9b38-4771-a358-b6e56967ccb5.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\356d415c-4ba7-4e15-9b26-11ba72db85f1.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/images/356d415c-4ba7-4e15-9b26-11ba72db85f1.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>s9ocl0pbk1</Fingerprint>
-      <Integrity>IHVf9Q6nZxjc9bCSe6n3q9Auonj55TTD9S83k0k70pw=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\356d415c-4ba7-4e15-9b26-11ba72db85f1.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/images/848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>j12dhw5g8u</Fingerprint>
-      <Integrity>aTNv3x2MxGKgmzkFOdwNy2slBfKu/tYImpfc52htr5U=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/images/9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>j12dhw5g8u</Fingerprint>
-      <Integrity>aTNv3x2MxGKgmzkFOdwNy2slBfKu/tYImpfc52htr5U=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\defaultImage.jpg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>RunningClub</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/RunningClub</BasePath>
-      <RelativePath>uploads/images/defaultImage.jpg</RelativePath>
+      <RelativePath>uploads/club/defaultImage.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -1258,7 +1114,43 @@
       <Integrity>degZpaoguCTcpDnh0mQgJR4TuOprQoJKnKpy/+NvZqE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\images\defaultImage.jpg'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\club\defaultImage.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\profile\defaultImage.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>RunningClub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RunningClub</BasePath>
+      <RelativePath>uploads/profile/defaultImage.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>bcxj0mhjfc</Fingerprint>
+      <Integrity>degZpaoguCTcpDnh0mQgJR4TuOprQoJKnKpy/+NvZqE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\profile\defaultImage.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\race\defaultImage.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>RunningClub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RunningClub</BasePath>
+      <RelativePath>uploads/race/defaultImage.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>bcxj0mhjfc</Fingerprint>
+      <Integrity>degZpaoguCTcpDnh0mQgJR4TuOprQoJKnKpy/+NvZqE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\race\defaultImage.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

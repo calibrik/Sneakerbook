@@ -7665,7 +7665,6 @@
       "packagesPath": "C:\\Users\\maslo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\obj\\",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "C:\\Users\\maslo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -7692,7 +7691,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {

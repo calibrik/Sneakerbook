@@ -245,40 +245,16 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif",
-      "PackagePath": "staticwebassets\\uploads\\gifs\\0c95b4b2-b2f1-4e21-abf7-7b2b6e1b40cb.gif"
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\club\\defaultImage.jpg",
+      "PackagePath": "staticwebassets\\uploads\\club\\defaultImage.jpg"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\d8ab4317-d26b-4aec-8932-3d50ed878483.gif",
-      "PackagePath": "staticwebassets\\uploads\\gifs\\d8ab4317-d26b-4aec-8932-3d50ed878483.gif"
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\profile\\defaultImage.jpg",
+      "PackagePath": "staticwebassets\\uploads\\profile\\defaultImage.jpg"
     },
     {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif",
-      "PackagePath": "staticwebassets\\uploads\\gifs\\f6faa3c4-10e7-4297-94fd-62f99af306cb.gif"
-    },
-    {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\gifs\\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif",
-      "PackagePath": "staticwebassets\\uploads\\gifs\\ff34c971-8b39-4b84-9ee7-ae16a85cb5ae.gif"
-    },
-    {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\0e0aeacd-9b38-4771-a358-b6e56967ccb5.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\0e0aeacd-9b38-4771-a358-b6e56967ccb5.png"
-    },
-    {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\356d415c-4ba7-4e15-9b26-11ba72db85f1.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\356d415c-4ba7-4e15-9b26-11ba72db85f1.png"
-    },
-    {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\848ef66a-6c33-4fa9-bac2-d95d60be6fa8.png"
-    },
-    {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\9bb2f591-5f10-413b-98f8-3b28d2d8db2c.png"
-    },
-    {
-      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\images\\defaultImage.jpg",
-      "PackagePath": "staticwebassets\\uploads\\images\\defaultImage.jpg"
+      "Id": "C:\\Users\\maslo\\Documents\\Projects-and-other-stuff\\ASP.NET projects\\Sneakerbook\\RunningClub\\wwwroot\\uploads\\race\\defaultImage.jpg",
+      "PackagePath": "staticwebassets\\uploads\\race\\defaultImage.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.RunningClub.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

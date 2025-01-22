@@ -34,7 +34,7 @@ public class RaceController: Controller
     }
     async Task<string?> ProcessImageAdd(IFormFile file)
     {
-        PhotoService.UploadResult res= await _photoService.AddPhotoAsync(file);
+        PhotoService.UploadResult res= await _photoService.AddPhotoAsync(file,PhotoService.ImageType.Race);
         switch (res.Code)
         {
             case PhotoService.UploadResultCode.Success:
