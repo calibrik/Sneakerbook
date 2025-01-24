@@ -22,7 +22,7 @@ body {
   background-color: #ffe6b3;
 }
 .vertical-scroller {
-  max-height: 80vh; /* Adjust height */
+  max-height: 70vh; /* Adjust height */
   overflow-y: auto;
   border: 1px solid #ddd;
   padding: 10px;
@@ -40,4 +40,19 @@ body {
   height: 300px; /* Set a fixed height */
   object-fit: cover; /* Ensure the image fills the space */
   width: 100%; /* Ensure the image spans the card width */
+}
+
+.account-info-card
+{
+  position: fixed;
+  top:5rem;
+  height: 70vh;
+}
+
+.custom-navbar {
+  border-radius: 25px; /* Rounded ends for the navbar */
+  padding: 0.5rem 1rem; /* Spacing inside the navbar */
+}
+.custom-nav-item {
+  margin: 0 0.5rem; /* Add space between navbar items */
 }

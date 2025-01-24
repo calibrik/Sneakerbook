@@ -8,46 +8,43 @@
     </a>
 </div>
 
-<div class="container py-1">
-    <h1 class="text-center mb-4">Races</h1>
 
-    <!-- Outer Container -->
-    <div class="outer-container">
-        <h2 class="text-center mb-3">List of Races</h2>
+<h1 class="text-center mb-2">Races</h1>
 
-        <!-- Vertical List Container -->
-        <div class="vertical-scroller">
-            @{
-                foreach (Race race in Model)
-                {
-                    <div class="card mb-4 d-flex flex-column" style="height: 15%;">
-                        <div class="row g-0 h-100">
-                            <div class="col-md-4 d-flex">
-                                <div class="d-flex justify-content-center">
-                                    <div id=@("spinner" + race.Id) class="spinner-border m-5" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                    <img id=@("image"+race.Id) style="display: none" src=@race.Image class="img-fluid" alt="Image @race.Id" onload="onImageLoadById(@race.Id)">
+<!-- Outer Container -->
+<div class="outer-container">
+    <!-- Vertical List Container -->
+    <div class="vertical-scroller">
+        @{
+            foreach (Race race in Model)
+            {
+                <div class="card mb-4 d-flex flex-column" style="height: 15%;">
+                    <div class="row g-0 h-100">
+                        <div class="col-md-4 d-flex">
+                            <div class="d-flex justify-content-center">
+                                <div id=@("spinner" + race.Id) class="spinner-border m-5" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <img id=@("image"+race.Id) style="display: none" src=@race.Image class="img-fluid" alt="Image @race.Id" onload="onImageLoadById(@race.Id)">
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">@race.Title</h5>
+                                <h6 class="text-muted">@race.Category</h6>
+                                <p class="card-text">@race.Description</p>
+                                <div class="mt-auto d-flex flex-column">
+                                    <small class="text-muted">Created 5min ago</small>
+                                    <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
                                 </div>
                             </div>
-                            <div class="col-md-8 d-flex">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">@race.Title</h5>
-                                    <h6 class="text-muted">@race.Category</h6>
-                                    <p class="card-text">@race.Description</p>
-                                    <div class="mt-auto d-flex flex-column">
-                                        <small class="text-muted">Created 5min ago</small>
-                                        <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
-                                    </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-center align-items-center">
-                                    <small class="text-muted">Participants 1/10</small>
-                                </div>
+                            <div class="card-footer d-flex justify-content-center align-items-center">
+                                <small class="text-muted">Participants 1/10</small>
                             </div>
                         </div>
                     </div>
-                }
+                </div>
             }
-        </div>
+        }
     </div>
 </div>

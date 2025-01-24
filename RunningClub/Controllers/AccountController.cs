@@ -27,7 +27,15 @@ public class AccountController:Controller
 
     public IActionResult Dashboard()
     {
-        return View();
+        AppUser user = new AppUser
+        {
+            UserName = "Calibrik",
+            Email = "calibrik@gmail.com",
+            FName = "Matt",
+            LName = "Maslov",
+            Mileage = 1000,
+        };
+        return View(user);
     }
     
     [HttpPost]

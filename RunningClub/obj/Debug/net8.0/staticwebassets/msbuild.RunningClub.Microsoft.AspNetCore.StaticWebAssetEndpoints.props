@@ -3,14 +3,14 @@
     <StaticWebAssetEndpoint Include="_content/RunningClub/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xiTf21WGMc7m4qbncoWV/sc8YZKCzeqeqyA3wvB3k5o="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"941"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022xiTf21WGMc7m4qbncoWV/sc8YZKCzeqeqyA3wvB3k5o=\u0022"},{"Name":"Last-Modified","Value":"Fri, 27 Dec 2024 01:41:23 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1238"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 24 Jan 2025 09:48:05 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/RunningClub/css/site.m9mebquouc.css">
+    <StaticWebAssetEndpoint Include="_content/RunningClub/css/site.knszuf7pnh.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"m9mebquouc"},{"Name":"integrity","Value":"sha256-xiTf21WGMc7m4qbncoWV/sc8YZKCzeqeqyA3wvB3k5o="},{"Name":"label","Value":"_content/RunningClub/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"941"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022xiTf21WGMc7m4qbncoWV/sc8YZKCzeqeqyA3wvB3k5o=\u0022"},{"Name":"Last-Modified","Value":"Fri, 27 Dec 2024 01:41:23 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"knszuf7pnh"},{"Name":"integrity","Value":"sha256-MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc="},{"Name":"label","Value":"_content/RunningClub/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1238"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 24 Jan 2025 09:48:05 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
