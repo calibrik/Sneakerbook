@@ -56,3 +56,8 @@ body {
 .custom-nav-item {
   margin: 0 0.5rem; /* Add space between navbar items */
 }
+.nav-link.active {
+  background-color: #bc943b;
+  color: white;
+  border-radius: 10px;
+}

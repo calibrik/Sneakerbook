@@ -24,19 +24,6 @@ public class AccountController:Controller
     {
         return View();
     }
-
-    public IActionResult Dashboard()
-    {
-        AppUser user = new AppUser
-        {
-            UserName = "Calibrik",
-            Email = "calibrik@gmail.com",
-            FName = "Matt",
-            LName = "Maslov",
-            Mileage = 1000,
-        };
-        return View(user);
-    }
     
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel loginViewModel)
@@ -57,7 +44,7 @@ public class AccountController:Controller
         }
         SignInResult result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.RememberMe, false);
         if (result.Succeeded)
-            return RedirectToAction("Index", "Club");
+            return RedirectToAction("Index", "Dashboard");
         ModelState.AddModelError("LoginAttempt", "Unknown error occured.");
         return View(loginViewModel);
     }
@@ -109,8 +96,7 @@ public class AccountController:Controller
         await _userManager.AddToRoleAsync(newUser, UserRoles.User);
         return RedirectToAction("Login", "Account");
     }
-
-    [HttpPost]
+    
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();

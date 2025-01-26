@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RunningClub.Interfaces;
 using RunningClub.Models;
+using RunningClub.Repository;
 using RunningClub.Services;
 using RunningClub.ViewModels;
 
@@ -8,7 +9,7 @@ namespace RunningClub.Controllers;
 
 public class ClubController:Controller
 {
-    private readonly IClubRepository _clubRepo;
+    private readonly ClubRepository _clubRepo;
     private readonly PhotoService _photoService;
     public async Task<IActionResult> Index()
     {
@@ -16,7 +17,7 @@ public class ClubController:Controller
         return View(clubs);
     }
 
-    public ClubController(IClubRepository clubRepository,PhotoService photoService)
+    public ClubController(ClubRepository clubRepository,PhotoService photoService)
     {
         _clubRepo = clubRepository;
         _photoService = photoService;

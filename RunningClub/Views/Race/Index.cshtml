@@ -1,15 +1,18 @@
-﻿@model List<Race>
+﻿@using RunningClub.Misc
+@model List<Race>
 @{
     ViewData["Title"] = "Races";
 }
-<div class="container mt-3 d-flex justify-content-end">
-    <a asp-action="Create" asp-controller="Race" class="btn btn-primary">
-        +Create Race
-    </a>
-</div>
+@if (User.Identity.IsAuthenticated&&User.IsInRole(UserRoles.Admin))
+{
+    <div class="container mt-3 d-flex justify-content-end">
+        <a asp-action="Create" asp-controller="Race" class="btn btn-primary">
+            + Create Race
+        </a>
+    </div>
+}
 
-
-<h1 class="text-center mb-2">Races</h1>
+<h1 class="text-center mb-3">Races</h1>
 
 <!-- Outer Container -->
 <div class="outer-container">
@@ -22,10 +25,10 @@
                     <div class="row g-0 h-100">
                         <div class="col-md-4 d-flex">
                             <div class="d-flex justify-content-center">
-                                <div id=@("spinner" + race.Id) class="spinner-border m-5" role="status">
+                                <div id="spinner @race.Id" class="spinner-border m-5" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
-                                <img id=@("image"+race.Id) style="display: none" src=@race.Image class="img-fluid" alt="Image @race.Id" onload="onImageLoadById(@race.Id)">
+                                <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Image @race.Id" onload="onImageLoadById(@race.Id)">
                             </div>
                         </div>
                         <div class="col-md-8 d-flex">

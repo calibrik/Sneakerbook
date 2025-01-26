@@ -27,5 +27,6 @@ public class Race
     public AppUser? AppUser { get; set; }
     [ForeignKey("Club")]
     public int? ClubId { get; set; }
+    public Club? Club { get; set; }
     public required RaceCategory Category { get; set; }
 }

@@ -4,7 +4,7 @@ using RunningClub.Models;
 
 namespace RunningClub.Repository;
 
-public class ClubRepository:IClubRepository
+public class ClubRepository
 {
     private readonly AppDbContext _context;
     public ClubRepository(AppDbContext context)
@@ -16,7 +16,10 @@ public class ClubRepository:IClubRepository
     {
         return await _context.Clubs.ToListAsync();
     }
-
+    public async Task<List<Club>> GetUserClubsAsyncRO(string id)
+    {
+        return await _context.Clubs.AsNoTracking().Where(u=>u.AppUserId==id).ToListAsync();
+    }
     public async Task<List<Club>> GetClubsAsyncRO()
     {
         return await _context.Clubs.AsNoTracking().ToListAsync();

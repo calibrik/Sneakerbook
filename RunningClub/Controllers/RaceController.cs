@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RunningClub.Misc;
 using RunningClub.Models;
 using RunningClub.Repository;
 using RunningClub.Services;
@@ -66,6 +67,7 @@ public class RaceController: Controller
         
         Race race = new Race
         {
+            AppUserId = User.GetUserId(),
             Title = createRaceModel.Title,
             Description = createRaceModel.Description,
             Image = path,

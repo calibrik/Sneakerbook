@@ -15,6 +15,10 @@ public class RaceRepository
     {
         return await _context.Races.ToListAsync();
     }
+    public async Task<List<Race>> GetUserRacesAsyncRO(string id)
+    {
+        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(u=>u.AppUserId==id).ToListAsync();
+    }
     public async Task<List<Race>> GetRacesAsyncRO()
     {
         return await _context.Races.AsNoTracking().ToListAsync();

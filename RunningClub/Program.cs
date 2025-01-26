@@ -13,8 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<RaceRepository>();
 builder.Services.AddScoped<PhotoService>();
+builder.Services.AddScoped<HttpContextAccessor>();
+builder.Services.AddScoped<DashboardRepository>();
 // builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
-builder.Services.AddScoped<IClubRepository, ClubRepository>();
+builder.Services.AddScoped<ClubRepository, ClubRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -44,6 +46,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",

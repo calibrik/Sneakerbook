@@ -1,4 +1,5 @@
-﻿@model Club
+﻿@using RunningClub.Misc
+@model Club
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -8,10 +9,14 @@
             ← Back
         </a>
     </div>
+    
     <div class="container mt-3 d-flex justify-content-end  col-md-6">
-        <a asp-action="Edit" asp-controller="Club" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
-            Edit
-        </a>
+        @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+        {
+            <a asp-action="Edit" asp-controller="Club" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
+                Edit
+            </a>
+        }
     </div>
 </div>
 <div class="container my-5">

@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/RunningClub/css/site.4do27goq2s.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4do27goq2s"},{"Name":"integrity","Value":"sha256-2I4Nznsm6PEsg5WlGgHv5feRUpPsJLUu5yCgxO/vZDw="},{"Name":"label","Value":"_content/RunningClub/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1332"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00222I4Nznsm6PEsg5WlGgHv5feRUpPsJLUu5yCgxO/vZDw=\u0022"},{"Name":"Last-Modified","Value":"Sun, 26 Jan 2025 08:14:02 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1238"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 24 Jan 2025 09:48:05 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/RunningClub/css/site.knszuf7pnh.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"knszuf7pnh"},{"Name":"integrity","Value":"sha256-MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc="},{"Name":"label","Value":"_content/RunningClub/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1238"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MFrdCPWEcB6gfFYecdHg/Nb6tDRPFxq0PAGaxm2VmTc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 24 Jan 2025 09:48:05 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-2I4Nznsm6PEsg5WlGgHv5feRUpPsJLUu5yCgxO/vZDw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1332"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00222I4Nznsm6PEsg5WlGgHv5feRUpPsJLUu5yCgxO/vZDw=\u0022"},{"Name":"Last-Modified","Value":"Sun, 26 Jan 2025 08:14:02 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
@@ -24,17 +24,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5430"},{"Name":"Content-Type","Value":"image/x-icon"},{"Name":"ETag","Value":"\u0022Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 11 Dec 2024 13:28:06 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/RunningClub/js/site.9focvjpry0.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"9focvjpry0"},{"Name":"integrity","Value":"sha256-pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo="},{"Name":"label","Value":"_content/RunningClub/js/site.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"524"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Jan 2025 09:13:48 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"524"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022pQF53izbn8kdI3ZbYle3TX53/pWFxF13bn1bikzJqgo=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Jan 2025 09:13:48 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-IGsDw13jqdEtfC7ZP4GsaLQkOrREq9DFEgA7TSGhRwQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"526"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022IGsDw13jqdEtfC7ZP4GsaLQkOrREq9DFEgA7TSGhRwQ=\u0022"},{"Name":"Last-Modified","Value":"Sun, 26 Jan 2025 08:22:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/RunningClub/js/site.o2sg1ilgap.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"o2sg1ilgap"},{"Name":"integrity","Value":"sha256-IGsDw13jqdEtfC7ZP4GsaLQkOrREq9DFEgA7TSGhRwQ="},{"Name":"label","Value":"_content/RunningClub/js/site.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"526"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022IGsDw13jqdEtfC7ZP4GsaLQkOrREq9DFEgA7TSGhRwQ=\u0022"},{"Name":"Last-Modified","Value":"Sun, 26 Jan 2025 08:22:50 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/lib/bootstrap/dist/css/bootstrap-grid.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css'))</AssetFile>
@@ -755,6 +755,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-degZpaoguCTcpDnh0mQgJR4TuOprQoJKnKpy/\u002BNvZqE="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1558216"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022degZpaoguCTcpDnh0mQgJR4TuOprQoJKnKpy/\u002BNvZqE=\u0022"},{"Name":"Last-Modified","Value":"Sat, 21 Dec 2024 19:27:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/RunningClub/uploads/race/157381af-2410-4437-b0b5-a0fe632be7c2.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\race\157381af-2410-4437-b0b5-a0fe632be7c2.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-8nRUP1e99QDnaKD86d3dO60eHMmMa7h2HBN2AoScMr4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"72981"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00228nRUP1e99QDnaKD86d3dO60eHMmMa7h2HBN2AoScMr4=\u0022"},{"Name":"Last-Modified","Value":"Sun, 26 Jan 2025 10:11:28 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/RunningClub/uploads/race/157381af-2410-4437-b0b5-a0fe632be7c2.yzspgvc6nt.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\race\157381af-2410-4437-b0b5-a0fe632be7c2.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yzspgvc6nt"},{"Name":"integrity","Value":"sha256-8nRUP1e99QDnaKD86d3dO60eHMmMa7h2HBN2AoScMr4="},{"Name":"label","Value":"_content/RunningClub/uploads/race/157381af-2410-4437-b0b5-a0fe632be7c2.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"72981"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00228nRUP1e99QDnaKD86d3dO60eHMmMa7h2HBN2AoScMr4=\u0022"},{"Name":"Last-Modified","Value":"Sun, 26 Jan 2025 10:11:28 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/RunningClub/uploads/race/defaultImage.bcxj0mhjfc.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\race\defaultImage.jpg'))</AssetFile>
