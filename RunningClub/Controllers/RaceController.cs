@@ -23,6 +23,8 @@ public class RaceController: Controller
     public async Task<IActionResult> Detail(int id)
     {
         Race? race = await _raceRepo.GetRaceByIdAsyncRO(id);
+        if (race == null)
+            return RedirectToAction("Index");
         DetailRaceViewModel model = new DetailRaceViewModel(race);
         if (User.Identity.IsAuthenticated)
             model.IsJoined = await _raceRepo.IsUserMemberInRace(User.GetUserId(), id);

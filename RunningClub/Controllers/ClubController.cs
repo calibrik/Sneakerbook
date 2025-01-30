@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RunningClub.Interfaces;
 using RunningClub.Misc;
 using RunningClub.Models;
 using RunningClub.Repository;
@@ -36,7 +35,9 @@ public class ClubController:Controller
     }
     public async Task<IActionResult> Detail(int id)
     {
-        Club club = await _clubRepo.GetClubByIdAsyncRO(id);
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(id);
+        if (club==null)
+            return RedirectToAction("Index");
         DetailClubViewModel model = new DetailClubViewModel(club);
         if (User.Identity.IsAuthenticated)
             model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), id);
