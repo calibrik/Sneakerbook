@@ -1,0 +1,10 @@
+use RunApp;
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 1','Cool club 1','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',0)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 2','Cool club 2','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',1)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 3','Cool club 3','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',2)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 4','Cool club 4','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',3)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 5','Cool club 5','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',4)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 6','Cool club 6','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',0)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 7','Cool club 7','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',1)
+INSERT INTO Clubs (Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category) VALUES ('Club 8','Cool club 8','/uploads/club/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',2)
+select * from Clubs;

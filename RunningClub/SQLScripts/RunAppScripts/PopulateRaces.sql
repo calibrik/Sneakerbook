@@ -1,0 +1,10 @@
+use RunApp;
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 1','Cool race 1','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',0,10,1)
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 2','Cool race 2','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',1,10,2)
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 3','Cool race 3','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',2,10,3)
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 4','Cool race 4','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',3,10,4)
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 5','Cool race 5','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',4,10,5)
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 6','Cool race 6','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',0,10,6)
+INSERT INTO Races(Title, Description, Image, Address_Street, Address_City, Address_Country, AdminId, Category,MaxMembersNumber,ClubId) VALUES ('Race 7','Cool race 7','/uploads/race/defaultImage.jpg','2 Somewhere Av.','Sydney','Australia','cd420cbb-d734-4b81-bbca-08e8b2680b2c',1,10,7)
+select * from Races;
+
