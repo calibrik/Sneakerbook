@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RunningClub.Misc;
 using RunningClub.Models;
 using RunningClub.Repository;
+using RunningClub.ViewModels;
 
 namespace RunningClub.Controllers;
 
@@ -19,8 +21,23 @@ public class DashboardController:Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        AppUser? user = await _userManager.GetUserAsync(User);
-        user.Races = await _dashboardRepository.GetAllUserRacesAsync(user.Id);
-        return View(user);
+        AppUser user = await _userManager.GetUserAsync(User);
+        DashboardViewModel model=new DashboardViewModel(user)
+        {
+            Races = await _dashboardRepository.GetUserRacesAsyncRO(User.GetUserId())
+        };
+        return View(model);
+    }
+
+    public async Task<IActionResult> MyClubs()
+    {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
+        AppUser user = await _userManager.GetUserAsync(User);
+        DashboardViewModel model = new DashboardViewModel(user)
+        {
+            Clubs = await _dashboardRepository.GetUserClubsAsyncRO(User.GetUserId())
+        };
+        return View(model);
     }
 }

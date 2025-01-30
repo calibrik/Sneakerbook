@@ -11,30 +11,55 @@ public class RaceRepository
     {
         _context = context;
     }
+
+    public async Task<bool> IsUserMemberInRace(string userId, int raceId)
+    {
+        MemberRace? mr=await _context.MemberRaces.AsNoTracking().Where(mr => mr.RaceId == raceId&&mr.MemberId==userId).FirstOrDefaultAsync();
+        return mr != null;
+    }
     public async Task<List<Race>> GetRacesAsync()
     {
         return await _context.Races.ToListAsync();
     }
+
+    public async Task<bool> RemoveUserFromRace(string userId, int raceId)
+    {
+        MemberRace? mr=await _context.MemberRaces.Where(mr=>mr.RaceId==raceId&&mr.MemberId==userId).FirstOrDefaultAsync();
+        if (mr == null)
+            return true;
+        _context.MemberRaces.Remove(mr);
+        return await Save();
+    }
+    public async Task<bool> AddUserToRaceAsync(string userId, int raceId)
+    {
+        MemberRace mr = new MemberRace()
+        {
+            MemberId = userId,
+            RaceId = raceId
+        };
+        await _context.MemberRaces.AddAsync(mr);
+        return await Save();
+    }
     public async Task<List<Race>> GetUserRacesAsyncRO(string id)
     {
-        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(u=>u.AppUserId==id).ToListAsync();
+        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==id).Select(mr=>mr.Race).ToListAsync();
     }
     public async Task<List<Race>> GetRacesAsyncRO()
     {
         return await _context.Races.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Race?> GetRaceByIdAsync(int id,bool withAddress)
+    public async Task<HashSet<int>> GetUserRacesIdsAsyncRO(string userId)
     {
-        if (!withAddress)
-            return await _context.Races.FirstOrDefaultAsync(a=>a.Id == id);
-        return await _context.Races.Include(c=>c.Address).FirstOrDefaultAsync(a=>a.Id == id);
+        return await _context.MemberRaces.AsNoTracking().Where(mr => mr.MemberId == userId).Select(mr=>mr.RaceId).ToHashSetAsync();
     }
-    public async Task<Race?> GetRaceByIdAsyncRO(int id,bool withAddress)
+    public async Task<Race?> GetRaceByIdAsync(int id)
     {
-        if (!withAddress)
-            return await _context.Races.AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
-        return await _context.Races.Include(c=>c.Address).AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
+        return await _context.Races.FirstOrDefaultAsync(a=>a.Id == id);
+    }
+    public async Task<Race?> GetRaceByIdAsyncRO(int id)
+    {
+        return await _context.Races.AsNoTracking().Include(r=>r.Admin).Include(r=>r.Club).FirstOrDefaultAsync(a=>a.Id == id);
     }
 
     public async Task<List<Race>> GetRacesByCityAsyncRO(string city)
@@ -44,7 +69,7 @@ public class RaceRepository
 
     public async Task<bool> AddRace(Race race)
     {
-        _context.Races.Add(race);
+        await _context.Races.AddAsync(race);
         return await Save();
     }
 

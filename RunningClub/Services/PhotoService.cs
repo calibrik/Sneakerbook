@@ -15,11 +15,11 @@ public class PhotoService
         Unknown
     }
 
-    public enum ImageType
+    public static class ImageType
     {
-        Race,
-        Club,
-        Profile
+        public const string Race = "race";
+        public const string Club = "club";
+        public const string Profile = "profile";
     }
     public struct UploadResult
     {
@@ -55,7 +55,7 @@ public class PhotoService
     //     return await _cloudinary.DestroyAsync(deletionParams);
     // }
 
-    public async Task<UploadResult> AddPhotoAsync(IFormFile file,ImageType imageType)
+    public async Task<UploadResult> AddPhotoAsync(IFormFile file,string imageFolder)
     {
         List<string> allowedExt=new List<string> { ".jpg", ".png", ".gif", ".bmp" };
         string ext = Path.GetExtension(file.FileName).ToLower();
@@ -64,26 +64,7 @@ public class PhotoService
             {
                 Code = UploadResultCode.WrongExt
             };
-        string folder="";
-        switch (imageType)
-        {
-            case ImageType.Race:
-            {
-                folder = "race";
-                break;
-            }
-            case ImageType.Club:
-            {
-                folder = "club";
-                break;
-            }
-            case ImageType.Profile:
-            {
-                folder = "profile";
-                break;
-            }
-        }
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads",folder);
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads",imageFolder);
         string fileName = Guid.NewGuid() + ext;
         string filePath = Path.Combine(uploadsFolder, fileName);
         
@@ -99,7 +80,7 @@ public class PhotoService
         return new UploadResult
         {
             Code = UploadResultCode.Success,
-            Path=Path.Combine("/uploads",folder,fileName)
+            Path=Path.Combine("/uploads",imageFolder,fileName)
         };
     }
 

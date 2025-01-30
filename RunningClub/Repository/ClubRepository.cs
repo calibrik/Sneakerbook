@@ -18,31 +18,56 @@ public class ClubRepository
     }
     public async Task<List<Club>> GetUserClubsAsyncRO(string id)
     {
-        return await _context.Clubs.AsNoTracking().Where(u=>u.AppUserId==id).ToListAsync();
+        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==id).Select(mc => mc.Club).ToListAsync();
+    }
+
+    public async Task<HashSet<int>> GetUserClubsIdsAsyncRO(string id)
+    {
+        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==id).Select(mc => mc.ClubId).ToHashSetAsync();
+    }
+
+    public async Task<bool> RemoveUserFromClubAsync(string userId, int clubId)
+    {
+        MemberClub? mc=await _context.MemberClubs.Where(mc => mc.ClubId == clubId&&mc.MemberId==userId).FirstOrDefaultAsync();
+        if (mc == null)
+            return true;
+        _context.MemberClubs.Remove(mc);
+        return await Save();
     }
     public async Task<List<Club>> GetClubsAsyncRO()
     {
         return await _context.Clubs.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Club?> GetClubByIdAsync(int id,bool withAddress)
+    public async Task<Club?> GetClubByIdAsync(int id)
     {
-        if (!withAddress)
-            return await _context.Clubs.FirstOrDefaultAsync(a=>a.Id == id);
-        return await _context.Clubs.Include(a=>a.Address).FirstOrDefaultAsync(a=>a.Id == id);
+        return await _context.Clubs.FirstOrDefaultAsync(a=>a.Id == id);
     }
 
-    public async Task<Club?> GetClubByIdAsyncRO(int id, bool withAddress)
+    public async Task<Club?> GetClubByIdAsyncRO(int id)
     {
-        if (!withAddress)
-            return await _context.Clubs.AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
-        return await _context.Clubs.AsNoTracking().Include(a=>a.Address).AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
+        return await _context.Clubs.AsNoTracking().Include(c=>c.Admin).FirstOrDefaultAsync(a=>a.Id == id);
     }
 
+    public async Task<bool> AddUserToClubAsync(string userId,int clubId)
+    {
+        MemberClub mc = new MemberClub()
+        {
+            ClubId = clubId,
+            MemberId = userId
+        };
+        await _context.MemberClubs.AddAsync(mc);
+        return await Save();
+    }
+    public async Task<bool> IsUserMemberInClubAsync(string userId, int clubId)
+    {
+        MemberClub? mc=await _context.MemberClubs.AsNoTracking().Where(mc => mc.ClubId == clubId&&mc.MemberId==userId).FirstOrDefaultAsync();
+        return mc != null;
+    }
     public async Task<List<Club>> GetClubsByCityAsync(string city)
     {
         return await _context.Clubs.Where(c=>
-            c.Address!=null&&c.Address.City.Contains(city)
+            c.Address.City.Contains(city)
         ).ToListAsync();
     }
 

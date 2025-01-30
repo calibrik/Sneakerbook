@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RunningClub.Interfaces;
+using RunningClub.Misc;
 using RunningClub.Models;
 using RunningClub.Repository;
 using RunningClub.Services;
@@ -11,26 +12,37 @@ public class ClubController:Controller
 {
     private readonly ClubRepository _clubRepo;
     private readonly PhotoService _photoService;
-    public async Task<IActionResult> Index()
-    {
-        List<Club> clubs = await _clubRepo.GetClubsAsyncRO();
-        return View(clubs);
-    }
 
     public ClubController(ClubRepository clubRepository,PhotoService photoService)
     {
         _clubRepo = clubRepository;
         _photoService = photoService;
     }
-
+    public async Task<IActionResult> Index()
+    {
+        IndexClubViewModel model = new IndexClubViewModel()
+        {
+            Clubs = await _clubRepo.GetClubsAsync(),
+        };
+        if (User.Identity.IsAuthenticated)
+            model.JoinedClubs = await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
+        return View(model);
+    }
     public IActionResult Create()
     {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
         return View();
     }
     public async Task<IActionResult> Detail(int id)
     {
-        Club? club = await _clubRepo.GetClubByIdAsyncRO(id, true);
-        return View(club);
+        Club club = await _clubRepo.GetClubByIdAsyncRO(id);
+        DetailClubViewModel model = new DetailClubViewModel(club);
+        if (User.Identity.IsAuthenticated)
+            model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), id);
+        else
+            model.IsJoined = false;
+        return View(model);
     }
 
     async Task<string?> ProcessImageAdd(IFormFile file)
@@ -59,6 +71,8 @@ public class ClubController:Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateClubViewModel createClubModel)
     {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
         if (!ModelState.IsValid) 
             return View(createClubModel);
         string? path = await ProcessImageAdd(createClubModel.Image);
@@ -70,15 +84,36 @@ public class ClubController:Controller
             Description = createClubModel.Description,
             Image = path,
             Address = createClubModel.Address,
-            Category = createClubModel.Category
+            Category = createClubModel.Category,
+            AdminId = User.GetUserId()
         };
         await _clubRepo.AddClub(club);
         return RedirectToAction("Index");
     }
 
+    public async Task<IActionResult> Join(int id)
+    {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
+        await _clubRepo.AddUserToClubAsync(User.GetUserId(),id);
+        return RedirectToAction("Detail", new { id = id });
+    }
+
+    public async Task<IActionResult> Leave(int id)
+    {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
+        await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), id);
+        return RedirectToAction("Detail", new { id = id });
+    }
+
     public async Task<IActionResult> Edit(int id)
     {
-        Club? club = await _clubRepo.GetClubByIdAsyncRO(id, true);
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
+        if (!User.IsInRole(UserRoles.Admin))
+            return RedirectToAction("Index", "Home");
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(id);
         if (club==null)
             return View("Error");
         EditClubViewModel editClubModel = new EditClubViewModel
@@ -95,9 +130,11 @@ public class ClubController:Controller
     [HttpPost]
     public async Task<IActionResult> Edit(EditClubViewModel editClubModel)
     {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
         if (!ModelState.IsValid)
             return View(editClubModel);
-        Club? club = await _clubRepo.GetClubByIdAsync(editClubModel.Id, true);
+        Club? club = await _clubRepo.GetClubByIdAsync(editClubModel.Id);
         if (club==null)
             return View("Error");
         if (editClubModel.IsImageChanged)
@@ -119,7 +156,6 @@ public class ClubController:Controller
         club.Address.Country = editClubModel.Address.Country;
         club.Address.Street = editClubModel.Address.Street;
         club.Category = editClubModel.Category;
-        club.AddressId = editClubModel.Address.Id;
         await _clubRepo.Save();
         return RedirectToAction("Detail",new {id=club.Id});
     }

@@ -29,8 +29,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    await Seed.Initialize(services);
+    RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    UserManager<AppUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+    await Seed.InitializeRoles(roleManager);
+    await Seed.InitializeUsers(roleManager, userManager);
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

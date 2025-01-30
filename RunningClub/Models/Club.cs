@@ -20,11 +20,9 @@ public class Club
     public required string Title { get; set; }
     public string? Description { get; set; }
     public required string Image { get; set; }
-    [ForeignKey("Address")]
-    public int AddressId { get; set; }
     public required Address Address { get; set; }
-    [ForeignKey("AppUser")]
-    public string? AppUserId { get; set; }
-    public AppUser? AppUser { get; set; }
+    public required string AdminId { get; set; }
+    public AppUser? Admin { get; set; }
+    public List<MemberClub> Members { get; set; }=new();
     public required ClubCategory Category { get; set; }
 }

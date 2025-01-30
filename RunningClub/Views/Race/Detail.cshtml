@@ -1,11 +1,11 @@
 ﻿@using RunningClub.Misc
-@model Race
+@model RunningClub.ViewModels.DetailRaceViewModel
 @{
     ViewData["Title"] = Model.Title;
 }
 <div class="row">
     <div class="container mt-3 col-md-6">
-        <a asp-action="Index" asp-controller="Race" class="btn btn-secondary">
+        <a asp-action="Index" class="btn btn-secondary">
             ← Back
         </a>
     </div>
@@ -39,19 +39,21 @@
                         <!-- Club Information -->
                         <h1 class="display-4">@Model.Title</h1>
                         <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
-                        @if (Model.Address != null)
+                        <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
+                        <p class="card-text"><strong>Description: </strong>@Model.Description</p>
+                        <p class="card-text"><strong>Number of Participants: </strong>0/@Model.MaxMembersNumber</p>
+                        <p class="card-text"><strong>Created by: </strong>@Model.Admin.UserName</p>
+                        <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-id="@Model.Club.Id" class="link-info">@Model.Club.Title</a></p>
+
+                        <!-- Button or any additional info -->
+                        @if (!Model.IsJoined)
                         {
-                            <p><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
+                            <a asp-action="Join" asp-route-id="@Model.Id" class="btn btn-outline-primary mt-auto">Join the Race</a>
                         }
                         else
                         {
-                            <p><strong>Address: </strong> Not found </p>
+                            <a asp-action="Leave" asp-route-id="@Model.Id" class="btn btn-outline-secondary mt-auto">Cancel</a>
                         }
-                        <p><strong>Description: </strong>@Model.Description</p>
-                        <p><strong>Number of Participants: </strong> 0</p>
-
-                        <!-- Button or any additional info -->
-                        <a class="btn btn-primary">Join the Race</a>
                     </div>
                 }
             </div>

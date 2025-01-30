@@ -19,13 +19,11 @@ public class Race
     public required string Title { get; set; }
     public string? Description { get; set; }
     public required string Image { get; set; }
-    [ForeignKey("Address")]
-    public int AddressId { get; set; }
     public required Address Address { get; set; }
-    [ForeignKey("AppUser")]
-    public string? AppUserId { get; set; }
-    public AppUser? AppUser { get; set; }
-    [ForeignKey("Club")]
+    public required string AdminId { get; set; }
+    public AppUser? Admin { get; set; }
+    public List<MemberRace> Members { get; set; }=new List<MemberRace>();
+    public required int MaxMembersNumber { get; set; }
     public int? ClubId { get; set; }
     public Club? Club { get; set; }
     public required RaceCategory Category { get; set; }

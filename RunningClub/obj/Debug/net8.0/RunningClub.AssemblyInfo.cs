@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RunningClub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7692bd94b27e9e5ff80cde3d23b92cb3ca75c84d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d249770a2e5dae0660dc9ff451acf4dc797f1904")]
 [assembly: System.Reflection.AssemblyProductAttribute("RunningClub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RunningClub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

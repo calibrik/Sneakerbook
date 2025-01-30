@@ -1,11 +1,11 @@
 ﻿@using RunningClub.Misc
-@model Club
+@model RunningClub.ViewModels.DetailClubViewModel
 @{
     ViewData["Title"] = Model.Title;
 }
 <div class="row">
     <div class="container mt-3 col-md-6">
-        <a asp-action="Index" asp-controller="Club" class="btn btn-secondary">
+        <a asp-action="Index" class="btn btn-secondary">
             ← Back
         </a>
     </div>
@@ -38,13 +38,21 @@
                         <!-- Club Information -->
                         <h1 class="display-4">@Model.Title</h1>
                         <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
-                        <p><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
-                        <p><strong>Description: </strong>@Model.Description</p>
-                        <p><strong>Number of Participants: </strong> 0</p>
+                        <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
+                        <p class="card-text"><strong>Description: </strong>@Model.Description</p>
+                        <p class="card-text"><strong>Created by: </strong>@Model.Admin.UserName</p>
+                        <p class="card-text"><strong>Number of Participants: </strong> 0</p>
 
                         <!-- Button or any additional info -->
-                        <a class="btn btn-outline-primary">Join the Club</a>
-                    </div>
+                        @if (!Model.IsJoined)
+                        {
+                            <a asp-action="Join" asp-route-id="@Model.Id" class="mt-auto btn btn-outline-primary">Join the Club</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Leave" asp-route-id="@Model.Id" class="mt-auto btn btn-outline-secondary">Leave Club</a>
+                        }
+                        </div>
                     }
             </div>
         </div>
