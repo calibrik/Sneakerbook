@@ -1,6 +1,4 @@
-﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using RunningClub.Misc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;

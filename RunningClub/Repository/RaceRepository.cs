@@ -72,7 +72,15 @@ public class RaceRepository
         await _context.Races.AddAsync(race);
         return await Save();
     }
-
+    public async Task<bool> IsAnythingInTable()
+    {
+        return await _context.Races.FirstOrDefaultAsync()!=null;
+    }
+    public async Task<bool> AddManyRacesAsync(List<Race> races)
+    {
+        await _context.Races.AddRangeAsync(races);
+        return await Save();
+    }
     public async Task<bool> DeleteRace(Race race)
     {
         _context.Races.Remove(race);

@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RunningClub.Models;
+using RunningClub.Repository;
 
 namespace RunningClub.Misc;
 
@@ -59,5 +61,66 @@ public class Seed
                 res = await userManager.AddToRoleAsync(user, UserRoles.User);
             }
         }
+    }
+
+    public static async Task InitializeClubs(UserManager<AppUser> userManager,ClubRepository clubRepository,int clubAmount)
+    {
+        AppUser? admin = await userManager.Users.FirstOrDefaultAsync();
+        if (admin == null)
+            return;
+        if (await clubRepository.IsAnythingInTable())
+            return;
+        List<Club> clubsToAdd = new List<Club>();
+        for (int i = 1; i <= clubAmount; i++)
+        {
+            clubsToAdd.Add(
+                new Club()
+                {
+                    Title = $"Club {i}",
+                    Description = $"Cool club {i}",
+                    Image = "/uploads/club/defaultImage.jpg",
+                    Address = new Address()
+                    {
+                        City = "Sydney",
+                        Country = "Australia",
+                        Street = "2 Somewhere Av.",
+                    },
+                    AdminId = admin.Id,
+                    Category = (ClubCategory)((i + 1) % 5),
+                });
+        };
+        await clubRepository.AddManyClubs(clubsToAdd);
+    }
+
+    public async static Task InitializeRaces(UserManager<AppUser> userManager, RaceRepository racesRepository,ClubRepository clubRepository,int raceAmount)
+    {
+        AppUser? admin = await userManager.Users.FirstOrDefaultAsync();
+        if (admin == null)
+            return;
+        if (await racesRepository.IsAnythingInTable())
+            return;
+        List<Club> clubs = await clubRepository.GetClubsAsync();
+        List<Race> racesToAdd = new List<Race>();
+        for (int i = 1; i <= raceAmount; i++)
+        {
+            racesToAdd.Add(
+                new Race()
+                {
+                    Title = $"Race {i}",
+                    Description = $"Cool race {i}",
+                    Image = "/uploads/race/defaultImage.jpg",
+                    Address = new Address()
+                    {
+                        City = "Sydney",
+                        Country = "Australia",
+                        Street = "2 Somewhere Av.",
+                    },
+                    AdminId = admin.Id,
+                    Category = (RaceCategory)((i-1)%5),
+                    ClubId = clubs[(i-1)%clubs.Count].Id,
+                    MaxMembersNumber = 10
+                });
+        }
+        await racesRepository.AddManyRacesAsync(racesToAdd);
     }
 }

@@ -77,12 +77,20 @@ public class ClubRepository
         return await Save();
     }
 
+    public async Task<bool> AddManyClubs(List<Club> clubs)
+    {
+        _context.Clubs.AddRange(clubs);
+        return await Save();
+    }
     // public bool UpdateClub(Club club)
     // {
     //     _context.Update(club);
     //     return Save();
     // }
-
+    public async Task<bool> IsAnythingInTable()
+    {
+        return await _context.Clubs.FirstOrDefaultAsync()!=null;
+    }
     public async Task<bool> DeleteClub(Club club)
     {
         _context.Clubs.Remove(club);

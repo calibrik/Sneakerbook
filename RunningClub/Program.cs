@@ -31,8 +31,14 @@ using (var scope = app.Services.CreateScope())
 {
     RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     UserManager<AppUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+    ClubRepository clubRepository = scope.ServiceProvider.GetRequiredService<ClubRepository>();
+    RaceRepository raceRepository = scope.ServiceProvider.GetRequiredService<RaceRepository>();
+    int clubsAmount = 7;
+    int raceAmount = 10;
     await Seed.InitializeRoles(roleManager);
     await Seed.InitializeUsers(roleManager, userManager);
+    await Seed.InitializeClubs(userManager,clubRepository,clubsAmount);
+    await Seed.InitializeRaces(userManager, raceRepository, clubRepository,raceAmount);
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

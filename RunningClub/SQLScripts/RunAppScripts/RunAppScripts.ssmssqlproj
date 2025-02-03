@@ -3,10 +3,10 @@
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
-        <ConnectionNode Name="MATT:MATT\maslo">
-          <Created>2025-01-16T13:10:14.1614978+11:00</Created>
+        <ConnectionNode Name="DESKTOP-9S8KRR3:DESKTOP-9S8KRR3\Matt">
+          <Created>2025-02-03T17:14:40.7664316+11:00</Created>
           <Type>SQL</Type>
-          <Server>MATT</Server>
+          <Server>DESKTOP-9S8KRR3</Server>
           <UserName />
           <Authentication>Windows Authentication</Authentication>
           <InitialDB />
@@ -16,39 +16,39 @@
           <EncryptionOption>True</EncryptionOption>
           <ExecutionTimeout>0</ExecutionTimeout>
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+          <ApplicationName />
         </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
         <FileNode Name="DeleteClubs.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MATT:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>MATT</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9S8KRR3:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-9S8KRR3</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>DeleteClubs.sql</FullPath>
         </FileNode>
         <FileNode Name="DeleteRaces.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MATT:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>MATT</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9S8KRR3:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-9S8KRR3</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>DeleteRaces.sql</FullPath>
         </FileNode>
         <FileNode Name="DeleteUsers.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MATT:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>MATT</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
           <AssociatedConnUserName />
           <FullPath>DeleteUsers.sql</FullPath>
         </FileNode>
         <FileNode Name="PopulateClubs.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MATT:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>MATT</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9S8KRR3:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-9S8KRR3</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>PopulateClubs.sql</FullPath>
         </FileNode>
         <FileNode Name="PopulateRaces.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MATT:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>MATT</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9S8KRR3:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-9S8KRR3</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>PopulateRaces.sql</FullPath>
         </FileNode>
