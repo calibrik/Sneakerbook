@@ -99,7 +99,7 @@ public class Seed
             return;
         if (await racesRepository.IsAnythingInTable())
             return;
-        List<Club> clubs = await clubRepository.GetClubsAsync();
+        List<Club> clubs = await clubRepository.GetClubsAsyncRO();
         List<Race> racesToAdd = new List<Race>();
         for (int i = 1; i <= raceAmount; i++)
         {

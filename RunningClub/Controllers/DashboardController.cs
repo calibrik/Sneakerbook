@@ -21,7 +21,7 @@ public class DashboardController:Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        AppUser user = await _userManager.GetUserAsync(User);
+        AppUser? user = await _userManager.GetUserAsync(User);
         DashboardViewModel model=new DashboardViewModel(user)
         {
             Races = await _dashboardRepository.GetUserRacesAsyncRO(User.GetUserId())
@@ -33,10 +33,33 @@ public class DashboardController:Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        AppUser user = await _userManager.GetUserAsync(User);
+        AppUser? user = await _userManager.GetUserAsync(User);
         DashboardViewModel model = new DashboardViewModel(user)
         {
             Clubs = await _dashboardRepository.GetUserClubsAsyncRO(User.GetUserId())
+        };
+        return View(model);
+    }
+
+    public async Task<IActionResult> ManageClubs()
+    {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
+        AppUser? user = await _userManager.GetUserAsync(User);
+        DashboardViewModel model = new DashboardViewModel(user)
+        {
+            AdminClubs = await _dashboardRepository.GetUserAdminClubsAsyncRO(User.GetUserId())
+        };
+        return View(model);
+    }
+    public async Task<IActionResult> ManageRaces()
+    {
+        if (!User.Identity.IsAuthenticated)
+            return RedirectToAction("Login", "Account");
+        AppUser? user = await _userManager.GetUserAsync(User);
+        DashboardViewModel model = new DashboardViewModel(user)
+        {
+            AdminRaces = await _dashboardRepository.GetUserAdminRacesAsyncRO(User.GetUserId())
         };
         return View(model);
     }

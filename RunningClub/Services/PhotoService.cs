@@ -70,8 +70,8 @@ public class PhotoService
         {
             image.Mutate(x => x.Resize(new ResizeOptions
             {
-                Size = new SixLabors.ImageSharp.Size(800, 0),
-                Mode = ResizeMode.Max
+                Size = new SixLabors.ImageSharp.Size(800, 600),
+                Mode = ResizeMode.Stretch
             }));
             await image.SaveAsync(filePath);
         }

@@ -24,7 +24,7 @@ public class Race
     public AppUser? Admin { get; set; }
     public List<MemberRace> Members { get; set; }=new List<MemberRace>();
     public required int MaxMembersNumber { get; set; }
-    public int? ClubId { get; set; }
+    public required int ClubId { get; set; }
     public Club? Club { get; set; }
     public required RaceCategory Category { get; set; }
 }

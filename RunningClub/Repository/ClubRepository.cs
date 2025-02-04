@@ -16,14 +16,18 @@ public class ClubRepository
     {
         return await _context.Clubs.ToListAsync();
     }
-    public async Task<List<Club>> GetUserClubsAsyncRO(string id)
+    public async Task<List<Club>> GetUserClubsAsyncRO(string userId)
     {
-        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==id).Select(mc => mc.Club).ToListAsync();
+        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==userId).Select(mc => mc.Club).ToListAsync();
     }
 
-    public async Task<HashSet<int>> GetUserClubsIdsAsyncRO(string id)
+    public async Task<List<Club>> GetUserAdminsClubsAsyncRO(string userId)
     {
-        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==id).Select(mc => mc.ClubId).ToHashSetAsync();
+        return await _context.Clubs.AsNoTracking().Where(c=>c.AdminId==userId).ToListAsync();
+    }
+    public async Task<HashSet<int>> GetUserClubsIdsAsyncRO(string userId)
+    {
+        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==userId).Select(mc => mc.ClubId).ToHashSetAsync();
     }
 
     public async Task<bool> RemoveUserFromClubAsync(string userId, int clubId)
@@ -34,11 +38,25 @@ public class ClubRepository
         _context.MemberClubs.Remove(mc);
         return await Save();
     }
+    public async Task<bool> RemoveUserFromClubRacesAsync(string userId, int clubId)
+    {
+        List<MemberRace> mrs = await _context.MemberRaces.AsNoTracking().Include(r=>r.Race).Where(mr => mr.MemberId == userId && mr.Race.ClubId==clubId).ToListAsync();
+        _context.MemberRaces.RemoveRange(mrs);
+        return await Save();
+    }
     public async Task<List<Club>> GetClubsAsyncRO()
     {
         return await _context.Clubs.AsNoTracking().ToListAsync();
     }
 
+    public async Task<List<Race>> GetClubRacesAsyncRO(int clubId)
+    {
+        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId).ToListAsync();
+    }
+    public async Task<List<Race>> GetClubsRacesAsyncRO(HashSet<int> clubIds)
+    {
+        return await _context.Races.AsNoTracking().Where(r => clubIds.Contains(r.ClubId)).ToListAsync();
+    }
     public async Task<Club?> GetClubByIdAsync(int id)
     {
         return await _context.Clubs.FirstOrDefaultAsync(a=>a.Id == id);
@@ -63,6 +81,12 @@ public class ClubRepository
     {
         MemberClub? mc=await _context.MemberClubs.AsNoTracking().Where(mc => mc.ClubId == clubId&&mc.MemberId==userId).FirstOrDefaultAsync();
         return mc != null;
+    }
+
+    public async Task<bool> IsUserAdminInClubAsync(string userId, int clubId)
+    {
+        string? AdminId=await _context.Clubs.AsNoTracking().Where(c=>c.Id==clubId).Select(c=>c.AdminId).FirstOrDefaultAsync();
+        return AdminId == userId;
     }
     public async Task<List<Club>> GetClubsByCityAsync(string city)
     {

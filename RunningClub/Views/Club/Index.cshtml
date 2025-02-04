@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Clubs";
 }
-@if (User.Identity.IsAuthenticated&&User.IsInRole(UserRoles.Admin))
+@if (User.Identity.IsAuthenticated)
 {
     <div class="container mt-3 d-flex justify-content-end">
         <a asp-action="Create" asp-controller="Club" class="btn btn-primary">

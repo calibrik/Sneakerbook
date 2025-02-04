@@ -11,7 +11,7 @@
     </div>
     
     <div class="container mt-3 d-flex justify-content-end  col-md-6">
-        @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+        @if (User.Identity.IsAuthenticated && (User.IsInRole(UserRoles.Admin)||Model.isAdmin))
         {
             <a asp-action="Edit" asp-controller="Club" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
                 Edit
@@ -46,11 +46,17 @@
                         <!-- Button or any additional info -->
                         @if (!Model.IsJoined)
                         {
-                            <a asp-action="Join" asp-route-id="@Model.Id" class="mt-auto btn btn-outline-primary">Join the Club</a>
+                            <form method="post" asp-action="Join">
+                                <input hidden asp-for="Id"/>
+                                <button type="submit" class="btn btn-outline-primary mt-auto">Join</button>
+                            </form>
                         }
                         else
                         {
-                            <a asp-action="Leave" asp-route-id="@Model.Id" class="mt-auto btn btn-outline-secondary">Leave Club</a>
+                            <form method="post" asp-action="Leave">
+                                <input hidden asp-for="Id"/>
+                                <button type="submit" class="btn btn-outline-secondary mt-auto">Cancel</button>
+                            </form>
                         }
                         </div>
                     }

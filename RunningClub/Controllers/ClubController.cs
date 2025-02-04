@@ -21,7 +21,7 @@ public class ClubController:Controller
     {
         IndexClubViewModel model = new IndexClubViewModel()
         {
-            Clubs = await _clubRepo.GetClubsAsync(),
+            Clubs = await _clubRepo.GetClubsAsyncRO(),
         };
         if (User.Identity.IsAuthenticated)
             model.JoinedClubs = await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
@@ -40,9 +40,18 @@ public class ClubController:Controller
             return RedirectToAction("Index");
         DetailClubViewModel model = new DetailClubViewModel(club);
         if (User.Identity.IsAuthenticated)
-            model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), id);
+        {
+            model.isAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id);
+            if (model.isAdmin)
+                model.IsJoined = true;
+            else
+                model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), id);
+        }
         else
+        {
             model.IsJoined = false;
+            model.isAdmin = false;
+        }
         return View(model);
     }
 
@@ -89,9 +98,11 @@ public class ClubController:Controller
             AdminId = User.GetUserId()
         };
         await _clubRepo.AddClub(club);
+        await _clubRepo.AddUserToClubAsync(User.GetUserId(),club.Id);
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
     public async Task<IActionResult> Join(int id)
     {
         if (!User.Identity.IsAuthenticated)
@@ -100,11 +111,13 @@ public class ClubController:Controller
         return RedirectToAction("Detail", new { id = id });
     }
 
+    [HttpPost]
     public async Task<IActionResult> Leave(int id)
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
         await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), id);
+        await _clubRepo.RemoveUserFromClubRacesAsync(User.GetUserId(),id);
         return RedirectToAction("Detail", new { id = id });
     }
 
@@ -112,7 +125,7 @@ public class ClubController:Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        if (!User.IsInRole(UserRoles.Admin))
+        if (!User.IsInRole(UserRoles.Admin)&&!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id))
             return RedirectToAction("Index", "Home");
         Club? club = await _clubRepo.GetClubByIdAsyncRO(id);
         if (club==null)

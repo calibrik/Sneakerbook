@@ -13,11 +13,13 @@ public class RaceController: Controller
     private readonly RaceRepository _raceRepo;
     private readonly PhotoService _photoService;
     private readonly UserManager<AppUser> _userManager;
-    public RaceController(RaceRepository raceRepository, PhotoService photoService, UserManager<AppUser> userManager)
+    private readonly ClubRepository _clubRepo;
+    public RaceController(RaceRepository raceRepository, PhotoService photoService, UserManager<AppUser> userManager, ClubRepository clubRepo)
     {
         _photoService = photoService;
         _raceRepo = raceRepository;
         _userManager = userManager;
+        _clubRepo = clubRepo;
     }
 
     public async Task<IActionResult> Detail(int id)
@@ -34,9 +36,10 @@ public class RaceController: Controller
     }
     public async Task<IActionResult> Index()
     {
+        HashSet<int> userClubs=await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
         IndexRaceViewModel model = new IndexRaceViewModel()
         {
-            Races = await _raceRepo.GetRacesAsync(),
+            Races = await _clubRepo.GetClubsRacesAsyncRO(userClubs)
         };
         if (User.Identity.IsAuthenticated)
             model.JoinedRaces = await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId());
@@ -90,7 +93,8 @@ public class RaceController: Controller
             Image = path,
             Address = createRaceModel.Address,
             Category = createRaceModel.Category,
-            MaxMembersNumber = 10
+            MaxMembersNumber = 10,
+            ClubId = createRaceModel.ClubId,
         };
         await _raceRepo.AddRace(race);
         return RedirectToAction("Index");
@@ -114,6 +118,7 @@ public class RaceController: Controller
         return View(editClubModel);
     }
 
+    [HttpPost]
     public async Task<IActionResult> Join(int id)
     {
         if (!User.Identity.IsAuthenticated)
@@ -121,12 +126,12 @@ public class RaceController: Controller
         await _raceRepo.AddUserToRaceAsync(User.GetUserId(), id);
         return RedirectToAction("Detail", new { id = id });
     }
-
+    [HttpPost]
     public async Task<IActionResult> Leave(int id)
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        await _raceRepo.RemoveUserFromRace(User.GetUserId(), id);
+        await _raceRepo.RemoveUserFromRaceAsync(User.GetUserId(), id);
         return RedirectToAction("Detail", new { id = id });
     }
     [HttpPost]

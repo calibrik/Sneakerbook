@@ -12,6 +12,7 @@ public class DetailClubViewModel
     public AppUser Admin { get; set; }
     public ClubCategory Category { get; set; }
     public bool IsJoined { get; set; }
+    public bool isAdmin { get; set; }
 
     public DetailClubViewModel(Club club)
     {

@@ -25,4 +25,14 @@ public class DashboardRepository
     {
         return await _clubRepository.GetUserClubsAsyncRO(userId);
     }
+
+    public async Task<List<Club>> GetUserAdminClubsAsyncRO(string userId)
+    {
+        return await _clubRepository.GetUserAdminsClubsAsyncRO(userId);
+    }
+
+    public async Task<List<Race>> GetUserAdminRacesAsyncRO(string userId)
+    {
+        return await _raceRepository.GetUserAdminRacesAsyncRO(userId);
+    }
 }

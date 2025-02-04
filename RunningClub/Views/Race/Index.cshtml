@@ -18,6 +18,10 @@
 <div class="outer-container">
     <!-- Vertical List Container -->
     <div class="vertical-scroller">
+        @if (Model.Races.Count == 0)
+        {
+            <p class="text-muted text-center">No available races at the moment. Join more clubs to see more races!</p>
+        }
         @{
             foreach (Race race in Model.Races)
             {

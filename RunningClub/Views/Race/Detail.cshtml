@@ -48,11 +48,17 @@
                         <!-- Button or any additional info -->
                         @if (!Model.IsJoined)
                         {
-                            <a asp-action="Join" asp-route-id="@Model.Id" class="btn btn-outline-primary mt-auto">Join the Race</a>
+                            <form method="post" asp-action="Join">
+                                <input hidden asp-for="Id"/>
+                                <button type="submit" class="btn btn-outline-primary mt-auto">Join</button>
+                            </form>
                         }
                         else
                         {
-                            <a asp-action="Leave" asp-route-id="@Model.Id" class="btn btn-outline-secondary mt-auto">Cancel</a>
+                            <form method="post" asp-action="Leave">
+                                <input hidden asp-for="Id"/>
+                                <button type="submit" class="btn btn-outline-secondary mt-auto">Cancel</button>
+                            </form>
                         }
                     </div>
                 }

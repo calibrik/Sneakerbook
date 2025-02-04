@@ -10,10 +10,11 @@
     <div class="col-md-9">
         <nav class="mb-5 navbar custom-navbar sticky-top bg-white shadow d-flex justify-content-between align-items-center" style="top:56px">
             <div class="w-100 d-flex justify-content-center flex-grow-1">
-                <a href="#" class="mx-4 nav-item nav-link active">Upcoming Races</a>
-                <a asp-action="MyClubs" class="nav-item nav-link text-black mx-4">My Clubs</a>
-                <a href="#" class="nav-item nav-link text-black mx-4">Clubs Moderation</a>
-                <a href="#" class="nav-item nav-link text-black mx-4">Completed Races</a>
+                <a asp-action="Index" class="mx-4 nav-item nav-link active mx-4">Upcoming Races</a>
+                <a asp-action="MyClubs" class="nav-item nav-link not-active mx-4">Following Clubs</a>
+                <a asp-action="ManageClubs" class="nav-item nav-link not-active mx-4">Manage My Clubs</a>
+                <a asp-action="ManageRaces" class="nav-item nav-link not-active mx-4">Manage My Races</a>
+                <a href="#" class="nav-item nav-link not-active mx-4">Completed Races</a>
             </div>
         </nav>
         @* <h4 class="mt-3 mb-3 text-center">Your Cards</h4> *@
@@ -27,12 +28,14 @@
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <div class="d-flex justify-content-center">
-                                <div id="spinner @race.Id" class="spinner-border m-5" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+                            <div class="card-img">
+                                <div class="d-flex justify-content-center">
+                                    <div id="spinner @race.Id" class="spinner-border m-5" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
+                                <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Club Image" onload="onImageLoadById(@race.Id)">
                             </div>
-                            <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Club Image" onload="onImageLoadById(@race.Id)">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

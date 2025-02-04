@@ -21,8 +21,7 @@ public class RaceRepository
     {
         return await _context.Races.ToListAsync();
     }
-
-    public async Task<bool> RemoveUserFromRace(string userId, int raceId)
+    public async Task<bool> RemoveUserFromRaceAsync(string userId, int raceId)
     {
         MemberRace? mr=await _context.MemberRaces.Where(mr=>mr.RaceId==raceId&&mr.MemberId==userId).FirstOrDefaultAsync();
         if (mr == null)
@@ -40,9 +39,19 @@ public class RaceRepository
         await _context.MemberRaces.AddAsync(mr);
         return await Save();
     }
-    public async Task<List<Race>> GetUserRacesAsyncRO(string id)
+    public async Task<List<Race>> GetUserRacesAsyncRO(string userId)
     {
-        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==id).Select(mr=>mr.Race).ToListAsync();
+        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId).Include(mr=>mr.Race.Club).Select(mr=>mr.Race).ToListAsync();
+    }
+
+    public async Task<List<Race>> GetUserAdminRacesAsyncRO(string userId)
+    {
+        return await _context.Races.AsNoTracking().Where(r=>r.AdminId==userId).Include(r=>r.Club).ToListAsync();
+    }
+
+    public async Task<List<Race>> GetClubAdminRacesAsyncRO(int clubId)
+    {
+        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId).ToListAsync();
     }
     public async Task<List<Race>> GetRacesAsyncRO()
     {

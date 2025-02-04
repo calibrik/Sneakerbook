@@ -9,4 +9,5 @@ public class CreateRaceViewModel
     public required IFormFile Image { get; set; }
     public required Address Address { get; set; }
     public required RaceCategory Category { get; set; }
+    public required int ClubId { get; set; }
 }
