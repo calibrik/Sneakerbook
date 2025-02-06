@@ -17,49 +17,49 @@ public class DashboardController:Controller
         _dashboardRepository = dashboardRepository;
         _userManager = userManager;
     }
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string userId)
     {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        AppUser? user = await _userManager.GetUserAsync(User);
+        AppUser? user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return RedirectToAction("Index", "Home");
         DashboardViewModel model=new DashboardViewModel(user)
         {
-            Races = await _dashboardRepository.GetUserRacesAsyncRO(User.GetUserId())
+            Races = await _dashboardRepository.GetUserRacesAsyncRO(userId)
         };
         return View(model);
     }
 
-    public async Task<IActionResult> MyClubs()
+    public async Task<IActionResult> MyClubs(string userId)
     {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        AppUser? user = await _userManager.GetUserAsync(User);
+        AppUser? user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return RedirectToAction("Index", "Home");
         DashboardViewModel model = new DashboardViewModel(user)
         {
-            Clubs = await _dashboardRepository.GetUserClubsAsyncRO(User.GetUserId())
+            Clubs = await _dashboardRepository.GetUserClubsAsyncRO(userId)
         };
         return View(model);
     }
 
-    public async Task<IActionResult> ManageClubs()
+    public async Task<IActionResult> ManageClubs(string userId)
     {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        AppUser? user = await _userManager.GetUserAsync(User);
+        AppUser? user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return RedirectToAction("Index", "Home");
         DashboardViewModel model = new DashboardViewModel(user)
         {
-            AdminClubs = await _dashboardRepository.GetUserAdminClubsAsyncRO(User.GetUserId())
+            AdminClubs = await _dashboardRepository.GetUserAdminClubsAsyncRO(userId)
         };
         return View(model);
     }
-    public async Task<IActionResult> ManageRaces()
+    public async Task<IActionResult> ManageRaces(string userId)
     {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        AppUser? user = await _userManager.GetUserAsync(User);
+        AppUser? user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return RedirectToAction("Index", "Home");
         DashboardViewModel model = new DashboardViewModel(user)
         {
-            AdminRaces = await _dashboardRepository.GetUserAdminRacesAsyncRO(User.GetUserId())
+            AdminRaces = await _dashboardRepository.GetUserAdminRacesAsyncRO(userId)
         };
         return View(model);
     }

@@ -4,6 +4,7 @@ namespace RunningClub.ViewModels;
 
 public class DashboardViewModel
 {
+    public string Id {get; set;}
     public string FName { get; set; }
     public string Email { get; set; }
     public string Username { get; set; }
@@ -16,6 +17,7 @@ public class DashboardViewModel
 
     public DashboardViewModel(AppUser appUser)
     {
+        Id = appUser.Id;
         FName = appUser.FName;
         LName = appUser.LName;
         Mileage = appUser.Mileage;

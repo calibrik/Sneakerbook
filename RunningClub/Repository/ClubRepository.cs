@@ -16,6 +16,11 @@ public class ClubRepository
     {
         return await _context.Clubs.ToListAsync();
     }
+
+    public async Task<List<AppUser>> GetUsersInClubAsyncRO(int clubId)
+    {
+        return await _context.MemberClubs.AsNoTracking().Include(mc=>mc.Member).Where(mc => mc.ClubId == clubId).Select(mc=>mc.Member).ToListAsync();
+    }
     public async Task<List<Club>> GetUserClubsAsyncRO(string userId)
     {
         return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==userId).Select(mc => mc.Club).ToListAsync();

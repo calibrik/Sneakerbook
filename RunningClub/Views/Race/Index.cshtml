@@ -3,14 +3,6 @@
 @{
     ViewData["Title"] = "Races";
 }
-@if (User.Identity.IsAuthenticated&&User.IsInRole(UserRoles.Admin))
-{
-    <div class="container mt-3 d-flex justify-content-end">
-        <a asp-action="Create" asp-controller="Race" class="btn btn-primary">
-            + Create Race
-        </a>
-    </div>
-}
 
 <h1 class="text-center mb-3">Races</h1>
 
@@ -22,8 +14,7 @@
         {
             <p class="text-muted text-center">No available races at the moment. Join more clubs to see more races!</p>
         }
-        @{
-            foreach (Race race in Model.Races)
+        @foreach (Race race in Model.Races)
             {
                 <div class="card mb-4 d-flex flex-column" style="height: 15%;">
                     <div class="row g-0 h-100">
@@ -56,6 +47,5 @@
                     </div>
                 </div>
             }
-        }
     </div>
 </div>

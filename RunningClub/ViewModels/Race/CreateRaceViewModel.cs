@@ -1,13 +1,21 @@
-﻿using RunningClub.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using RunningClub.Models;
 
 namespace RunningClub.ViewModels;
 
 public class CreateRaceViewModel
 {
-    public required string Title { get; set; }
+    [Required(ErrorMessage = "Title is required")]
+    [Display(Name = "Title")]
+    public string Title { get; set; }
     public string? Description { get; set; }
-    public required IFormFile Image { get; set; }
-    public required Address Address { get; set; }
-    public required RaceCategory Category { get; set; }
-    public required int ClubId { get; set; }
+    [Required(ErrorMessage = "Image is required")]
+    [Display(Name = "Image")]
+    public IFormFile Image { get; set; }
+    public Address Address { get; set; }
+    [Required(ErrorMessage = "Category is required")]
+    [Display(Name = "Category")]
+    public RaceCategory Category { get; set; }
+    [Required]
+    public int ClubId { get; set; }
 }

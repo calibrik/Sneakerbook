@@ -10,10 +10,10 @@
     <div class="col-md-9">
         <nav class="mb-5 navbar custom-navbar sticky-top bg-white shadow d-flex justify-content-between align-items-center" style="top:56px">
             <div class="w-100 d-flex justify-content-center flex-grow-1">
-                <a asp-action="Index" class="mx-4 nav-item nav-link not-active mx-4">Upcoming Races</a>
-                <a asp-action="MyClubs" class="nav-item nav-link not-active mx-4">Following Clubs</a>
-                <a asp-action="ManageClubs" class="nav-item nav-link not-active mx-4">Manage My Clubs</a>
-                <a asp-action="ManageRaces" class="nav-item nav-link active mx-4">Manage My Races</a>
+                <a asp-action="Index" asp-route-userId="@Model.Id" class="mx-4 nav-item nav-link not-active mx-4">Upcoming Races</a>
+                <a asp-action="MyClubs" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Following Clubs</a>
+                <a asp-action="ManageClubs" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Manage My Clubs</a>
+                <a asp-action="ManageRaces" asp-route-userId="@Model.Id" class="nav-item nav-link active mx-4">Manage My Races</a>
                 <a href="#" class="nav-item nav-link not-active mx-4">Completed Races</a>
             </div>
         </nav>
@@ -59,11 +59,18 @@
                 <p><strong>Name:</strong> @(Model.FName+" "+Model.LName)</p>
                 <p><strong>Email:</strong> @Model.Email</p>
                 <p><strong>Mileage:</strong> @Model.Mileage</p>
-                @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+                @if (User.Identity.IsAuthenticated && User.GetUserId()==Model.Id &&  User.IsInRole(UserRoles.Admin))
                 {
                     <p><strong class="text-danger">Admin</strong></p>
                 }
-                <a class="btn btn-primary mt-auto w-50 mx-auto">Edit Profile</a>
+                <div class="mt-auto">
+                    @if (User.Identity.IsAuthenticated && User.GetUserId() == Model.Id)
+                    {
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-primary w-50 mx-auto">Edit Profile</a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>

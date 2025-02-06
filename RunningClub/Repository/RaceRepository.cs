@@ -39,6 +39,11 @@ public class RaceRepository
         await _context.MemberRaces.AddAsync(mr);
         return await Save();
     }
+
+    public async Task<List<AppUser>> GetUsersInRaceAsyncRO(int raceId)
+    {
+        return await _context.MemberRaces.AsNoTracking().Include(mr=>mr.Member).Where(mr => mr.RaceId == raceId).Select(mr=>mr.Member).ToListAsync();
+    }
     public async Task<List<Race>> GetUserRacesAsyncRO(string userId)
     {
         return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId).Include(mr=>mr.Race.Club).Select(mr=>mr.Race).ToListAsync();
@@ -84,6 +89,11 @@ public class RaceRepository
     public async Task<bool> IsAnythingInTable()
     {
         return await _context.Races.FirstOrDefaultAsync()!=null;
+    }
+
+    public async Task<bool> IsUserAdminInRace(string userId, int raceId)
+    {
+        return await _context.Races.AsNoTracking().Where(r=>r.Id==raceId).Select(r=>r.AdminId).FirstOrDefaultAsync()==userId;
     }
     public async Task<bool> AddManyRacesAsync(List<Race> races)
     {

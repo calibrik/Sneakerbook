@@ -13,6 +13,9 @@ public class DetailClubViewModel
     public ClubCategory Category { get; set; }
     public bool IsJoined { get; set; }
     public bool isAdmin { get; set; }
+    public List<Race> Races { get; set; }
+    public List<AppUser> Members { get; set; }
+    public HashSet<int> JoinedRaces { get; set; } = new();
 
     public DetailClubViewModel(Club club)
     {

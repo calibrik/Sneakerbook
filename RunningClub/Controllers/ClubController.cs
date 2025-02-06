@@ -10,12 +10,14 @@ namespace RunningClub.Controllers;
 public class ClubController:Controller
 {
     private readonly ClubRepository _clubRepo;
+    private readonly RaceRepository _raceRepo;
     private readonly PhotoService _photoService;
 
-    public ClubController(ClubRepository clubRepository,PhotoService photoService)
+    public ClubController(ClubRepository clubRepository,PhotoService photoService, RaceRepository raceRepository)
     {
         _clubRepo = clubRepository;
         _photoService = photoService;
+        _raceRepo = raceRepository;
     }
     public async Task<IActionResult> Index()
     {
@@ -38,9 +40,14 @@ public class ClubController:Controller
         Club? club = await _clubRepo.GetClubByIdAsyncRO(id);
         if (club==null)
             return RedirectToAction("Index");
-        DetailClubViewModel model = new DetailClubViewModel(club);
+        DetailClubViewModel model = new DetailClubViewModel(club)
+        {
+            Races = await _clubRepo.GetClubRacesAsyncRO(id),
+            Members = await _clubRepo.GetUsersInClubAsyncRO(id),
+        };
         if (User.Identity.IsAuthenticated)
         {
+            model.JoinedRaces=await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId());
             model.isAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id);
             if (model.isAdmin)
                 model.IsJoined = true;
@@ -107,6 +114,8 @@ public class ClubController:Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
+        if (await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),id))
+            return RedirectToAction("Detail", new { id = id });
         await _clubRepo.AddUserToClubAsync(User.GetUserId(),id);
         return RedirectToAction("Detail", new { id = id });
     }
@@ -116,6 +125,8 @@ public class ClubController:Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
+        if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),id))
+            return RedirectToAction("Detail", new { id = id });
         await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), id);
         await _clubRepo.RemoveUserFromClubRacesAsync(User.GetUserId(),id);
         return RedirectToAction("Detail", new { id = id });
