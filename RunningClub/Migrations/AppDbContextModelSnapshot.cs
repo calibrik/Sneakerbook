@@ -309,7 +309,7 @@ namespace RunningClub.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClubId")
+                    b.Property<int>("ClubId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -396,7 +396,7 @@ namespace RunningClub.Migrations
 
                     b.OwnsOne("RunningClub.Models.Address", "Address", b1 =>
                         {
-                            b1.Property<int>("Id")
+                            b1.Property<int>("ClubId")
                                 .HasColumnType("int");
 
                             b1.Property<string>("City")
@@ -411,12 +411,12 @@ namespace RunningClub.Migrations
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("Id");
+                            b1.HasKey("ClubId");
 
                             b1.ToTable("Clubs");
 
                             b1.WithOwner()
-                                .HasForeignKey("Id");
+                                .HasForeignKey("ClubId");
                         });
 
                     b.Navigation("Address")
@@ -473,11 +473,13 @@ namespace RunningClub.Migrations
 
                     b.HasOne("RunningClub.Models.Club", "Club")
                         .WithMany()
-                        .HasForeignKey("ClubId");
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("RunningClub.Models.Address", "Address", b1 =>
                         {
-                            b1.Property<int>("Id")
+                            b1.Property<int>("RaceId")
                                 .HasColumnType("int");
 
                             b1.Property<string>("City")
@@ -492,12 +494,12 @@ namespace RunningClub.Migrations
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("Id");
+                            b1.HasKey("RaceId");
 
                             b1.ToTable("Races");
 
                             b1.WithOwner()
-                                .HasForeignKey("Id");
+                                .HasForeignKey("RaceId");
                         });
 
                     b.Navigation("Address")

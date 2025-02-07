@@ -41,7 +41,7 @@ public class ClubRepository
         if (mc == null)
             return true;
         _context.MemberClubs.Remove(mc);
-        return await Save();
+        return await RemoveUserFromClubRacesAsync(userId, clubId);
     }
     public async Task<bool> RemoveUserFromClubRacesAsync(string userId, int clubId)
     {

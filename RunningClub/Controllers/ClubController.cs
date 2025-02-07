@@ -48,8 +48,8 @@ public class ClubController:Controller
         if (User.Identity.IsAuthenticated)
         {
             model.JoinedRaces=await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId());
-            model.isAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id);
-            if (model.isAdmin)
+            model.IsAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id);
+            if (model.IsAdmin)
                 model.IsJoined = true;
             else
                 model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), id);
@@ -57,7 +57,7 @@ public class ClubController:Controller
         else
         {
             model.IsJoined = false;
-            model.isAdmin = false;
+            model.IsAdmin = false;
         }
         return View(model);
     }
@@ -128,7 +128,6 @@ public class ClubController:Controller
         if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),id))
             return RedirectToAction("Detail", new { id = id });
         await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), id);
-        await _clubRepo.RemoveUserFromClubRacesAsync(User.GetUserId(),id);
         return RedirectToAction("Detail", new { id = id });
     }
 
@@ -151,7 +150,12 @@ public class ClubController:Controller
         };
         return View(editClubModel);
     }
-    
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int clubId)
+    {
+        return RedirectToAction("Detail", new { id = clubId });
+    }
     [HttpPost]
     public async Task<IActionResult> Edit(EditClubViewModel editClubModel)
     {

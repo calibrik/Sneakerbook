@@ -12,7 +12,7 @@ public class DetailClubViewModel
     public AppUser Admin { get; set; }
     public ClubCategory Category { get; set; }
     public bool IsJoined { get; set; }
-    public bool isAdmin { get; set; }
+    public bool IsAdmin { get; set; }
     public List<Race> Races { get; set; }
     public List<AppUser> Members { get; set; }
     public HashSet<int> JoinedRaces { get; set; } = new();

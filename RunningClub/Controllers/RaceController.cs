@@ -138,6 +138,9 @@ public class RaceController: Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
+        Race? race = await _raceRepo.GetRaceByIdAsyncRO(id);
+        if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), race.ClubId))
+            return RedirectToAction("Detail", "Club", new { id = race.ClubId });
         if (await _raceRepo.IsUserMemberInRace(User.GetUserId(), id))
             return RedirectToAction("Detail", new { id = id });
         await _raceRepo.AddUserToRaceAsync(User.GetUserId(), id);

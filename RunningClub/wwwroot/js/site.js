@@ -17,3 +17,19 @@ function onConfirmPasswordChange()
 {
     
 }
+
+function kickMember(userId,clubId)
+{
+    fetch('/api/ClubApi/KickMember',
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                userId: userId,
+                clubId: clubId,
+            }),
+        })
+        .then(response => console.log(response))
+        .then(()=>window.location.reload())
+        .catch(error => console.log(error));
+}

@@ -90,6 +90,10 @@ public class Seed
                 });
         };
         await clubRepository.AddManyClubs(clubsToAdd);
+        foreach (Club club in clubsToAdd)
+        {
+            await clubRepository.AddUserToClubAsync(admin.Id, club.Id);
+        }
     }
 
     public async static Task InitializeRaces(UserManager<AppUser> userManager, RaceRepository racesRepository,ClubRepository clubRepository,int raceAmount)
@@ -118,9 +122,13 @@ public class Seed
                     AdminId = admin.Id,
                     Category = (RaceCategory)((i-1)%5),
                     ClubId = clubs[(i-1)%clubs.Count].Id,
-                    MaxMembersNumber = 10
+                    MaxMembersNumber = 10,
                 });
         }
         await racesRepository.AddManyRacesAsync(racesToAdd);
+        foreach (Race race in racesToAdd)
+        {
+            await racesRepository.AddUserToRaceAsync(admin.Id, race.Id);
+        }
     }
 }
