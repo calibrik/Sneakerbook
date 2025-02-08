@@ -14,7 +14,8 @@
         }
         else
         {
-            <a class="btn btn-primary btn-lg" asp-controller="Club" asp-action="Index" type="button">Explore Clubs</a>
+            <a class="btn btn-primary btn-lg" asp-controller="Club" asp-action="Index">Explore Clubs</a>
+            <a class="btn btn-secondary btn-lg" asp-controller="Dashboard" asp-action="Index" asp-route-userId="@User.GetUserId()">Dashboard</a>
         }
     </div>
 </div>

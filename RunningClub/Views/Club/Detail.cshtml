@@ -5,7 +5,7 @@
 }
 <div class="row">
     <div class="container mt-3 col-md-6">
-        <a asp-action="Index" class="btn btn-secondary">
+        <a onclick="window.location.href = document.referrer + '?reload=1';" class="btn btn-secondary">
             ← Back
         </a>
     </div>
@@ -19,6 +19,16 @@
         }
     </div>
 </div>
+<div id="errorToast" class="toast align-items-center text-white bg-danger border-0 position-fixed top-10 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger">
+            <span><strong class="text-white">ERROR</strong></span>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <span id="errorMessage">An error occurred!</span>
+        </div>
+</div>
+
 <div class="container my-5">
     <div class="card">
         <div class="card-body">
@@ -46,24 +56,15 @@
                         <!-- Button or any additional info -->
                         @if (!Model.IsJoined)
                         {
-                            <form method="post" asp-action="Join">
-                                <input hidden asp-for="Id"/>
-                                <button type="submit" class="btn btn-outline-primary mt-auto">Join</button>
-                            </form>
+                            <a id="joinButton" onclick="joinClub('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
                         }
                         else if (Model.IsAdmin)
                         {
-                            <form method="post" asp-action="Delete">
-                                <input hidden asp-for="Id"/>
-                                <button type="submit" class="btn btn-outline-danger mt-auto">Delete Club</button>
-                            </form>
+                            <a id="deleteButton" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Club</a>
                         }
                         else
                         {
-                            <form method="post" asp-action="Leave">
-                                <input hidden asp-for="Id"/>
-                                <button type="submit" class="btn btn-outline-secondary mt-auto">Cancel</button>
-                            </form>
+                            <a id="leaveButton" onclick="leaveCLub('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
                         }
                     </div>
                 }
@@ -103,9 +104,9 @@
                                 {
                                     <p><strong class="text-danger">Admin</strong></p>
                                 }
-                                else if (user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
+                                else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
                                 {
-                                    <a class="btn btn-danger" onclick="kickMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
+                                    <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
                                 }
                                 </div>
                             </div>

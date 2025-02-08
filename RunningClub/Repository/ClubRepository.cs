@@ -51,7 +51,7 @@ public class ClubRepository
     }
     public async Task<List<Club>> GetClubsAsyncRO()
     {
-        return await _context.Clubs.AsNoTracking().ToListAsync();
+        return await _context.Clubs.AsNoTracking().Include(c=>c.Admin).ToListAsync();
     }
 
     public async Task<List<Race>> GetClubRacesAsyncRO(int clubId)

@@ -65,3 +65,6 @@ body {
 .nav-link.not-active {
   color: black;
 }
+.navbar-fixed-top {
+  padding-top: 56px;
+}

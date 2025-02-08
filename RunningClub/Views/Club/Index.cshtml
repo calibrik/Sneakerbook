@@ -36,7 +36,7 @@
                             <a class="btn w-25 btn-sm btn-outline-primary mt-auto" asp-action="Detail" asp-controller="Club" asp-route-id=@club.Id>View</a>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Last updated 5 min ago</small>
+                            <small class="text-muted">Created by <a class="link-info" asp-action="Index" asp-controller="Dashboard" asp-route-userId="@club.AdminId">@club.Admin.UserName</a></small>
                         </div>
                     </div>
                 </div>

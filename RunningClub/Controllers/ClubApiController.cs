@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RunningClub.Misc;
 using RunningClub.Repository;
 using RunningClub.ViewModels.ClubApi;
 
 namespace RunningClub.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 public class ClubApiController:ControllerBase
 {
@@ -17,20 +18,40 @@ public class ClubApiController:ControllerBase
         _clubRepo = clubRepo;
         _raceRepo = raceRepo;
     }
-    [HttpPost("[action]")]
+    [HttpPost("")]
     public async Task<IActionResult> KickMember([FromBody] KickMemberViewModel model)
     {
+        if (!User.Identity.IsAuthenticated||!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), model.ClubId)||!User.IsInRole("Admin"))
+            return Unauthorized(new {message="You do not have permission for this action"});
         if (await _clubRepo.GetClubByIdAsync(model.ClubId)==null)
-            return NotFound("Club not found");
+            return NotFound(new {message="Club is not found"});
         if (!await _clubRepo.IsUserMemberInClubAsync(model.UserId, model.ClubId))
-            return NotFound("User not found in this club");
+            return NotFound(new {message="User is not found in this club"});
         await _clubRepo.RemoveUserFromClubAsync(model.UserId, model.ClubId);
-        return Ok("User kicked");
+        return Ok(new {message="User successfully kicked"});
     }
-
-    [HttpPost("[action]")]
-    public async Task<IActionResult> Join(string userId, int clubId)
+    [HttpPost("")]
+    public async Task<IActionResult> Join([FromBody] int clubId)
     {
-        return Ok();
+        if (!User.Identity.IsAuthenticated)
+            return Unauthorized(new {message="You do not have permission for this action"});
+        if (await _clubRepo.GetClubByIdAsync(clubId) == null)
+            return NotFound(new {message="Club is not found"});
+        if (await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),clubId))
+            return BadRequest(new {message="You are already in this club"});
+        await _clubRepo.AddUserToClubAsync(User.GetUserId(),clubId);
+        return Ok(new {message="You successfully joined"});
+    }
+    [HttpPost("")]
+    public async Task<IActionResult> Leave([FromBody] int clubId)
+    {
+        if (!User.Identity.IsAuthenticated)
+            return Unauthorized(new {message="You do not have permission for this action"});
+        if (await _clubRepo.GetClubByIdAsync(clubId) == null)
+            return NotFound(new {message="Club is not found"});
+        if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),clubId))
+            return BadRequest(new {message="You aren't in this club"});
+        await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), clubId);
+        return Ok(new {message="You successfully left"});
     }
 }

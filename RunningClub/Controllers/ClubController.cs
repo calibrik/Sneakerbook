@@ -109,28 +109,6 @@ public class ClubController:Controller
         return RedirectToAction("Index");
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Join(int id)
-    {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        if (await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),id))
-            return RedirectToAction("Detail", new { id = id });
-        await _clubRepo.AddUserToClubAsync(User.GetUserId(),id);
-        return RedirectToAction("Detail", new { id = id });
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Leave(int id)
-    {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(),id))
-            return RedirectToAction("Detail", new { id = id });
-        await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), id);
-        return RedirectToAction("Detail", new { id = id });
-    }
-
     public async Task<IActionResult> Edit(int id)
     {
         if (!User.Identity.IsAuthenticated)
