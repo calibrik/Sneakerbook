@@ -12,7 +12,7 @@ public class RaceRepository
         _context = context;
     }
 
-    public async Task<bool> IsUserMemberInRace(string userId, int raceId)
+    public async Task<bool> IsUserMemberInRaceAsync(string userId, int raceId)
     {
         MemberRace? mr=await _context.MemberRaces.AsNoTracking().Where(mr => mr.RaceId == raceId&&mr.MemberId==userId).FirstOrDefaultAsync();
         return mr != null;
@@ -91,7 +91,7 @@ public class RaceRepository
         return await _context.Races.FirstOrDefaultAsync()!=null;
     }
 
-    public async Task<bool> IsUserAdminInRace(string userId, int raceId)
+    public async Task<bool> IsUserAdminInRaceAsync(string userId, int raceId)
     {
         return await _context.Races.AsNoTracking().Where(r=>r.Id==raceId).Select(r=>r.AdminId).FirstOrDefaultAsync()==userId;
     }

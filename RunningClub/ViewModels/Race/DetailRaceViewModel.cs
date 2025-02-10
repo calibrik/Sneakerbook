@@ -14,6 +14,7 @@ public class DetailRaceViewModel
     public Club Club { get; set; }
     public RaceCategory Category { get; set; }
     public bool IsJoined { get; set; }
+    public bool IsAdmin { get; set; }
     
     public List<AppUser> Members { get; set; }
 

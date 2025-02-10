@@ -105,7 +105,7 @@ public class ClubRepository
         _context.Clubs.Add(club);
         return await Save();
     }
-
+    
     public async Task<bool> AddManyClubs(List<Club> clubs)
     {
         _context.Clubs.AddRange(clubs);

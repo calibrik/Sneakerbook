@@ -128,12 +128,7 @@ public class ClubController:Controller
         };
         return View(editClubModel);
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Delete(int clubId)
-    {
-        return RedirectToAction("Detail", new { id = clubId });
-    }
+    
     [HttpPost]
     public async Task<IActionResult> Edit(EditClubViewModel editClubModel)
     {

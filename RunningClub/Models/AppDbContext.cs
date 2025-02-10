@@ -28,6 +28,7 @@ public class AppDbContext: IdentityDbContext<AppUser>
         builder.Entity<MemberClub>().HasOne(mc=>mc.Club).WithMany(c=>c.Members).HasForeignKey(mr=>mr.ClubId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<AppUser>().HasMany(u=>u.AdminClubs).WithOne(c=>c.Admin).HasForeignKey(c=>c.AdminId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<AppUser>().HasMany(u=>u.AdminRaces).WithOne(r=>r.Admin).HasForeignKey(r=>r.AdminId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<Race>().HasOne(r=>r.Club).WithMany(c=>c.Races).HasForeignKey(r=>r.ClubId).OnDelete(DeleteBehavior.Cascade);
         // builder.Entity<AppUser>().HasMany(u => u.CompletedRaces).WithOne(c => c.Admin);
     }
 }

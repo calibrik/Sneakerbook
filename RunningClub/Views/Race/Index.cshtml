@@ -10,12 +10,16 @@
 <div class="outer-container">
     <!-- Vertical List Container -->
     <div class="vertical-scroller">
-        @if (Model.Races.Count == 0)
-        {
-            <p class="text-muted text-center">No available races at the moment. Join more clubs to see more races!</p>
-        }
-        @foreach (Race race in Model.Races)
+        @{
+            int count = 0;
+            foreach (Race race in Model.Races)
             {
+                @if (Model.JoinedRaces.Contains(race.Id))
+                {
+                    continue;
+                } 
+                count++;
+                
                 <div class="card mb-4 d-flex flex-column" style="height: 15%;">
                     <div class="row g-0 h-100">
                         <div class="col-md-4 d-flex">
@@ -32,10 +36,6 @@
                                 <h6 class="text-muted">@race.Category</h6>
                                 <p class="card-text">@race.Description</p>
                                 <div class="mt-auto d-flex flex-column">
-                                    @if (Model.JoinedRaces.Contains(race.Id))
-                                    {
-                                        <p class="text-warning">Joined</p>
-                                    }
                                     <small class="text-muted">Created 5min ago</small>
                                     <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
                                 </div>
@@ -47,5 +47,10 @@
                     </div>
                 </div>
             }
+            if (count==0)
+            {
+                <p class="text-muted text-center">No available races at the moment. Join more clubs to see more races!</p>
+            }
+        }
     </div>
 </div>

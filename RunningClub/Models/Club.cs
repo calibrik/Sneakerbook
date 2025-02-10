@@ -24,5 +24,6 @@ public class Club
     public required string AdminId { get; set; }
     public AppUser? Admin { get; set; }
     public List<MemberClub> Members { get; set; }=new();
+    public List<Race> Races { get; set; }=new();
     public required ClubCategory Category { get; set; }
 }

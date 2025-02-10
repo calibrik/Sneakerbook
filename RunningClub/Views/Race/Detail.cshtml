@@ -20,6 +20,16 @@
     </div>
 </div>
 
+<div id="errorToast" class="toast align-items-center text-white bg-danger border-0 position-fixed top-10 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg-danger">
+        <span><strong class="text-white">ERROR</strong></span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        <span id="errorMessage">An error occurred!</span>
+    </div>
+</div>
+
 <div class="container my-5">
     <div class="card">
         <div class="card-body">
@@ -42,23 +52,21 @@
                         <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
                         <p class="card-text"><strong>Description: </strong>@Model.Description</p>
                         <p class="card-text"><strong>Number of Participants: </strong>0/@Model.MaxMembersNumber</p>
-                        <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="text-decoration-none">@Model.Admin.UserName</a></p>
-                        <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-id="@Model.Club.Id" class="link-info">@Model.Club.Title</a></p>
+                        <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
+                        <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-id="@Model.Club.Id" class="link-primary">@Model.Club.Title</a></p>
 
                         <!-- Button or any additional info -->
                         @if (!Model.IsJoined)
                         {
-                            <form method="post" asp-action="Join">
-                                <input hidden asp-for="Id"/>
-                                <button type="submit" class="btn btn-outline-primary mt-auto">Join</button>
-                            </form>
+                            <a id="joinButton" onclick="joinRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
+                        }
+                        else if (Model.IsAdmin)
+                        {
+                            <a id="deleteButton" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Race</a>
                         }
                         else
                         {
-                            <form method="post" asp-action="Leave">
-                                <input hidden asp-for="Id"/>
-                                <button type="submit" class="btn btn-outline-secondary mt-auto">Cancel</button>
-                            </form>
+                            <a id="leaveButton" onclick="leaveRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
                         }
                     </div>
                 }
@@ -81,16 +89,20 @@
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-md-6 d-flex align-content-center">
-                                    <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="text-decoration-none">
+                                    <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="link-primary">
                                         @user.UserName
                                     </a>
                                 </div>
-                                @if (user.Id == Model.Admin.Id)
-                                {
-                                    <div class="col-md-6 d-flex align-content-center justify-content-end">
+                                <div class="col-md-6 d-flex align-content-center justify-content-end">
+                                    @if (user.Id == Model.Admin.Id)
+                                    {
                                         <p><strong class="text-danger">Admin</strong></p>
-                                    </div>
-                                }
+                                    }
+                                    else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
+                                    {
+                                        <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickRaceMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
+                                    }
+                                </div>
                             </div>
                         </li>
                     }

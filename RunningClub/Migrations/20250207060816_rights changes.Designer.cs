@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RunningClub.Models;
 
@@ -11,9 +12,11 @@ using RunningClub.Models;
 namespace RunningClub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250207060816_rights changes")]
+    partial class rightschanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -472,7 +475,7 @@ namespace RunningClub.Migrations
                         .IsRequired();
 
                     b.HasOne("RunningClub.Models.Club", "Club")
-                        .WithMany("Races")
+                        .WithMany()
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -524,8 +527,6 @@ namespace RunningClub.Migrations
             modelBuilder.Entity("RunningClub.Models.Club", b =>
                 {
                     b.Navigation("Members");
-
-                    b.Navigation("Races");
                 });
 
             modelBuilder.Entity("RunningClub.Models.Race", b =>

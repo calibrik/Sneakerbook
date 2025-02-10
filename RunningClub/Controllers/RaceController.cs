@@ -32,9 +32,18 @@ public class RaceController: Controller
             Members = await _raceRepo.GetUsersInRaceAsyncRO(id),
         };
         if (User.Identity.IsAuthenticated)
-            model.IsJoined = await _raceRepo.IsUserMemberInRace(User.GetUserId(), id);
+        {
+            model.IsAdmin=await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(),id);
+            if (model.IsAdmin)
+                model.IsJoined = true;
+            else
+                model.IsJoined = await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), id);
+        }
         else
+        {
             model.IsJoined = false;
+            model.IsAdmin = false;
+        }
         return View(model);
     }
     public async Task<IActionResult> Index()
@@ -117,7 +126,7 @@ public class RaceController: Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        if (!await _raceRepo.IsUserAdminInRace(User.GetUserId(), id)&&!User.IsInRole("Admin"))
+        if (!await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(), id)&&!User.IsInRole("Admin"))
             return RedirectToAction("Detail", new { id = id });
         Race? club = await _raceRepo.GetRaceByIdAsyncRO(id);
         if (club==null)
@@ -133,35 +142,14 @@ public class RaceController: Controller
         return View(editClubModel);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Join(int id)
-    {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        Race? race = await _raceRepo.GetRaceByIdAsyncRO(id);
-        if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), race.ClubId))
-            return RedirectToAction("Detail", "Club", new { id = race.ClubId });
-        if (await _raceRepo.IsUserMemberInRace(User.GetUserId(), id))
-            return RedirectToAction("Detail", new { id = id });
-        await _raceRepo.AddUserToRaceAsync(User.GetUserId(), id);
-        return RedirectToAction("Detail", new { id = id });
-    }
-    [HttpPost]
-    public async Task<IActionResult> Leave(int id)
-    {
-        if (!User.Identity.IsAuthenticated)
-            return RedirectToAction("Login", "Account");
-        if (!await _raceRepo.IsUserMemberInRace(User.GetUserId(), id))
-            return RedirectToAction("Detail", new { id = id });
-        await _raceRepo.RemoveUserFromRaceAsync(User.GetUserId(), id);
-        return RedirectToAction("Detail", new { id = id });
-    }
+    
+    
     [HttpPost]
     public async Task<IActionResult> Edit(EditRaceViewModel editRaceModel)
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        if (!await _raceRepo.IsUserAdminInRace(User.GetUserId(), editRaceModel.Id)&&!User.IsInRole("Admin"))
+        if (!await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(), editRaceModel.Id)&&!User.IsInRole("Admin"))
             return RedirectToAction("Detail", new { id = editRaceModel.Id });
         if (!ModelState.IsValid)
             return View("Edit",editRaceModel);

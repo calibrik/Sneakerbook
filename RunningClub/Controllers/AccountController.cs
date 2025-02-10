@@ -44,7 +44,7 @@ public class AccountController:Controller
         }
         SignInResult result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.RememberMe, false);
         if (result.Succeeded)
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "Dashboard",new {userId = user.Id});
         ModelState.AddModelError("LoginAttempt", "Unknown error occured.");
         return View(loginViewModel);
     }

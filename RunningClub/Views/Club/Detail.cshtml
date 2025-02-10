@@ -10,7 +10,7 @@
         </a>
     </div>
     
-    <div class="container mt-3 d-flex justify-content-end  col-md-6">
+    <div class="container mt-3 d-flex justify-content-end  col-md-6" id="editButtonDiv">
         @if (User.Identity.IsAuthenticated && (User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
         {
             <a asp-action="Edit" asp-controller="Club" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
@@ -29,135 +29,136 @@
         </div>
 </div>
 
-<div class="container my-5">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <!-- Club Detail Section -->
-                @{
-                    <div class="col-md-6">
-                        <!-- Club Image -->
-                        <div class="d-flex justify-content-center">
-                            <div id="spinner" class="spinner-border m-5" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                        <img id="image" style="display: none" src=@Url.Content(Model.Image) class="img-fluid rounded-1" alt="Club Image" onload="onImageLoad()">
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Club Information -->
-                        <h1 class="display-4">@Model.Title</h1>
-                        <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
-                        <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
-                        <p class="card-text"><strong>Description: </strong>@Model.Description</p>
-                        <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="text-decoration-none">@Model.Admin.UserName</a></p>
-                        <p class="card-text"><strong>Number of Participants: </strong> 0</p>
 
-                        <!-- Button or any additional info -->
-                        @if (!Model.IsJoined)
-                        {
-                            <a id="joinButton" onclick="joinClub('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
-                        }
-                        else if (Model.IsAdmin)
-                        {
-                            <a id="deleteButton" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Club</a>
-                        }
-                        else
-                        {
-                            <a id="leaveButton" onclick="leaveCLub('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
-                        }
+<div class="card" id="card">
+    <div class="card-body">
+        <div class="row">
+            <!-- Club Detail Section -->
+            @{
+                <div class="col-md-6">
+                    <!-- Club Image -->
+                    <div class="d-flex justify-content-center">
+                        <div id="spinner" class="spinner-border m-5" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
-                }
-            </div>
+                    <img id="image" style="display: none" src=@Url.Content(Model.Image) class="img-fluid rounded-1" alt="Club Image" onload="onImageLoad()">
+                </div>
+                <div class="col-md-6">
+                    <!-- Club Information -->
+                    <h1 class="display-4">@Model.Title</h1>
+                    <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
+                    <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
+                    <p class="card-text"><strong>Description: </strong>@Model.Description</p>
+                    <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
+                    <p class="card-text"><strong>Number of Participants: </strong> 0</p>
+
+                    <!-- Button or any additional info -->
+                    @if (!Model.IsJoined)
+                    {
+                        <a id="joinButton" onclick="joinClub('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
+                    }
+                    else if (Model.IsAdmin)
+                    {
+                        <a id="deleteButton" onclick="deleteClub('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Club</a>
+                    }
+                    else
+                    {
+                        <a id="leaveButton" onclick="leaveCLub('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>
-@if (User.Identity.IsAuthenticated&&(User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
-{
-    <div class="container ms-auto mt-3 d-flex justify-content-end">
-        <a asp-action="Create" asp-controller="Race" asp-route-clubId="@Model.Id" class="btn btn-primary">
-            + Create Race
-        </a>
-    </div>
-}
-<div class="mt-3 row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="text-center mb-3">Members</h3>
-                <ul class="list-group">
-                    @if (Model.Members.Count == 0)
-                    {
-                        <p class="text-muted text-center">No members joined this club yet.</p>
-                    }
-                    @foreach (AppUser user in Model.Members)
-                    {
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6 d-flex align-content-center">
-                                    <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="text-decoration-none">
-                                        @user.UserName
-                                    </a>
+<div id="removeOnDeleteDiv">
+    @if (User.Identity.IsAuthenticated&&(User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
+    {
+        <div class="container ms-auto mt-3 d-flex justify-content-end">
+            <a asp-action="Create" asp-controller="Race" asp-route-clubId="@Model.Id" class="btn btn-primary">
+                + Create Race
+            </a>
+        </div>
+    }
+    <div class="mt-3 row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center mb-3">Members</h3>
+                    <ul class="list-group">
+                        @if (Model.Members.Count == 0)
+                        {
+                            <p class="text-muted text-center">No members joined this club yet.</p>
+                        }
+                        @foreach (AppUser user in Model.Members)
+                        {
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6 d-flex align-content-center">
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="link-primary">
+                                            @user.UserName
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 d-flex align-content-center justify-content-end">
+                                        @if (user.Id == Model.Admin.Id)
+                                        {
+                                            <p><strong class="text-danger">Admin</strong></p>
+                                        }
+                                        else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
+                                        {
+                                            <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickClubMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
+                                        }
+                                    </div>
                                 </div>
-                                <div class="col-md-6 d-flex align-content-center justify-content-end">
-                                @if (user.Id == Model.Admin.Id)
-                                {
-                                    <p><strong class="text-danger">Admin</strong></p>
-                                }
-                                else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
-                                {
-                                    <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
-                                }
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="text-center mb-3">Races</h3>
-                <div class="vertical-scroller" style="max-height: 30vh">
-                    @if (Model.Races.Count == 0)
-                    {
-                        <p class="text-muted text-center">No races were created for this club.</p>
-                    }
-                    @foreach (Race race in Model.Races)
-                    {
-                        <div class="card mb-4 d-flex flex-column" style="height: 15%;">
-                            <div class="row g-0 h-100">
-                                <div class="col-md-4 d-flex">
-                                    <div class="d-flex justify-content-center">
-                                        <div id="spinner @race.Id" class="spinner-border m-5" role="status">
-                                            <span class="visually-hidden">Loading...</span>
-                                        </div>
-                                        <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Image @race.Id" onload="onImageLoadById(@race.Id)">
-                                    </div>
-                                </div>
-                                <div class="col-md-8 d-flex">
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">@race.Title</h5>
-                                        <h6 class="text-muted">@race.Category</h6>
-                                        <p class="card-text">@race.Description</p>
-                                        <div class="mt-auto d-flex flex-column">
-                                            @if (Model.JoinedRaces.Contains(race.Id))
-                                            {
-                                                <p class="text-warning">Joined</p>
-                                            }
-                                            <small class="text-muted">Created 5min ago</small>
-                                            <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center mb-3">Races</h3>
+                    <div class="vertical-scroller" style="max-height: 30vh">
+                        @if (Model.Races.Count == 0)
+                        {
+                            <p class="text-muted text-center">No races were created for this club.</p>
+                        }
+                        @foreach (Race race in Model.Races)
+                        {
+                            <div class="card mb-4 d-flex flex-column" style="height: 15%;">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 d-flex">
+                                        <div class="d-flex justify-content-center">
+                                            <div id="spinner @race.Id" class="spinner-border m-5" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Image @race.Id" onload="onImageLoadById(@race.Id)">
                                         </div>
                                     </div>
-                                    <div class="card-footer d-flex justify-content-center align-items-center">
-                                        <small class="text-muted">Participants 1/10</small>
+                                    <div class="col-md-8 d-flex">
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title">@race.Title</h5>
+                                            <h6 class="text-muted">@race.Category</h6>
+                                            <p class="card-text">@race.Description</p>
+                                            <div class="mt-auto d-flex flex-column">
+                                                @if (Model.JoinedRaces.Contains(race.Id))
+                                                {
+                                                    <p class="text-warning">Joined</p>
+                                                }
+                                                <small class="text-muted">Created 5min ago</small>
+                                                <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-center align-items-center">
+                                            <small class="text-muted">Participants 1/10</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
