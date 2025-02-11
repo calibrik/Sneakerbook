@@ -5,15 +5,15 @@
 }
 <div class="row">
     <div class="container mt-3 col-md-6">
-        <a onclick="window.location.href = document.referrer + '?reload=1';" class="btn btn-secondary">
+        <a onclick="goBack()" class="btn btn-secondary">
             ← Back
         </a>
     </div>
     
-    <div class="container mt-3 d-flex justify-content-end  col-md-6" id="editButtonDiv">
+    <div class="container mt-3 d-flex justify-content-end  col-md-6">
         @if (User.Identity.IsAuthenticated && (User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
         {
-            <a asp-action="Edit" asp-controller="Club" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
+            <a asp-action="Edit" asp-controller="Club" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary" id="editButton">
                 Edit
             </a>
         }
@@ -28,9 +28,17 @@
             <span id="errorMessage">An error occurred!</span>
         </div>
 </div>
+<div id="successToast" class="toast align-items-center text-white bg-success border-0 position-fixed top-10 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg-success">
+        <span><strong class="text-white">SUCCESS</strong></span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        <span id="successMessage"></span>
+    </div>
+</div>
 
-
-<div class="card" id="card">
+<div class="card p-3 mt-3" id="card">
     <div class="card-body">
         <div class="row">
             <!-- Club Detail Section -->
@@ -44,7 +52,7 @@
                     </div>
                     <img id="image" style="display: none" src=@Url.Content(Model.Image) class="img-fluid rounded-1" alt="Club Image" onload="onImageLoad()">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" id="infoDiv">
                     <!-- Club Information -->
                     <h1 class="display-4">@Model.Title</h1>
                     <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
@@ -64,7 +72,7 @@
                     }
                     else
                     {
-                        <a id="leaveButton" onclick="leaveCLub('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
+                        <a id="leaveButton" onclick="leaveClub('@Model.Id','@User.GetUserId()')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
                     }
                 </div>
             }
@@ -85,14 +93,14 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="text-center mb-3">Members</h3>
-                    <ul class="list-group">
+                    <ul class="list-group" id="memberList">
                         @if (Model.Members.Count == 0)
                         {
                             <p class="text-muted text-center">No members joined this club yet.</p>
                         }
                         @foreach (AppUser user in Model.Members)
                         {
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="member@(user.Id)">
                                 <div class="row">
                                     <div class="col-md-6 d-flex align-content-center">
                                         <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="link-primary">
@@ -119,7 +127,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="text-center mb-3">Races</h3>
+                    <h3 class="text-center mb-3">Upcoming Races</h3>
                     <div class="vertical-scroller" style="max-height: 30vh">
                         @if (Model.Races.Count == 0)
                         {
@@ -145,7 +153,7 @@
                                             <div class="mt-auto d-flex flex-column">
                                                 @if (Model.JoinedRaces.Contains(race.Id))
                                                 {
-                                                    <p class="text-warning">Joined</p>
+                                                    <p class="text-warning joined-race">Joined</p>
                                                 }
                                                 <small class="text-muted">Created 5min ago</small>
                                                 <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>

@@ -1,0 +1,40 @@
+﻿@model RunningClub.ViewModels.EditProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container mt-3">
+    <a onclick="goBack()" class="btn btn-secondary">
+        ← Back
+    </a>
+</div>
+<div class="container d-flex justify-content-center align-items-center" style="height: 75vh">
+    <div class="card rounded-3 shadow-lg p-4"  style="width: 100%; max-width: 400px;">
+        <form class="row g-3" asp-action="Edit" asp-controller="Dashboard" novalidate>
+            <div class="form-floating col-md-6 mb-3">
+                <input class="form-control" asp-for="FName">
+                <label asp-for="FName"></label>
+                <span class="text-danger" asp-validation-for="FName"></span>
+            </div>
+            <div class="form-floating col-md-6 mb-3">
+                <input class="form-control" asp-for="LName">
+                <label asp-for="LName"></label>
+                <span class="text-danger" asp-validation-for="LName"></span>
+            </div>
+            <div class="form-floating col-md-12 mb-3">
+                <input class="form-control" asp-for="UserName">
+                <label asp-for="UserName"></label>
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+            <div class="form-floating col-md-12 mb-3">
+                <input class="form-control" asp-for="Email">
+                <label asp-for="Email"></label>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>

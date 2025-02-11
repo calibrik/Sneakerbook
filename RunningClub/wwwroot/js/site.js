@@ -1,4 +1,5 @@
-﻿function onImageLoad()
+﻿
+function onImageLoad()
 {
     document.getElementById("image").style.display = "block";
     document.getElementById("spinner").style.display = "none";
@@ -35,11 +36,10 @@ async function performPostFromButton(action, controller, body, buttonId)
             button.innerHTML=origText;
             if (!response.ok) {
                 showError(data.message);
-                // setTimeout(() => { location.reload(); }, 3000);
             }
-            // else {
-            //     location.reload();
-            // }
+            else {
+                showSuccess(data.message);
+            }
         return {response,data};
         }
     catch(error) {
@@ -53,43 +53,148 @@ function deleteClub(clubId)
             if (!response.ok) {
                 return;
             }
-            document.getElementById("editButtonDiv").innerHTML=``;
-            document.getElementById("removeOnDeleteDiv").innerHTML=``;
-            document.getElementById("card").innerHTML=`<span class="text-center text-success"><strong>${data.message}</strong></span>`;
-        })
+            document.getElementById("editButton").remove();
+            document.getElementById("removeOnDeleteDiv").remove();
+            document.getElementById("card").innerHTML=`<span class="text-center text-danger"><strong>Club is removed.</strong></span>`;
+        });
 }
 function kickRaceMember(userId, raceId)
 {
     performPostFromButton("KickMember","RaceApi",JSON.stringify({
         userId: userId,
         raceId: raceId
-    }),`kickButton${userId}`);
+    }),`kickButton${userId}`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById(`member${userId}`).remove();
+        });
 }
-function leaveRace(id)
+function leaveRace(raceId,userId)
 {
-    performPostFromButton("Leave","RaceApi",JSON.stringify(id),`leaveButton`);
+    performPostFromButton("Leave","RaceApi",JSON.stringify(raceId),`leaveButton`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById(`member${userId}`).remove();
+            document.getElementById(`leaveButton`).remove();
+            document.getElementById(`infoDiv`).innerHTML+=`<a id="joinButton" onclick="joinRace('${raceId}')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>`
+            let joinedRaceLabels=Array.from(document.getElementsByClassName("joined-race"));
+            joinedRaceLabels.forEach((label)=>{
+                label.remove();
+            })
+        });
 }
-function joinRace(id)
+function joinRace(raceId)
 {
-    performPostFromButton("Join","RaceApi",JSON.stringify(id),`joinButton`);
+    performPostFromButton("Join","RaceApi",JSON.stringify(raceId),`joinButton`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById(`joinButton`).remove();
+            document.getElementById(`infoDiv`).innerHTML+=`<a id="leaveButton" onclick="leaveRace('${raceId}','${data.model.id}')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>`
+            document.getElementById(`memberList`).innerHTML+=`
+<li class="list-group-item" id="member${data.model.id}">
+    <div class="row">
+        <div class="col-md-6 d-flex align-content-center">
+            <a href="${data.model.linkToDashboard}" class="link-primary">
+                ${data.model.userName}
+            </a>
+        </div>
+        <div class="col-md-6 d-flex align-content-center justify-content-end">
+            
+        </div>
+    </div>
+</li>`;
+        });
+        
 }
 function kickClubMember(userId, clubId)
 {
     performPostFromButton("KickMember","ClubApi",JSON.stringify({
         userId: userId,
         clubId: clubId
-    }),`kickButton${userId}`);
+    }),`kickButton${userId}`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById(`member${userId}`).remove();
+        });
 }
 function showError(message) {
     document.getElementById("errorMessage").innerText = message;
     let toast = new bootstrap.Toast(document.getElementById("errorToast"));
     toast.show();
 }
-function leaveCLub(id)
-{
-    performPostFromButton("Leave","ClubApi",JSON.stringify(id),`leaveButton`);
+function showSuccess(message) {
+    document.getElementById("successMessage").innerText = message;
+    let toast = new bootstrap.Toast(document.getElementById("successToast"));
+    toast.show();
 }
-function joinClub(id)
+function leaveClub(clubId, userId)
 {
-    performPostFromButton("Join","ClubApi",JSON.stringify(id),`joinButton`);
+    performPostFromButton("Leave","ClubApi",JSON.stringify(clubId),`leaveButton`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById(`member${userId}`).remove();
+            document.getElementById(`leaveButton`).remove();
+            document.getElementById(`infoDiv`).innerHTML+=`<a id="joinButton" onclick="joinClub('${clubId}')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>`
+            let joinedRaceLabels=Array.from(document.getElementsByClassName("joined-race"));
+            joinedRaceLabels.forEach((label)=>{
+                label.remove();
+            })
+        });
+}
+function joinClub(clubId)
+{
+    performPostFromButton("Join","ClubApi",JSON.stringify(clubId),`joinButton`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById(`joinButton`).remove();
+            document.getElementById(`infoDiv`).innerHTML+=`<a id="leaveButton" onclick="leaveClub('${clubId}','${data.model.id}')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>`
+            document.getElementById(`memberList`).innerHTML+=`
+<li class="list-group-item" id="member${data.model.id}">
+    <div class="row">
+        <div class="col-md-6 d-flex align-content-center">
+            <a href="${data.model.linkToDashboard}" class="link-primary">
+                ${data.model.userName}
+            </a>
+        </div>
+        <div class="col-md-6 d-flex align-content-center justify-content-end">
+            
+        </div>
+    </div>
+</li>`;
+    });
+}
+function deleteRace(raceId)
+{
+    performPostFromButton("Delete","RaceApi",JSON.stringify(raceId),`deleteButton`)
+        .then(({response,data})=>{
+            if (!response.ok) {
+                return;
+            }
+            document.getElementById("editButton").remove();
+            document.getElementById("removeOnDeleteDiv").remove()
+            document.getElementById("card").innerHTML=`<span class="text-center text-danger"><strong>Race is removed.</strong></span>`;
+        })
+}
+function goBack()
+{
+    if (history.length > 1) {
+        history.back();
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    } else {
+        location.reload();
+    }
 }

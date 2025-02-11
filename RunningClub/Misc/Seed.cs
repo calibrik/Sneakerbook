@@ -78,7 +78,7 @@ public class Seed
                 {
                     Title = $"Club {i}",
                     Description = $"Cool club {i}",
-                    Image = "/uploads/club/defaultImage.jpg",
+                    Image = "/uploads/defaultImage.jpg",
                     Address = new Address()
                     {
                         City = "Sydney",
@@ -112,7 +112,7 @@ public class Seed
                 {
                     Title = $"Race {i}",
                     Description = $"Cool race {i}",
-                    Image = "/uploads/race/defaultImage.jpg",
+                    Image = "/uploads/defaultImage.jpg",
                     Address = new Address()
                     {
                         City = "Sydney",

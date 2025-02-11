@@ -17,4 +17,10 @@
       <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\uploads\club\" />
+      <Folder Include="wwwroot\uploads\profile\" />
+      <Folder Include="wwwroot\uploads\race\" />
+    </ItemGroup>
+
 </Project>

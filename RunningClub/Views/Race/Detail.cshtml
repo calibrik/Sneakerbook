@@ -5,7 +5,7 @@
 }
 <div class="row">
     <div class="container mt-3 col-md-6">
-        <a asp-action="Index" class="btn btn-secondary">
+        <a onclick="goBack()" class="btn btn-secondary">
             ← Back
         </a>
     </div>
@@ -13,7 +13,7 @@
     <div class="container mt-3 d-flex justify-content-end  col-md-6">
         @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
         {
-            <a asp-action="Edit" asp-controller="Race" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary">
+            <a asp-action="Edit" asp-controller="Race" asp-route-id="@Model.Id" style="width: 15%" class="btn btn-primary" id="editButton">
                 Edit
             </a>
         }
@@ -29,84 +29,94 @@
         <span id="errorMessage">An error occurred!</span>
     </div>
 </div>
+<div id="successToast" class="toast align-items-center text-white bg-success border-0 position-fixed top-10 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg-success">
+        <span><strong class="text-white">SUCCESS</strong></span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        <span id="successMessage"></span>
+    </div>
+</div>
 
-<div class="container my-5">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <!-- Club Detail Section -->
-                @{
-                    <div class="col-md-6">
-                        <!-- Club Image -->
-                        <div class="d-flex justify-content-center">
-                            <div id="spinner" class="spinner-border m-5" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
+
+<div class="card p-3 mt-3" id="card">
+    <div class="card-body">
+        <div class="row">
+            <!-- Club Detail Section -->
+            @{
+                <div class="col-md-6">
+                    <!-- Club Image -->
+                    <div class="d-flex justify-content-center">
+                        <div id="spinner" class="spinner-border m-5" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                        <img id="image" style="display: none" src=@Model.Image class="img-fluid" alt="Club Image" onload="onImageLoad()">
                     </div>
-                    <div class="col-md-6">
-                        <!-- Club Information -->
-                        <h1 class="display-4">@Model.Title</h1>
-                        <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
-                        <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
-                        <p class="card-text"><strong>Description: </strong>@Model.Description</p>
-                        <p class="card-text"><strong>Number of Participants: </strong>0/@Model.MaxMembersNumber</p>
-                        <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
-                        <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-id="@Model.Club.Id" class="link-primary">@Model.Club.Title</a></p>
+                    <img id="image" style="display: none" src=@Model.Image class="img-fluid" alt="Club Image" onload="onImageLoad()">
+                </div>
+                <div class="col-md-6" id="infoDiv">
+                    <!-- Club Information -->
+                    <h1 class="display-4">@Model.Title</h1>
+                    <h4 class="text-muted">Category: <span class="badge bg-primary">@Model.Category</span></h4>
+                    <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
+                    <p class="card-text"><strong>Description: </strong>@Model.Description</p>
+                    <p class="card-text"><strong>Number of Participants: </strong>0/@Model.MaxMembersNumber</p>
+                    <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
+                    <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-id="@Model.Club.Id" class="link-primary">@Model.Club.Title</a></p>
 
-                        <!-- Button or any additional info -->
-                        @if (!Model.IsJoined)
-                        {
-                            <a id="joinButton" onclick="joinRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
-                        }
-                        else if (Model.IsAdmin)
-                        {
-                            <a id="deleteButton" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Race</a>
-                        }
-                        else
-                        {
-                            <a id="leaveButton" onclick="leaveRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
-                        }
-                    </div>
-                }
-            </div>
+                    <!-- Button or any additional info -->
+                    @if (!Model.IsJoined)
+                    {
+                        <a id="joinButton" onclick="joinRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
+                    }
+                    else if (Model.IsAdmin)
+                    {
+                        <a id="deleteButton" onclick="deleteRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Race</a>
+                    }
+                    else
+                    {
+                        <a id="leaveButton" onclick="leaveRace('@Model.Id','@User.GetUserId()')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>
-<div class="mt-3 row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="text-center mb-3">Members</h3>
-                <ul class="list-group">
-                    @if (Model.Members.Count == 0)
-                    {
-                        <p class="text-muted text-center">No members joined this club yet.</p>
-                    }
-                    @foreach (AppUser user in Model.Members)
-                    {
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6 d-flex align-content-center">
-                                    <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="link-primary">
-                                        @user.UserName
-                                    </a>
+<div id="removeOnDeleteDiv">
+    <div class="mt-3 row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center mb-3">Members</h3>
+                    <ul class="list-group" id="memberList">
+                        @if (Model.Members.Count == 0)
+                        {
+                            <p class="text-muted text-center">No members joined this club yet.</p>
+                        }
+                        @foreach (AppUser user in Model.Members)
+                        {
+                            <li class="list-group-item" id="member@(user.Id)">
+                                <div class="row">
+                                    <div class="col-md-6 d-flex align-content-center">
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@user.Id" class="link-primary">
+                                            @user.UserName
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 d-flex align-content-center justify-content-end">
+                                        @if (user.Id == Model.Admin.Id)
+                                        {
+                                            <p><strong class="text-danger">Admin</strong></p>
+                                        }
+                                        else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
+                                        {
+                                            <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickRaceMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
+                                        }
+                                    </div>
                                 </div>
-                                <div class="col-md-6 d-flex align-content-center justify-content-end">
-                                    @if (user.Id == Model.Admin.Id)
-                                    {
-                                        <p><strong class="text-danger">Admin</strong></p>
-                                    }
-                                    else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
-                                    {
-                                        <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickRaceMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
-                                    }
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

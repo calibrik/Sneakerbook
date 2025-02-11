@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RunningClub.Misc;
 using RunningClub.Models;
@@ -13,17 +14,19 @@ public class ClubApiController : ControllerBase
 {
     private readonly ClubRepository _clubRepo;
     private readonly RaceRepository _raceRepo;
+    private readonly UserManager<AppUser> _userManager;
 
-    public ClubApiController(ClubRepository clubRepo, RaceRepository raceRepo)
+    public ClubApiController(ClubRepository clubRepo, RaceRepository raceRepo, UserManager<AppUser> userManager)
     {
         _clubRepo = clubRepo;
         _raceRepo = raceRepo;
+        _userManager = userManager;
     }
     
     [HttpPost("")]
     public async Task<IActionResult> Delete([FromBody] int clubId)
     {
-        if (!User.Identity.IsAuthenticated || !await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId) ||
+        if (!User.Identity.IsAuthenticated || !await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId) &&
             !User.IsInRole("Admin"))
             return Unauthorized(new { message = "You do not have permission for this action" });
         Club? club = await _clubRepo.GetClubByIdAsync(clubId);
@@ -44,7 +47,8 @@ public class ClubApiController : ControllerBase
         if (!await _clubRepo.IsUserMemberInClubAsync(model.UserId, model.ClubId))
             return NotFound(new { message = "User is not found in this club" });
         await _clubRepo.RemoveUserFromClubAsync(model.UserId, model.ClubId);
-        return Ok(new { message = "User successfully kicked" });
+        AppUser? user = await _userManager.FindByIdAsync(model.UserId);
+        return Ok(new { message = $"{user.UserName} successfully kicked"});
     }
 
     [HttpPost("")]
@@ -57,7 +61,14 @@ public class ClubApiController : ControllerBase
         if (await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), clubId))
             return BadRequest(new { message = "You are already in this club" });
         await _clubRepo.AddUserToClubAsync(User.GetUserId(), clubId);
-        return Ok(new { message = "You successfully joined" });
+        AppUser? user = await _userManager.GetUserAsync(User);
+        JoinApiViewModel model = new JoinApiViewModel()
+        {
+            Id = User.GetUserId(),
+            UserName = user.UserName,
+            LinkToDashboard = Url.Action("Index", "Dashboard", new { userId = User.GetUserId() }),
+        };
+        return Ok(new { message = "You successfully joined",model });
     }
 
     [HttpPost("")]
