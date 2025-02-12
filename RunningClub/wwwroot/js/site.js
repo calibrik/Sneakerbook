@@ -69,6 +69,7 @@ function kickRaceMember(userId, raceId)
                 return;
             }
             document.getElementById(`member${userId}`).remove();
+            document.getElementById('membersCount').innerHTML=`${data.memberCount}`;
         });
 }
 function leaveRace(raceId,userId)
@@ -79,6 +80,7 @@ function leaveRace(raceId,userId)
                 return;
             }
             document.getElementById(`member${userId}`).remove();
+            document.getElementById('membersCount').innerHTML=`${data.memberCount}`;
             document.getElementById(`leaveButton`).remove();
             document.getElementById(`infoDiv`).innerHTML+=`<a id="joinButton" onclick="joinRace('${raceId}')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>`
             let joinedRaceLabels=Array.from(document.getElementsByClassName("joined-race"));
@@ -95,6 +97,7 @@ function joinRace(raceId)
                 return;
             }
             document.getElementById(`joinButton`).remove();
+            document.getElementById('membersCount').innerHTML=`${data.memberCount}`;
             document.getElementById(`infoDiv`).innerHTML+=`<a id="leaveButton" onclick="leaveRace('${raceId}','${data.model.id}')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>`
             document.getElementById(`memberList`).innerHTML+=`
 <li class="list-group-item" id="member${data.model.id}">
@@ -122,6 +125,7 @@ function kickClubMember(userId, clubId)
             if (!response.ok) {
                 return;
             }
+            document.getElementById('membersCount').innerHTML=`${data.memberCount} ${data.memberCount==1?"follower":"followers"}`;
             document.getElementById(`member${userId}`).remove();
         });
 }
@@ -143,6 +147,7 @@ function leaveClub(clubId, userId)
                 return;
             }
             document.getElementById(`member${userId}`).remove();
+            document.getElementById('membersCount').innerHTML=`${data.memberCount} ${data.memberCount==1?"follower":"followers"}`
             document.getElementById(`leaveButton`).remove();
             document.getElementById(`infoDiv`).innerHTML+=`<a id="joinButton" onclick="joinClub('${clubId}')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>`
             let joinedRaceLabels=Array.from(document.getElementsByClassName("joined-race"));
@@ -159,6 +164,7 @@ function joinClub(clubId)
                 return;
             }
             document.getElementById(`joinButton`).remove();
+            document.getElementById('membersCount').innerHTML=`${data.memberCount} ${data.memberCount==1?"follower":"followers"}`
             document.getElementById(`infoDiv`).innerHTML+=`<a id="leaveButton" onclick="leaveClub('${clubId}','${data.model.id}')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Leave</a>`
             document.getElementById(`memberList`).innerHTML+=`
 <li class="list-group-item" id="member${data.model.id}">
@@ -187,14 +193,13 @@ function deleteRace(raceId)
             document.getElementById("card").innerHTML=`<span class="text-center text-danger"><strong>Race is removed.</strong></span>`;
         })
 }
-function goBack()
+async function goBack()
 {
-    if (history.length > 1) {
-        history.back();
-        setTimeout(() => {
-            location.reload();
-        }, 100);
-    } else {
+    console.log("go back history")
+    await history.back();
+    // location.reload();
+    setTimeout(() => {
+        console.log("reload")
         location.reload();
-    }
+    }, 100);
 }

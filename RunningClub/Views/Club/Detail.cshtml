@@ -1,4 +1,5 @@
 ﻿@using RunningClub.Misc
+@using RunningClub.ViewModels
 @model RunningClub.ViewModels.DetailClubViewModel
 @{
     ViewData["Title"] = Model.Title;
@@ -59,7 +60,7 @@
                     <p class="card-text"><strong>Address: </strong> @Model.Address.Country, @Model.Address.City, @Model.Address.Street </p>
                     <p class="card-text"><strong>Description: </strong>@Model.Description</p>
                     <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
-                    <p class="card-text"><strong>Number of Participants: </strong> 0</p>
+                    <p id="membersCount" class="text-muted">@Model.Members.Count @(Model.Members.Count==1?"follower":"followers")</p>
 
                     <!-- Button or any additional info -->
                     @if (!Model.IsJoined)
@@ -127,13 +128,17 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="text-center mb-3">Upcoming Races</h3>
+                    <div class="mt-auto d-flex justify-content-between align-items-center position-relative">
+                        <p class="text-muted">@Model.Races.Count @(Model.Races.Count == 1 ? "race" : "races")</p>
+                        <h3 class="text-center position-absolute start-50 translate-middle-x">Upcoming Races</h3>
+                        <div></div>
+                    </div>
                     <div class="vertical-scroller" style="max-height: 30vh">
                         @if (Model.Races.Count == 0)
                         {
                             <p class="text-muted text-center">No races were created for this club.</p>
                         }
-                        @foreach (Race race in Model.Races)
+                        @foreach (DetailClubViewModel.DetailClubRaceModel race in Model.Races)
                         {
                             <div class="card mb-4 d-flex flex-column" style="height: 15%;">
                                 <div class="row g-0 h-100">
@@ -155,12 +160,12 @@
                                                 {
                                                     <p class="text-warning joined-race">Joined</p>
                                                 }
-                                                <small class="text-muted">Created 5min ago</small>
-                                                <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
+                                                <small class="text-muted">Date placeholder</small>
+                                                <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-raceId=@race.Id>View</a>
                                             </div>
                                         </div>
                                         <div class="card-footer d-flex justify-content-center align-items-center">
-                                            <small class="text-muted">Participants 1/10</small>
+                                            <small class="text-muted">Participants @race.MemberCount/@race.MaxMemberCount</small>
                                         </div>
                                     </div>
                                 </div>

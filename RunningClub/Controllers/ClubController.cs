@@ -21,10 +21,15 @@ public class ClubController:Controller
     }
     public async Task<IActionResult> Index()
     {
-        IndexClubViewModel model = new IndexClubViewModel()
+        IndexClubViewModel model = new IndexClubViewModel();
+        List<Club> clubs = await _clubRepo.GetClubsAsyncRO();
+        foreach (Club club in clubs)
         {
-            Clubs = await _clubRepo.GetClubsAsyncRO(),
-        };
+            model.Clubs.Add(new IndexClubViewModel.IndexClubModel(club)
+            {
+                MemberCount = await _clubRepo.GetClubMemberCountAsyncRO(club.Id)
+            });
+        }
         if (User.Identity.IsAuthenticated)
             model.JoinedClubs = await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
         return View(model);
@@ -35,24 +40,31 @@ public class ClubController:Controller
             return RedirectToAction("Login", "Account");
         return View();
     }
-    public async Task<IActionResult> Detail(int id)
+    public async Task<IActionResult> Detail(int clubId)
     {
-        Club? club = await _clubRepo.GetClubByIdAsyncRO(id);
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(clubId);
         if (club==null)
             return RedirectToAction("Index");
         DetailClubViewModel model = new DetailClubViewModel(club)
         {
-            Races = await _clubRepo.GetClubRacesAsyncRO(id),
-            Members = await _clubRepo.GetUsersInClubAsyncRO(id),
+            Members = await _clubRepo.GetUsersInClubAsyncRO(clubId),
         };
+        List<Race> races = await _clubRepo.GetClubRacesAsyncRO(clubId);
+        foreach (Race race in races)
+        {
+            model.Races.Add(new DetailClubViewModel.DetailClubRaceModel(race)
+            {
+                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id)
+            });
+        }
         if (User.Identity.IsAuthenticated)
         {
             model.JoinedRaces=await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId());
-            model.IsAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id);
+            model.IsAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),clubId);
             if (model.IsAdmin)
                 model.IsJoined = true;
             else
-                model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), id);
+                model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), clubId);
         }
         else
         {
@@ -102,20 +114,20 @@ public class ClubController:Controller
             Image = path,
             Address = createClubModel.Address,
             Category = createClubModel.Category,
-            AdminId = User.GetUserId()
+            AdminId = User.GetUserId(),
         };
         await _clubRepo.AddClub(club);
         await _clubRepo.AddUserToClubAsync(User.GetUserId(),club.Id);
-        return RedirectToAction("Index");
+        return RedirectToAction("Detail",new {clubId=club.Id});
     }
 
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int clubId)
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        if (!User.IsInRole(UserRoles.Admin)&&!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),id))
+        if (!User.IsInRole(UserRoles.Admin)&&!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),clubId))
             return RedirectToAction("Index", "Home");
-        Club? club = await _clubRepo.GetClubByIdAsyncRO(id);
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(clubId);
         if (club==null)
             return View("Error");
         EditClubViewModel editClubModel = new EditClubViewModel
@@ -159,6 +171,6 @@ public class ClubController:Controller
         club.Address.Street = editClubModel.Address.Street;
         club.Category = editClubModel.Category;
         await _clubRepo.Save();
-        return RedirectToAction("Detail",new {id=club.Id});
+        return RedirectToAction("Detail",new {clubId=club.Id});
     }
 }

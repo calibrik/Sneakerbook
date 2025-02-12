@@ -14,29 +14,29 @@
         <input asp-for="ClubId" hidden/>
         <div class="col-md-12 form-floating mb-3">
             <input type="text" class="form-control" asp-for="@Model.Title" placeholder=""/>
-            <label for="floatingInput">Title</label>
+            <label asp-for="Title">Title</label>
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="col-md-12 form-floating mb-3">
             <textarea class="form-control" asp-for="@Model.Description" placeholder="" style="height: 150px"></textarea>
-            <label for="floatingInput">Description</label>
+            <label asp-for="Description">Description</label>
         </div>
         <div class="col-md-3 form-floating mb-3">
             <input type="text" class="form-control" asp-for="@Model.Address.Country" placeholder=""/>
-            <label for="floatingInput">Country</label>
+            <label asp-for="Address.Country">Country</label>
             <span asp-validation-for="Address.Country" class="text-danger"></span>
         </div>
         <div class="col-md-3 form-floating mb-3">
             <input type="text" class="form-control" asp-for="@Model.Address.City" placeholder=""/>
-            <label for="floatingInput">City</label>
+            <label asp-for="Address.City">City</label>
             <span asp-validation-for="Address.City" class="text-danger"></span>
         </div>
         <div class="col-md-6 form-floating mb-3">
             <input type="text" class="form-control" asp-for="@Model.Address.Street" placeholder=""/>
-            <label for="floatingInput">Street</label>
+            <label asp-for="Address.Street">Street</label>
             <span asp-validation-for="Address.Street" class="text-danger"></span>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 form-floating mb-3">
             <select class="form-select" asp-for="@Model.Category" aria-label="Default select example">
                 <option selected disabled value="">Choose the category</option>
                 @{
@@ -46,9 +46,15 @@
                     }
                 }
             </select>
+            <label asp-for="Category"></label>
             <span asp-validation-for="Category" class="text-danger"></span>
         </div>
-        <div class="col-md-9 mb-3">
+        <div class="col-md-2 form-floating mb-3">
+            <input type="number" class="form-control" asp-for="MaxMembersNumber"/>
+            <label asp-for="MaxMembersNumber"></label>
+            <span asp-validation-for="MaxMembersNumber" class="text-danger"></span>
+        </div>
+        <div class="col-md-7 mb-3">
             <input type="file" class="form-control" asp-for="@Model.Image"/>
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>

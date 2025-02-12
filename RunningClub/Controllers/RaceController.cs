@@ -22,22 +22,22 @@ public class RaceController: Controller
         _clubRepo = clubRepo;
     }
 
-    public async Task<IActionResult> Detail(int id)
+    public async Task<IActionResult> Detail(int raceId)
     {
-        Race? race = await _raceRepo.GetRaceByIdAsyncRO(id);
+        Race? race = await _raceRepo.GetRaceByIdAsyncRO(raceId);
         if (race == null)
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         DetailRaceViewModel model = new DetailRaceViewModel(race)
         {
-            Members = await _raceRepo.GetUsersInRaceAsyncRO(id),
+            Members = await _raceRepo.GetUsersInRaceAsyncRO(raceId),
         };
         if (User.Identity.IsAuthenticated)
         {
-            model.IsAdmin=await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(),id);
+            model.IsAdmin=await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(),raceId);
             if (model.IsAdmin)
                 model.IsJoined = true;
             else
-                model.IsJoined = await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), id);
+                model.IsJoined = await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), raceId);
         }
         else
         {
@@ -53,9 +53,16 @@ public class RaceController: Controller
         HashSet<int> userClubs=await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
         IndexRaceViewModel model = new IndexRaceViewModel()
         {
-            Races = await _clubRepo.GetClubsRacesAsyncRO(userClubs),
-            JoinedRaces = await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId())
+            JoinedRaces = await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId()),
         };
+        List<Race> races = await _clubRepo.GetClubsRacesAsyncRO(userClubs);
+        foreach (Race race in races)
+        {
+            model.Races.Add(new IndexRaceViewModel.IndexRaceModel(race)
+            {
+                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id)
+            });
+        }
         return View(model);
     }
     public async Task<IActionResult> Create(int clubId)
@@ -99,7 +106,7 @@ public class RaceController: Controller
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
         if (!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), createRaceModel.ClubId)&&!User.IsInRole("Admin"))
-            return RedirectToAction("Detail","Club", new { id = createRaceModel.ClubId });
+            return RedirectToAction("Detail","Club", new { clubId = createRaceModel.ClubId });
         if (!ModelState.IsValid) 
             return View(createRaceModel);
         string? path = await ProcessImageAdd(createRaceModel.Image);
@@ -114,21 +121,21 @@ public class RaceController: Controller
             Image = path,
             Address = createRaceModel.Address,
             Category = createRaceModel.Category,
-            MaxMembersNumber = 10,
+            MaxMembersNumber = createRaceModel.MaxMembersNumber,
             ClubId = createRaceModel.ClubId,
         };
         await _raceRepo.AddRace(race);
         await _raceRepo.AddUserToRaceAsync(User.GetUserId(), race.Id);
-        return RedirectToAction("Detail","Club", new { id = race.ClubId });
+        return RedirectToAction("Detail","Club", new { clubId = race.ClubId });
     }
     
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int raceId)
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        if (!await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(), id)&&!User.IsInRole("Admin"))
-            return RedirectToAction("Detail", new { id = id });
-        Race? club = await _raceRepo.GetRaceByIdAsyncRO(id);
+        if (!await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(), raceId)&&!User.IsInRole("Admin"))
+            return RedirectToAction("Detail", new { id = raceId });
+        Race? club = await _raceRepo.GetRaceByIdAsyncRO(raceId);
         if (club==null)
             return View("Error");
         EditRaceViewModel editClubModel = new EditRaceViewModel
@@ -137,7 +144,8 @@ public class RaceController: Controller
             Title = club.Title,
             Description = club.Description,
             Address = club.Address,
-            Category = club.Category
+            Category = club.Category,
+            MaxMembersNumber = club.MaxMembersNumber,
         };
         return View(editClubModel);
     }
@@ -156,6 +164,11 @@ public class RaceController: Controller
         Race? race = await _raceRepo.GetRaceByIdAsync(editRaceModel.Id);
         if (race==null)
             return View("Error");
+        if (await _raceRepo.GetRaceMemberCountAsyncRO(race.Id) > editRaceModel.MaxMembersNumber)
+        {
+            ModelState.AddModelError("MaxMembersNumber","Max Member Number can't be less than current member number.");
+            return View(editRaceModel);
+        }
         if (editRaceModel.IsImageChanged)
         {
             if (editRaceModel.Image == null)
@@ -175,7 +188,8 @@ public class RaceController: Controller
         race.Address.Country = editRaceModel.Address.Country;
         race.Address.Street = editRaceModel.Address.Street;
         race.Category = editRaceModel.Category;
+        race.MaxMembersNumber = editRaceModel.MaxMembersNumber;
         await _raceRepo.Save();
-        return RedirectToAction("Detail",new {id=race.Id});
+        return RedirectToAction("Detail",new {raceId=race.Id});
     }
 }

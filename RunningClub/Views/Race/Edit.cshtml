@@ -13,31 +13,31 @@
     <form class="row g-3 needs-validation" method="post" asp-controller="Race" asp-action="Edit" enctype="multipart/form-data">
         <input hidden asp-for="Id"/>
         <div class="col-md-12 form-floating mb-3">
-            <input type="text" class="form-control" asp-for="@Model.Title" placeholder="" required/>
-            <label for="floatingInput">Title</label>
+            <input type="text" class="form-control" asp-for="@Model.Title" placeholder=""/>
+            <label asp-for="Title"></label>
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="col-md-12 form-floating mb-3">
             <textarea class="form-control" asp-for="@Model.Description" placeholder="" style="height: 150px"></textarea>
-            <label for="floatingInput">Description</label>
+            <label asp-for="Description"></label>
         </div>
         <div class="col-md-3 form-floating mb-3">
-            <input type="text" class="form-control" asp-for="@Model.Address.Country" placeholder="" required/>
-            <label for="floatingInput">Country</label>
+            <input type="text" class="form-control" asp-for="@Model.Address.Country" placeholder=""/>
+            <label asp-for="Address.Country"></label>
             <span asp-validation-for="Address.Country" class="text-danger"></span>
         </div>
         <div class="col-md-3 form-floating mb-3">
-            <input type="text" class="form-control" asp-for="@Model.Address.City" placeholder="" required/>
-            <label for="floatingInput">City</label>
+            <input type="text" class="form-control" asp-for="@Model.Address.City" placeholder=""/>
+            <label asp-for="Address.City"></label>
             <span asp-validation-for="Address.City" class="text-danger"></span>
         </div>
         <div class="col-md-6 form-floating mb-3">
-            <input type="text" class="form-control" asp-for="@Model.Address.Street" placeholder="" required/>
-            <label for="floatingInput">Street</label>
-            <span asp-validation-for="Address.City" class="text-danger"></span>
+            <input type="text" class="form-control" asp-for="@Model.Address.Street" placeholder=""/>
+            <label asp-for="Address.Street"></label>
+            <span asp-validation-for="Address.Street" class="text-danger"></span>
         </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" asp-for="@Model.Category" aria-label="Default select example" required>
+        <div class="col-md-3 form-floating mb-3">
+            <select class="form-select" asp-for="@Model.Category" aria-label="Default select example">
                 <option selected disabled value="">Choose the category</option>
                 @{
                     foreach (RaceCategory category in Enum.GetValues(typeof(RaceCategory)))
@@ -46,9 +46,15 @@
                     }
                 }
             </select>
+            <label asp-for="Category"></label>
             <span asp-validation-for="Category" class="text-danger"></span>
         </div>
-        <div class="col-md-9 mb-3">
+        <div class="col-md-2 form-floating mb-3">
+            <input type="number" class="form-control" asp-for="MaxMembersNumber"/>
+            <label asp-for="MaxMembersNumber"></label>
+            <span asp-validation-for="MaxMembersNumber" class="text-danger"></span>
+        </div>
+        <div class="col-md-7 mb-3">
             <input type="file" class="form-control" id="imageInput" asp-for="@Model.Image" disabled/>
             <div class="row">
                 <div class="col-12">

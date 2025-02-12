@@ -1,4 +1,4 @@
-﻿@using RunningClub.Misc
+﻿@using RunningClub.ViewModels
 @model RunningClub.ViewModels.IndexRaceViewModel
 @{
     ViewData["Title"] = "Races";
@@ -12,7 +12,7 @@
     <div class="vertical-scroller">
         @{
             int count = 0;
-            foreach (Race race in Model.Races)
+            foreach (IndexRaceViewModel.IndexRaceModel race in Model.Races)
             {
                 @if (Model.JoinedRaces.Contains(race.Id))
                 {
@@ -36,12 +36,12 @@
                                 <h6 class="text-muted">@race.Category</h6>
                                 <p class="card-text">@race.Description</p>
                                 <div class="mt-auto d-flex flex-column">
-                                    <small class="text-muted">Created 5min ago</small>
-                                    <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-id=@race.Id>View</a>
+                                    <small class="text-muted">Created by <a class="link-info" asp-action="Detail" asp-controller="Club" asp-route-clubId="@race.Club.Id">@race.Club.Title</a></small>
+                                    <a class="btn w-25 btn-sm btn-primary mt-2" asp-action="Detail" asp-controller="Race" asp-route-raceId=@race.Id>View</a>
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-center align-items-center">
-                                <small class="text-muted">Participants 1/10</small>
+                                <small class="text-muted">Participants @race.MemberCount/@race.MaxMemberCount</small>
                             </div>
                         </div>
                     </div>

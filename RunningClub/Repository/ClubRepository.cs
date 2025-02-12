@@ -56,15 +56,15 @@ public class ClubRepository
 
     public async Task<List<Race>> GetClubRacesAsyncRO(int clubId)
     {
-        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId).ToListAsync();
+        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(r => r.ClubId == clubId).ToListAsync();
     }
     public async Task<List<Race>> GetClubsRacesAsyncRO(HashSet<int> clubIds)
     {
-        return await _context.Races.AsNoTracking().Where(r => clubIds.Contains(r.ClubId)).ToListAsync();
+        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(r => clubIds.Contains(r.ClubId)).ToListAsync();
     }
     public async Task<Club?> GetClubByIdAsync(int id)
     {
-        return await _context.Clubs.FirstOrDefaultAsync(a=>a.Id == id);
+        return await _context.Clubs.Include(c=>c.Admin).FirstOrDefaultAsync(a=>a.Id == id);
     }
 
     public async Task<Club?> GetClubByIdAsyncRO(int id)
@@ -72,6 +72,10 @@ public class ClubRepository
         return await _context.Clubs.AsNoTracking().Include(c=>c.Admin).FirstOrDefaultAsync(a=>a.Id == id);
     }
 
+    public async Task<int> GetClubMemberCountAsyncRO(int clubId)
+    {
+        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.ClubId == clubId).CountAsync();
+    }
     public async Task<bool> AddUserToClubAsync(string userId,int clubId)
     {
         MemberClub mc = new MemberClub()

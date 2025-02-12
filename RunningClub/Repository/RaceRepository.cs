@@ -17,6 +17,10 @@ public class RaceRepository
         MemberRace? mr=await _context.MemberRaces.AsNoTracking().Where(mr => mr.RaceId == raceId&&mr.MemberId==userId).FirstOrDefaultAsync();
         return mr != null;
     }
+    public async Task<int> GetRaceMemberCountAsyncRO(int raceId)
+    {
+        return await _context.MemberRaces.AsNoTracking().Where(mc => mc.RaceId == raceId).CountAsync();
+    }
     public async Task<List<Race>> GetRacesAsync()
     {
         return await _context.Races.ToListAsync();
