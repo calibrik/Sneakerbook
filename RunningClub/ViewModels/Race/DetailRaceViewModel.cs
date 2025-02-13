@@ -13,6 +13,7 @@ public class DetailRaceViewModel
     public int MaxMembersNumber { get; set; }
     public Club Club { get; set; }
     public RaceCategory Category { get; set; }
+    public DateTime StartDate { get; set; }
     public bool IsJoined { get; set; }
     public bool IsAdmin { get; set; }
     
@@ -30,5 +31,6 @@ public class DetailRaceViewModel
         MaxMembersNumber = race.MaxMembersNumber;
         Category = race.Category;
         Club = race.Club;
+        StartDate = race.StartDate.ToLocalTime();
     }
 }

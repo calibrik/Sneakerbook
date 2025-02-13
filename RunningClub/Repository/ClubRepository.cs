@@ -53,15 +53,6 @@ public class ClubRepository
     {
         return await _context.Clubs.AsNoTracking().Include(c=>c.Admin).ToListAsync();
     }
-
-    public async Task<List<Race>> GetClubRacesAsyncRO(int clubId)
-    {
-        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(r => r.ClubId == clubId).ToListAsync();
-    }
-    public async Task<List<Race>> GetClubsRacesAsyncRO(HashSet<int> clubIds)
-    {
-        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(r => clubIds.Contains(r.ClubId)).ToListAsync();
-    }
     public async Task<Club?> GetClubByIdAsync(int id)
     {
         return await _context.Clubs.Include(c=>c.Admin).FirstOrDefaultAsync(a=>a.Id == id);

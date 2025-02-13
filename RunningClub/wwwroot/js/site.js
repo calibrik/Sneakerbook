@@ -195,11 +195,5 @@ function deleteRace(raceId)
 }
 async function goBack()
 {
-    console.log("go back history")
-    await history.back();
-    // location.reload();
-    setTimeout(() => {
-        console.log("reload")
-        location.reload();
-    }, 100);
+    await window.history.back();
 }

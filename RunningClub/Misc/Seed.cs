@@ -123,6 +123,7 @@ public class Seed
                     Category = (RaceCategory)((i-1)%5),
                     ClubId = clubs[(i-1)%clubs.Count].Id,
                     MaxMembersNumber = 10,
+                    StartDate = DateTime.UtcNow.AddHours(Random.Shared.Next(1,15)),
                 });
         }
         await racesRepository.AddManyRacesAsync(racesToAdd);

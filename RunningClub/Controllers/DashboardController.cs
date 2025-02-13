@@ -25,6 +25,10 @@ public class DashboardController:Controller
         {
             Races = await _dashboardRepository.GetUserRacesAsyncRO(userId)
         };
+        foreach (Race race in model.Races)
+        {
+            race.StartDate=race.StartDate.ToLocalTime();
+        }
         return View(model);
     }
 
@@ -134,6 +138,10 @@ public class DashboardController:Controller
         {
             AdminRaces = await _dashboardRepository.GetUserAdminRacesAsyncRO(userId)
         };
+        foreach (Race race in model.AdminRaces)
+        {
+            race.StartDate=race.StartDate.ToLocalTime();
+        }
         return View(model);
     }
 }

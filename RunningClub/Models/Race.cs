@@ -21,6 +21,7 @@ public class Race
     public required string Image { get; set; }
     public required Address Address { get; set; }
     public required string AdminId { get; set; }
+    public required DateTime StartDate { get; set; }
     public AppUser? Admin { get; set; }
     public List<MemberRace> Members { get; set; }=new List<MemberRace>();
     public required int MaxMembersNumber { get; set; }

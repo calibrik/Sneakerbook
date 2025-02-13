@@ -49,7 +49,7 @@ public class ClubController:Controller
         {
             Members = await _clubRepo.GetUsersInClubAsyncRO(clubId),
         };
-        List<Race> races = await _clubRepo.GetClubRacesAsyncRO(clubId);
+        List<Race> races = await _raceRepo.GetClubRacesAsyncRO(clubId);
         foreach (Race race in races)
         {
             model.Races.Add(new DetailClubViewModel.DetailClubRaceModel(race)

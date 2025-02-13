@@ -11,7 +11,7 @@
     </div>
     
     <div class="container mt-3 d-flex justify-content-end  col-md-6">
-        @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+        @if (User.Identity.IsAuthenticated && (User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
         {
             <a asp-action="Edit" asp-controller="Race" asp-route-raceId="@Model.Id" style="width: 15%" class="btn btn-primary" id="editButton">
                 Edit
@@ -63,6 +63,7 @@
                     <p class="card-text"><strong>Number of Participants: </strong><span id="membersCount">@Model.Members.Count</span>/@Model.MaxMembersNumber</p>
                     <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
                     <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-clubId="@Model.Club.Id" class="link-primary">@Model.Club.Title</a></p>
+                    <p class="text-muted"><strong>Starts on @Model.StartDate.ShowDateTime()</strong></p>
 
                     <!-- Button or any additional info -->
                     @if (!Model.IsJoined)

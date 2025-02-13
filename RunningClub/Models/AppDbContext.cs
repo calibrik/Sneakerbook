@@ -22,6 +22,9 @@ public class AppDbContext: IdentityDbContext<AppUser>
         builder.Entity<MemberClub>().HasKey(mc => new { mc.MemberId, mc.ClubId });
         builder.Entity<Club>().OwnsOne(c => c.Address);
         builder.Entity<Race>().OwnsOne(r => r.Address);
+        builder.Entity<Race>()
+            .HasIndex(r => r.StartDate)
+            .HasDatabaseName("IX_Race_StartDate");
         builder.Entity<MemberRace>().HasOne(mr=>mr.Member).WithMany(u=>u.Races).HasForeignKey(mr=>mr.MemberId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<MemberRace>().HasOne(mr=>mr.Race).WithMany(r=>r.Members).HasForeignKey(mr=>mr.RaceId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<MemberClub>().HasOne(mc=>mc.Member).WithMany(u=>u.Clubs).HasForeignKey(mr=>mr.MemberId).OnDelete(DeleteBehavior.Cascade);

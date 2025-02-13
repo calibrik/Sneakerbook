@@ -13,6 +13,7 @@ public class DetailClubViewModel
         public string? Description { get; set; }
         public int MemberCount { get; set; }
         public int MaxMemberCount { get; set; }
+        public DateTime StartDate { get; set; }
 
         public DetailClubRaceModel(Race race)
         {
@@ -22,6 +23,7 @@ public class DetailClubViewModel
             Category = race.Category;
             Image = race.Image;
             MaxMemberCount = race.MaxMembersNumber;
+            StartDate = race.StartDate.ToLocalTime();
         }
     }
     public int Id { get; set; }

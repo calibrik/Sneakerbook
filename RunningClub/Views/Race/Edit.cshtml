@@ -36,7 +36,7 @@
             <label asp-for="Address.Street"></label>
             <span asp-validation-for="Address.Street" class="text-danger"></span>
         </div>
-        <div class="col-md-3 form-floating mb-3">
+        <div class="col-md-2 form-floating mb-3">
             <select class="form-select" asp-for="@Model.Category" aria-label="Default select example">
                 <option selected disabled value="">Choose the category</option>
                 @{
@@ -54,8 +54,18 @@
             <label asp-for="MaxMembersNumber"></label>
             <span asp-validation-for="MaxMembersNumber" class="text-danger"></span>
         </div>
-        <div class="col-md-7 mb-3">
-            <input type="file" class="form-control" id="imageInput" asp-for="@Model.Image" disabled/>
+        <div class="col-md-2 form-floating mb-3">
+            <input class="form-control" asp-for="StartDate"/>
+            <label asp-for="StartDate"></label>
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 form-floating mb-3">
+            <input class="form-control" asp-for="StartTime"/>
+            <label asp-for="StartTime"></label>
+            <span asp-validation-for="StartTime" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 mb-3">
+            <input type="file" class="form-control" id="imageInput" asp-for="Image" disabled/>
             <div class="row">
                 <div class="col-12">
                     <span asp-validation-for="Image" class="text-danger"></span>

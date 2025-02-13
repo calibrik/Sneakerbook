@@ -14,6 +14,7 @@ public class IndexRaceViewModel
         public string? Description { get; set; }
         public int MemberCount { get; set; }
         public int MaxMemberCount { get; set; }
+        public DateTime StartDate { get; set; }
 
         public IndexRaceModel(Race race)
         {
@@ -24,6 +25,7 @@ public class IndexRaceViewModel
             Club = race.Club;
             Image = race.Image;
             MaxMemberCount = race.MaxMembersNumber;
+            StartDate = race.StartDate.ToLocalTime();
         }
     }
 

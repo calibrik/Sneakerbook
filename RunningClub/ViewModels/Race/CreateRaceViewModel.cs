@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RunningClub.Misc;
 using RunningClub.Models;
 
 namespace RunningClub.ViewModels;
@@ -12,6 +13,7 @@ public class CreateRaceViewModel
     public string? Description { get; set; }
     [Required(ErrorMessage = "Image is required")]
     [Display(Name = "Image")]
+    [DataType(DataType.Upload)]
     public IFormFile Image { get; set; }
     public Address Address { get; set; }
     [Required(ErrorMessage = "Category is required")]
@@ -23,4 +25,12 @@ public class CreateRaceViewModel
     [Display(Name = "Max Members Number")]
     [Range(1,20,ErrorMessage = "Max Members Number must be between 1 and 20")]
     public int MaxMembersNumber { get; set; }
+    [Required(ErrorMessage = "Start date is required")]
+    [Display(Name = "Start Date")]
+    [DataType(DataType.Date)]
+    public DateTime StartDate { get; set; }
+    [Required(ErrorMessage = "Start time is required")]
+    [Display(Name = "Start Time")]
+    [DataType(DataType.Time)]
+    public DateTime StartTime { get; set; }
 }
