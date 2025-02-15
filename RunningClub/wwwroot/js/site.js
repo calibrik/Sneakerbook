@@ -20,8 +20,10 @@ async function performPostFromButton(action, controller, body, buttonId)
     button.style.pointerEvents = "none";
     let origText=button.innerHTML;
     button.innerHTML=`
-<div class="spinner-border" role="status">
-  <span class="visually-hidden">Loading...</span>
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 </div>`;
     try {
         let response=await fetch(`/api/${controller}/${action}`,
@@ -196,4 +198,145 @@ function deleteRace(raceId)
 async function goBack()
 {
     await window.history.back();
+}
+async function performGet(action, controller, queryParams)
+{
+    try {
+        let response=await fetch(`/api/${controller}/${action}?${queryParams}`,
+            {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            });
+        let data =await response.json();
+        console.log(response);
+        if (!response.ok) {
+            showError(data.message);
+        }
+        return {response,data};
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+function getClubCompletedRaces(clubId)
+{
+    document.getElementById("raceList").innerHTML=`
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>`;
+    performGet("GetCompletedRaces","ClubApi",new URLSearchParams({ clubId:clubId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok) {
+                document.getElementById("raceList").innerHTML=`<p class="text-center text-danger"><strong>Error.</strong></p>`
+                return;
+            }
+            document.getElementById("raceListTitle").innerText="Completed Races";
+            document.getElementById("raceCount").innerText=`${data.length} ${data.length==1 ? "race" : "races"}`;
+            if (data.length==0)
+            {
+                document.getElementById("raceList").innerHTML=`<p class="text-muted text-center">No races were created for this club.</p>`;
+                return;
+            }
+            document.getElementById("raceList").innerHTML=``;
+            data.forEach(race => {
+                document.getElementById("raceList").innerHTML += `
+                <div class="card mb-4 d-flex flex-column" style="height: 15%;">
+                    <div class="row g-0 h-100">
+                        <div class="col-md-4 d-flex">
+                            <div class="d-flex justify-content-center">
+                                <div id="spinner ${race.id}" class="spinner-border m-5" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <img id="image ${race.id}" style="display: none" src=${race.image} class="img-fluid" alt="Image ${race.id}" onload="onImageLoadById(${race.id})">
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">${race.title}</h5>
+                                    <span class="text-muted">Distance: ${race.length} km</span>
+                                </div>
+                                <h6 class="text-muted">${race.category}</h6>
+                                <p class="card-text">${race.description}</p>
+                                <div class="mt-auto d-flex flex-column">
+                                    ${race.isJoined?`<p class="text-warning joined-race">Joined</p>`:""}
+                                    <small class="text-muted">Starts on ${race.startDate}</small>
+                                    <a class="btn w-25 btn-sm btn-primary mt-2" href="${race.link}">View</a>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center align-items-center">
+                                <small class="text-muted">Participants ${race.memberCount}/${race.maxMemberCount}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            });
+        })
+}
+function getClubUpcomingRaces(clubId)
+{
+    document.getElementById("raceList").innerHTML=`
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>`;
+    performGet("GetUpcomingRaces","ClubApi",new URLSearchParams({ clubId:clubId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok) {
+                document.getElementById("raceList").innerHTML=`<p class="text-center text-danger"><strong>Error.</strong></p>`
+                return;
+            }
+            document.getElementById("raceListTitle").innerText="Upcoming Races";
+            document.getElementById("raceCount").innerText=`${data.length} ${data.length==1 ? "race" : "races"}`;
+            if (data.length==0)
+            {
+                document.getElementById("raceList").innerHTML=`<p class="text-muted text-center">No races were created for this club.</p>`;
+                return;
+            }
+            document.getElementById("raceList").innerHTML=``;
+            data.forEach(race => {
+                document.getElementById("raceList").innerHTML += `
+                <div class="card mb-4 d-flex flex-column" style="height: 15%;">
+                    <div class="row g-0 h-100">
+                        <div class="col-md-4 d-flex">
+                            <div class="d-flex justify-content-center">
+                                <div id="spinner ${race.id}" class="spinner-border m-5" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <img id="image ${race.id}" style="display: none" src=${race.image} class="img-fluid" alt="Image ${race.id}" onload="onImageLoadById(${race.id})">
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">${race.title}</h5>
+                                    <span class="text-muted">Distance: ${race.length} km</span>
+                                </div>
+                                <h6 class="text-muted">${race.category}</h6>
+                                <p class="card-text">${race.description}</p>
+                                <div class="mt-auto d-flex flex-column">
+                                    ${race.isJoined?`<p class="text-warning joined-race">Joined</p>`:""}
+                                    <small class="text-muted">Starts on ${race.startDate}</small>
+                                    <a class="btn w-25 btn-sm btn-primary mt-2" href="${race.link}">View</a>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center align-items-center">
+                                <small class="text-muted">Participants ${race.memberCount}/${race.maxMemberCount}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            });
+        })
+}
+function onChangeInClubRacesSelector(clubId)
+{
+    let value=document.getElementById("raceSelector").value;
+    if (value=="upcoming")
+        getClubUpcomingRaces(clubId);
+    else
+        getClubCompletedRaces(clubId);
 }

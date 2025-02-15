@@ -1,7 +1,7 @@
 ﻿@using RunningClub.Misc
 @model RunningClub.ViewModels.DashboardViewModel
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Completed Races";
 }
 
 
@@ -13,27 +13,29 @@
                 <a asp-action="Index" asp-route-userId="@Model.Id" class="mx-4 nav-item nav-link not-active mx-4">Upcoming Races</a>
                 <a asp-action="MyClubs" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Following Clubs</a>
                 <a asp-action="ManageClubs" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Manage My Clubs</a>
-                <a asp-action="ManageRaces" asp-route-userId="@Model.Id" class="nav-item nav-link active mx-4">Manage My Races</a>
-                <a asp-action="CompletedRaces" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Completed Races</a>
+                <a asp-action="ManageRaces" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Manage My Races</a>
+                <a asp-action="CompletedRaces" asp-route-userId="@Model.Id" class="nav-item nav-link active mx-4">Completed Races</a>
             </div>
         </nav>
         @* <h4 class="mt-3 mb-3 text-center">Your Cards</h4> *@
         <div class="card p-3">
             @if (Model.Races.Count == 0)
             {
-                <p class="text-muted text-center">You didn't create any races so far.</p>
+                <p class="text-muted text-center">You haven't finished any races yet.</p>
             }
             @foreach (Race race in Model.Races)
             {
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <div class="d-flex justify-content-center">
-                                <div id="spinner @race.Id" class="spinner-border m-5" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+                            <div class="card-img">
+                                <div class="d-flex justify-content-center">
+                                    <div id="spinner @race.Id" class="spinner-border m-5" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
+                                <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Club Image" onload="onImageLoadById(@race.Id)">
                             </div>
-                            <img id="image @race.Id" style="display: none" src=@race.Image class="img-fluid" alt="Club Image" onload="onImageLoadById(@race.Id)">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -41,11 +43,11 @@
                                     <h5 class="card-title">@race.Title</h5>
                                     <span class="text-muted">Distance: @race.Length km</span>
                                 </div>
-                                <h6 class="card-subtitle">@race.Club?.Title</h6>
+                                <h6 class="card-subtitle">@race.Club.Title</h6>
                                 <p class="text-muted">@race.Category</p>
                                 <p class="card-text">@race.Description</p>
                                 <p class="card-text"><small class="text-muted">Starts on @race.StartDate.ShowDateTime()</small></p>
-                                <a asp-action="Detail" asp-controller="Race" asp-route-raceId="@race.Id" class="btn btn-primary mt-auto">View</a>
+                                <a asp-action="Detail" asp-controller="Race" asp-route-raceId="@race.Id" class="btn btn-primary">View</a>
                             </div>
                         </div>
                     </div>
@@ -59,5 +61,3 @@
         @await Html.PartialAsync("_UserCard",Model)
     </div>
 </div>
-
-

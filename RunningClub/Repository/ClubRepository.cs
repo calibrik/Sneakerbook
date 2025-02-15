@@ -41,11 +41,11 @@ public class ClubRepository
         if (mc == null)
             return true;
         _context.MemberClubs.Remove(mc);
-        return await RemoveUserFromClubRacesAsync(userId, clubId);
+        return await RemoveUserFromClubUpcomingRacesAsync(userId, clubId);
     }
-    public async Task<bool> RemoveUserFromClubRacesAsync(string userId, int clubId)
+    public async Task<bool> RemoveUserFromClubUpcomingRacesAsync(string userId, int clubId)
     {
-        List<MemberRace> mrs = await _context.MemberRaces.AsNoTracking().Include(r=>r.Race).Where(mr => mr.MemberId == userId && mr.Race.ClubId==clubId).ToListAsync();
+        List<MemberRace> mrs = await _context.MemberRaces.AsNoTracking().Include(r=>r.Race).Where(mr => mr.MemberId == userId && mr.Race.ClubId==clubId&&!mr.Race.IsCompleted).ToListAsync();
         _context.MemberRaces.RemoveRange(mrs);
         return await Save();
     }

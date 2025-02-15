@@ -53,9 +53,9 @@ public class RaceController: Controller
         HashSet<int> userClubs=await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
         IndexRaceViewModel model = new IndexRaceViewModel()
         {
-            JoinedRaces = await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId()),
+            JoinedRaces = await _raceRepo.GetUserUpcomingRacesIdsAsyncRO(User.GetUserId()),
         };
-        List<Race> races = await _raceRepo.GetClubsRacesAsyncRO(userClubs);
+        List<Race> races = await _raceRepo.GetClubsUpcomingRacesAsyncRO(userClubs);
         foreach (Race race in races)
         {
             model.Races.Add(new IndexRaceViewModel.IndexRaceModel(race)
@@ -124,6 +124,49 @@ public class RaceController: Controller
             ModelState.AddModelError("StartTime", "Start time should be not sooner than right now.");
             return View("Create",createRaceModel);
         }
+        
+        switch (createRaceModel.Category)
+        {
+            case RaceCategory.Sprint:
+            {
+                if (createRaceModel.Length < 0.1 || createRaceModel.Length > 5)
+                {
+                    ModelState.AddModelError("Length", "Length for sprint category must be between 0.1km and 5km.");
+                    return View("Create",createRaceModel);
+                }
+                break;
+            }
+            case RaceCategory.Marathon:
+            {
+                if (createRaceModel.Length <= 21 || createRaceModel.Length > 42)
+                {
+                    ModelState.AddModelError("Length", "Length for marathon category must be between 21km and 42km.");
+                    return View("Create",createRaceModel);
+                }
+                break;
+            }
+            case RaceCategory.HalfMarathon:
+            {
+                if (createRaceModel.Length <= 5 || createRaceModel.Length > 21)
+                {
+                    ModelState.AddModelError("Length", "Length for sprint category must be between 5km and 21km.");
+                    return View("Create",createRaceModel);
+                }
+                break;
+            }
+            case RaceCategory.Ultramarathon:
+            {
+                if (createRaceModel.Length <= 42 || createRaceModel.Length > 80)
+                {
+                    ModelState.AddModelError("Length", "Length for sprint category must be between 42km and 80km.");
+                    return View("Create",createRaceModel);
+                }
+                break;
+            }
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
         string? path = await ProcessImageAdd(createRaceModel.Image);
         if (path==null)
             return View(createRaceModel);
@@ -139,6 +182,7 @@ public class RaceController: Controller
             MaxMembersNumber = createRaceModel.MaxMembersNumber,
             ClubId = createRaceModel.ClubId,
             StartDate = startDate.ToUniversalTime(),
+            Length = createRaceModel.Length,
         };
         await _raceRepo.AddRace(race);
         await _raceRepo.AddUserToRaceAsync(User.GetUserId(), race.Id);
@@ -165,6 +209,7 @@ public class RaceController: Controller
             MaxMembersNumber = race.MaxMembersNumber,
             StartDate = date.Date,
             StartTime = new DateTime(2000,1,1,date.Hour,date.Minute,0),
+            Length = race.Length,
         };
         return View(editClubModel);
     }
@@ -191,6 +236,47 @@ public class RaceController: Controller
         {
             ModelState.AddModelError("StartTime", "Start time should be not sooner than right now.");
             return View("Edit",editRaceModel);
+        }
+        switch (editRaceModel.Category)
+        {
+            case RaceCategory.Sprint:
+            {
+                if (editRaceModel.Length < 0.1 || editRaceModel.Length > 5)
+                {
+                    ModelState.AddModelError("Length", "Length for sprint category must be between 0.1km and 5km.");
+                    return View("Edit",editRaceModel);
+                }
+                break;
+            }
+            case RaceCategory.Marathon:
+            {
+                if (editRaceModel.Length <= 21 || editRaceModel.Length > 42)
+                {
+                    ModelState.AddModelError("Length", "Length for marathon category must be between 21km and 42km.");
+                    return View("Edit",editRaceModel);
+                }
+                break;
+            }
+            case RaceCategory.HalfMarathon:
+            {
+                if (editRaceModel.Length <= 5 || editRaceModel.Length > 21)
+                {
+                    ModelState.AddModelError("Length", "Length for sprint category must be between 5km and 21km.");
+                    return View("Edit",editRaceModel);
+                }
+                break;
+            }
+            case RaceCategory.Ultramarathon:
+            {
+                if (editRaceModel.Length <= 42 || editRaceModel.Length > 80)
+                {
+                    ModelState.AddModelError("Length", "Length for sprint category must be between 42km and 80km.");
+                    return View("Edit",editRaceModel);
+                }
+                break;
+            }
+            default:
+                throw new ArgumentOutOfRangeException();
         }
         Race? race = await _raceRepo.GetRaceByIdAsync(editRaceModel.Id);
         if (race==null)
@@ -221,6 +307,7 @@ public class RaceController: Controller
         race.Category = editRaceModel.Category;
         race.MaxMembersNumber = editRaceModel.MaxMembersNumber;
         race.StartDate = startDate.ToUniversalTime();
+        race.Length = editRaceModel.Length;
         await _raceRepo.Save();
         return RedirectToAction("Detail",new {raceId=race.Id});
     }

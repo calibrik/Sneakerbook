@@ -49,7 +49,7 @@ public class ClubController:Controller
         {
             Members = await _clubRepo.GetUsersInClubAsyncRO(clubId),
         };
-        List<Race> races = await _raceRepo.GetClubRacesAsyncRO(clubId);
+        List<Race> races = await _raceRepo.GetClubUpcomingRacesAsyncRO(clubId);
         foreach (Race race in races)
         {
             model.Races.Add(new DetailClubViewModel.DetailClubRaceModel(race)
@@ -59,7 +59,7 @@ public class ClubController:Controller
         }
         if (User.Identity.IsAuthenticated)
         {
-            model.JoinedRaces=await _raceRepo.GetUserRacesIdsAsyncRO(User.GetUserId());
+            model.JoinedRaces=await _raceRepo.GetUserUpcomingRacesIdsAsyncRO(User.GetUserId());
             model.IsAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),clubId);
             if (model.IsAdmin)
                 model.IsJoined = true;

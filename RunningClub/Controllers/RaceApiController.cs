@@ -29,9 +29,14 @@ public class RaceApiController : ControllerBase
         if (!User.Identity.IsAuthenticated || !await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(), raceId) &&
             !User.IsInRole("Admin"))
             return Unauthorized(new { message = "You do not have permission for this action" });
+        
         Race? race = await _raceRepo.GetRaceByIdAsync(raceId);
         if (race == null)
             return NotFound(new { message = "Race is not found" });
+        
+        if (race.IsCompleted)
+            return BadRequest(new { message = "Race is already completed" });
+        
         await _raceRepo.DeleteRace(race);
         return Ok(new { message = "Race successfully deleted"});
     }
@@ -43,12 +48,19 @@ public class RaceApiController : ControllerBase
         Race? race = await _raceRepo.GetRaceByIdAsyncRO(raceId);
         if (race == null)
             return NotFound(new { message = "Race is not found" });
+        
+        if (race.IsCompleted)
+            return BadRequest(new { message = "Race is already completed" });
+        
         if (await _raceRepo.GetRaceMemberCountAsyncRO(raceId) >= race.MaxMembersNumber)
             return BadRequest(new { message = "Race is full" });
+        
         if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), race.ClubId))
             return Unauthorized(new { message = $"You need to be a member of club \"{race.Club.Title}\" to be able to join this race" });
+        
         if (await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), raceId))
             return BadRequest(new { message = "You are already in this race" });
+        
         await _raceRepo.AddUserToRaceAsync(User.GetUserId(), raceId);
         AppUser? user=await _userManager.GetUserAsync(User);
         JoinApiViewModel model = new JoinApiViewModel()
@@ -64,10 +76,17 @@ public class RaceApiController : ControllerBase
     {
         if (!User.Identity.IsAuthenticated)
             return Unauthorized(new { message = "You do not have permission for this action" });
-        if (await _raceRepo.GetRaceByIdAsync(raceId) == null)
+        
+        Race? race = await _raceRepo.GetRaceByIdAsyncRO(raceId);
+        if (race == null)
             return NotFound(new { message = "Race is not found" });
+        
+        if (race.IsCompleted)
+            return BadRequest(new { message = "Race is already completed" });
+        
         if (!await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), raceId))
             return BadRequest(new { message = "You are not in this race" });
+        
         await _raceRepo.RemoveUserFromRaceAsync(User.GetUserId(), raceId);
         return Ok(new { message = "You successfully left the race", memberCount=await _raceRepo.GetRaceMemberCountAsyncRO(raceId) });
     }
@@ -77,10 +96,17 @@ public class RaceApiController : ControllerBase
         if (!User.Identity.IsAuthenticated || !await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(), model.RaceId) ||
             !User.IsInRole("Admin"))
             return Unauthorized(new { message = "You do not have permission for this action" });
-        if (await _raceRepo.GetRaceByIdAsync(model.RaceId) == null)
+        
+        Race? race = await _raceRepo.GetRaceByIdAsyncRO(model.RaceId);
+        if (race == null)
             return NotFound(new { message = "Race is not found" });
+        
+        if (race.IsCompleted)
+            return BadRequest(new { message = "Race is already completed" });
+        
         if (!await _raceRepo.IsUserMemberInRaceAsync(model.UserId, model.RaceId))
             return NotFound(new { message = "User is not found in this club" });
+        
         await _raceRepo.RemoveUserFromRaceAsync(model.UserId, model.RaceId);
         return Ok(new { message = "User successfully kicked", memberCount=await _raceRepo.GetRaceMemberCountAsyncRO(model.RaceId) });
     }

@@ -14,7 +14,7 @@
                 <a asp-action="MyClubs" asp-route-userId="@Model.Id" class="nav-item nav-link active mx-4">Following Clubs</a>
                 <a asp-action="ManageClubs" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Manage My Clubs</a>
                 <a asp-action="ManageRaces" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Manage My Races</a>
-                <a href="#" class="nav-item nav-link not-active mx-4">Completed Races</a>
+                <a asp-action="CompletedRaces" asp-route-userId="@Model.Id" class="nav-item nav-link not-active mx-4">Completed Races</a>
             </div>
         </nav>
         @* <h4 class="mt-3 mb-3 text-center">Your Cards</h4> *@
@@ -40,7 +40,7 @@
                                 <h5 class="card-title">@club.Title</h5>
                                 <p class="text-muted">@club.Category</p>
                                 <p class="card-text">@club.Description</p>
-                                <a asp-action="Detail" asp-controller="Club" asp-route-clubId="@club.Id" class="btn btn-primary">View</a>
+                                <a asp-action="Detail" asp-controller="Club" asp-route-clubId="@club.Id" class="btn btn-primary mt-auto">View</a>
                             </div>
                         </div>
                     </div>

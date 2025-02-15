@@ -14,6 +14,7 @@ public class DetailClubViewModel
         public int MemberCount { get; set; }
         public int MaxMemberCount { get; set; }
         public DateTime StartDate { get; set; }
+        public double Length { get; set; }
 
         public DetailClubRaceModel(Race race)
         {
@@ -24,6 +25,7 @@ public class DetailClubViewModel
             Image = race.Image;
             MaxMemberCount = race.MaxMembersNumber;
             StartDate = race.StartDate.ToLocalTime();
+            Length = race.Length;
         }
     }
     public int Id { get; set; }

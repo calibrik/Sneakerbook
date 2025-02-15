@@ -21,9 +21,9 @@ public class CreateRaceViewModel
     public RaceCategory Category { get; set; }
     [Required]
     public int ClubId { get; set; }
-    [Required(ErrorMessage = "Max Members Number is required")]
-    [Display(Name = "Max Members Number")]
-    [Range(1,20,ErrorMessage = "Max Members Number must be between 1 and 20")]
+    [Required(ErrorMessage = "Max members number is required")]
+    [Display(Name = "Max members number")]
+    [Range(1,20,ErrorMessage = "Max members number must be between 1 and 20")]
     public int MaxMembersNumber { get; set; }
     [Required(ErrorMessage = "Start date is required")]
     [Display(Name = "Start Date")]
@@ -33,4 +33,9 @@ public class CreateRaceViewModel
     [Display(Name = "Start Time")]
     [DataType(DataType.Time)]
     public DateTime StartTime { get; set; }
+    [Required(ErrorMessage = "Race length is required")]
+    [Display(Name = "Race length (km)")]
+    [Range(0.1,80.0,ErrorMessage = "Race length should be bigger than 0km")]
+    [DisplayFormat(DataFormatString = "{0:0.0}", ApplyFormatInEditMode = true)]
+    public double Length { get; set; }
 }

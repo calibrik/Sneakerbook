@@ -125,7 +125,7 @@ public class DashboardController:Controller
             return RedirectToAction("Index", "Home");
         DashboardViewModel model = new DashboardViewModel(user)
         {
-            AdminClubs = await _dashboardRepository.GetUserAdminClubsAsyncRO(userId)
+            Clubs = await _dashboardRepository.GetUserAdminClubsAsyncRO(userId)
         };
         return View(model);
     }
@@ -136,9 +136,25 @@ public class DashboardController:Controller
             return RedirectToAction("Index", "Home");
         DashboardViewModel model = new DashboardViewModel(user)
         {
-            AdminRaces = await _dashboardRepository.GetUserAdminRacesAsyncRO(userId)
+            Races = await _dashboardRepository.GetUserAdminRacesAsyncRO(userId)
         };
-        foreach (Race race in model.AdminRaces)
+        foreach (Race race in model.Races)
+        {
+            race.StartDate=race.StartDate.ToLocalTime();
+        }
+        return View(model);
+    }
+
+    public async Task<IActionResult> CompletedRaces(string userId)
+    {
+        AppUser? user = await _userManager.FindByIdAsync(userId);
+        if (user == null)
+            return RedirectToAction("Index", "Home");
+        DashboardViewModel model = new DashboardViewModel(user)
+        {
+            Races = await _dashboardRepository.GetUserCompletedRacesAsyncRO(userId)
+        };
+        foreach (Race race in model.Races)
         {
             race.StartDate=race.StartDate.ToLocalTime();
         }

@@ -5,11 +5,10 @@ namespace RunningClub.Models;
 
 public enum RaceCategory
 {
+    Sprint,
     Marathon,
-    Ultra,
-    FiveK,
-    TenK,
-    HalfMarathon
+    HalfMarathon,
+    Ultramarathon
 }
 
 public class Race
@@ -22,6 +21,8 @@ public class Race
     public required Address Address { get; set; }
     public required string AdminId { get; set; }
     public required DateTime StartDate { get; set; }
+    public required double Length { get; set; }
+    public bool IsCompleted { get; set; } = false;
     public AppUser? Admin { get; set; }
     public List<MemberRace> Members { get; set; }=new List<MemberRace>();
     public required int MaxMembersNumber { get; set; }

@@ -30,4 +30,9 @@ public class EditRaceViewModel
     [Display(Name = "Start Time")]
     [DataType(DataType.Time)]
     public DateTime StartTime { get; set; }
+    [Required(ErrorMessage = "Race length is required")]
+    [Display(Name = "Race length (km)")]
+    [Range(0.1,80.0,ErrorMessage = "Race length should be bigger than 0km")]
+    [DisplayFormat(DataFormatString = "{0:0.0}", ApplyFormatInEditMode = true)]
+    public double Length { get; set; }
 }

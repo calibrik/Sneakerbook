@@ -85,4 +85,43 @@ public class ClubApiController : ControllerBase
         await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), clubId);
         return Ok(new { message = "You successfully left",memberCount=await _clubRepo.GetClubMemberCountAsyncRO(clubId) });
     }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetCompletedRaces([FromQuery] int clubId)
+    {
+        if (await _clubRepo.GetClubByIdAsyncRO(clubId) == null)
+            return NotFound(new { message = "Club is not found" });
+        List<Race> races=await _raceRepo.GetClubCompletedRacesAsyncRO(clubId);
+        HashSet<int> joinedRaces=await _raceRepo.GetUserRacesIdsInClubAsyncRO(User.GetUserId(),clubId);
+        List<DetailClubApiRaceViewModel> model = new List<DetailClubApiRaceViewModel>();
+        foreach (Race race in races)
+        {
+            model.Add(new DetailClubApiRaceViewModel(race)
+            {
+                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id),
+                IsJoined = joinedRaces.Contains(race.Id),
+                Link = Url.Action("Detail", "Race", new { raceId = race.Id }),
+            });
+        }
+        return Ok(model);
+    }
+    [HttpGet("")]
+    public async Task<IActionResult> GetUpcomingRaces([FromQuery] int clubId)
+    {
+        if (await _clubRepo.GetClubByIdAsyncRO(clubId) == null)
+            return NotFound(new { message = "Club is not found" });
+        List<Race> races=await _raceRepo.GetClubUpcomingRacesAsyncRO(clubId);
+        HashSet<int> joinedRaces=await _raceRepo.GetUserRacesIdsInClubAsyncRO(User.GetUserId(),clubId);
+        List<DetailClubApiRaceViewModel> model = new List<DetailClubApiRaceViewModel>();
+        foreach (Race race in races)
+        {
+            model.Add(new DetailClubApiRaceViewModel(race)
+            {
+                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id),
+                IsJoined = joinedRaces.Contains(race.Id),
+                Link = Url.Action("Detail", "Race", new { raceId = race.Id }),
+            });
+        }
+        return Ok(model);
+    }
 }

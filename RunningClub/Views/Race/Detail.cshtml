@@ -11,7 +11,7 @@
     </div>
     
     <div class="container mt-3 d-flex justify-content-end  col-md-6">
-        @if (User.Identity.IsAuthenticated && (User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
+        @if (!Model.IsCompleted&&User.Identity.IsAuthenticated && (User.IsInRole(UserRoles.Admin)||Model.IsAdmin))
         {
             <a asp-action="Edit" asp-controller="Race" asp-route-raceId="@Model.Id" style="width: 15%" class="btn btn-primary" id="editButton">
                 Edit
@@ -66,7 +66,11 @@
                     <p class="text-muted"><strong>Starts on @Model.StartDate.ShowDateTime()</strong></p>
 
                     <!-- Button or any additional info -->
-                    @if (!Model.IsJoined)
+                    @if (Model.IsCompleted)
+                    {
+                        <p class="text-danger"><strong>Race has finished</strong></p>
+                    }
+                    else if (!Model.IsJoined)
                     {
                         <a id="joinButton" onclick="joinRace('@Model.Id')" class="btn btn-lg w-25 btn-outline-primary mt-auto">Join</a>
                     }
@@ -92,7 +96,7 @@
                     <ul class="list-group" id="memberList">
                         @if (Model.Members.Count == 0)
                         {
-                            <p class="text-muted text-center">No members joined this club yet.</p>
+                            <p class="text-muted text-center">No members joined this race yet.</p>
                         }
                         @foreach (AppUser user in Model.Members)
                         {
@@ -108,7 +112,7 @@
                                         {
                                             <p><strong class="text-danger">Admin</strong></p>
                                         }
-                                        else if (User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
+                                        else if (!Model.IsCompleted&&User.Identity.IsAuthenticated&&user.Id!=User.GetUserId()&&(Model.IsAdmin||User.IsInRole(UserRoles.Admin)))
                                         {
                                             <a id="kickButton@(user.Id)" class="btn btn-danger" onclick="kickRaceMember('@user.Id','@Model.Id')"><strong class="text-white">Kick</strong></a>
                                         }

@@ -128,12 +128,22 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <div class="mt-auto d-flex justify-content-between align-items-center position-relative">
-                        <p class="text-muted">@Model.Races.Count @(Model.Races.Count == 1 ? "race" : "races")</p>
-                        <h3 class="text-center position-absolute start-50 translate-middle-x">Upcoming Races</h3>
-                        <div></div>
+                    <div class="mb-3 d-flex justify-content-between align-items-center position-relative">
+                        <p id="raceCount" class="text-muted">@Model.Races.Count @(Model.Races.Count == 1 ? "race" : "races")</p>
+
+                        <!-- Centered Title -->
+                        <h3 id="raceListTitle" class="text-center position-absolute start-50 translate-middle-x">Upcoming Races</h3>
+                        
+                        <div>
+                            <select onchange="onChangeInClubRacesSelector('@Model.Id')" id="raceSelector" class="form-select" aria-label="Select race category">
+                                <option value="upcoming" selected>Upcoming Races</option>
+                                <option value="completed">Completed Races</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="vertical-scroller" style="max-height: 30vh">
+
+                    <!-- Race List -->
+                    <div id="raceList" class="vertical-scroller" style="max-height: 30vh">
                         @if (Model.Races.Count == 0)
                         {
                             <p class="text-muted text-center">No races were created for this club.</p>
@@ -152,7 +162,10 @@
                                     </div>
                                     <div class="col-md-8 d-flex">
                                         <div class="card-body d-flex flex-column">
-                                            <h5 class="card-title">@race.Title</h5>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title">@race.Title</h5>
+                                                <span class="text-muted">Distance: @race.Length km</span>
+                                            </div>
                                             <h6 class="text-muted">@race.Category</h6>
                                             <p class="card-text">@race.Description</p>
                                             <div class="mt-auto d-flex flex-column">
@@ -175,5 +188,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>

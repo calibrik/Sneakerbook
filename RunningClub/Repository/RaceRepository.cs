@@ -39,37 +39,47 @@ public class RaceRepository
         await _context.MemberRaces.AddAsync(mr);
         return await Save();
     }
-
+    public async Task<List<AppUser>> GetUsersInRaceAsync(int raceId)
+    {
+        return await _context.MemberRaces.Include(mr=>mr.Member).Where(mr => mr.RaceId == raceId).Select(mr=>mr.Member).ToListAsync();
+    }
     public async Task<List<AppUser>> GetUsersInRaceAsyncRO(int raceId)
     {
         return await _context.MemberRaces.AsNoTracking().Include(mr=>mr.Member).Where(mr => mr.RaceId == raceId).Select(mr=>mr.Member).ToListAsync();
     }
-    public async Task<List<Race>> GetUserRacesAsyncRO(string userId)
+    public async Task<List<Race>> GetUserUpcomingRacesAsyncRO(string userId)
     {
-        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId).Include(mr=>mr.Race.Club).OrderBy(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
+        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId&&!mr.Race.IsCompleted).Include(mr=>mr.Race.Club).OrderBy(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
     }
 
-    public async Task<List<Race>> GetUserAdminRacesAsyncRO(string userId)
+    public async Task<List<Race>> GetToBeCompletedRacesAsync()
     {
-        return await _context.Races.AsNoTracking().Where(r=>r.AdminId==userId).Include(r=>r.Club).OrderBy(r=>r.StartDate).ToListAsync();
+        return await _context.Races.Where(r => !r.IsCompleted&&r.StartDate<=DateTime.UtcNow).ToListAsync();
+    }
+    public async Task<List<Race>> GetUserAdminUpcomingRacesAsyncRO(string userId)
+    {
+        return await _context.Races.AsNoTracking().Where(r=>r.AdminId==userId&&!r.IsCompleted).Include(r=>r.Club).OrderBy(r=>r.StartDate).ToListAsync();
     }
     
-    public async Task<List<Race>> GetClubsRacesAsyncRO(HashSet<int> clubIds)
+    public async Task<List<Race>> GetClubsUpcomingRacesAsyncRO(HashSet<int> clubIds)
     {
-        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(r => clubIds.Contains(r.ClubId)).OrderBy(r=>r.StartDate).ToListAsync();
+        return await _context.Races.AsNoTracking().Include(r=>r.Club).Where(r => clubIds.Contains(r.ClubId)&&!r.IsCompleted).OrderBy(r=>r.StartDate).ToListAsync();
     }
-    public async Task<List<Race>> GetClubRacesAsyncRO(int clubId)
+    public async Task<List<Race>> GetClubUpcomingRacesAsyncRO(int clubId)
     {
-        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId).OrderBy(r=>r.StartDate).ToListAsync();
+        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId&&!r.IsCompleted).OrderBy(r=>r.StartDate).ToListAsync();
     }
-    public async Task<List<Race>> GetRacesAsyncRO()
+    public async Task<List<Race>> GetClubCompletedRacesAsyncRO(int clubId)
     {
-        return await _context.Races.AsNoTracking().ToListAsync();
+        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId&&r.IsCompleted).OrderBy(r=>r.StartDate).ToListAsync();
     }
-
-    public async Task<HashSet<int>> GetUserRacesIdsAsyncRO(string userId)
+    public async Task<HashSet<int>> GetUserUpcomingRacesIdsAsyncRO(string userId)
     {
-        return await _context.MemberRaces.AsNoTracking().Where(mr => mr.MemberId == userId).Select(mr=>mr.RaceId).ToHashSetAsync();
+        return await _context.MemberRaces.AsNoTracking().Where(mr => mr.MemberId == userId&&!mr.Race.IsCompleted).Select(mr=>mr.RaceId).ToHashSetAsync();
+    }
+    public async Task<HashSet<int>> GetUserRacesIdsInClubAsyncRO(string userId,int clubId)
+    {
+        return await _context.MemberRaces.AsNoTracking().Where(mr => mr.MemberId == userId&&mr.Race.ClubId==clubId).Select(mr=>mr.RaceId).ToHashSetAsync();
     }
     public async Task<Race?> GetRaceByIdAsync(int id)
     {
@@ -80,6 +90,10 @@ public class RaceRepository
         return await _context.Races.AsNoTracking().Include(r=>r.Admin).Include(r=>r.Club).FirstOrDefaultAsync(a=>a.Id == id);
     }
 
+    public async Task<List<Race>> GetUserCompletedRacesAsyncRO(string userId)
+    {
+        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId&&mr.Race.IsCompleted).Include(mr=>mr.Race.Club).OrderBy(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
+    }
     public async Task<bool> AddRace(Race race)
     {
         await _context.Races.AddAsync(race);

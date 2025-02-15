@@ -107,6 +107,33 @@ public class Seed
         List<Race> racesToAdd = new List<Race>();
         for (int i = 1; i <= raceAmount; i++)
         {
+            RaceCategory raceCategory = (RaceCategory)((i + 1) % 4);
+            double length;
+            switch (raceCategory)
+            {
+                case RaceCategory.Sprint:
+                {
+                    length=Math.Round(Random.Shared.NextDouble()*5+0.1,1);
+                    break;
+                }
+                case RaceCategory.Marathon:
+                {
+                    length=Math.Round(Random.Shared.NextDouble()*42+0.1,1);
+                    break;
+                }
+                case RaceCategory.HalfMarathon:
+                {
+                    length=Math.Round(Random.Shared.NextDouble()*21+0.1,1);
+                    break;
+                }
+                case RaceCategory.Ultramarathon:
+                {
+                    length=Math.Round(Random.Shared.NextDouble()*80+0.1,1);
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             racesToAdd.Add(
                 new Race()
                 {
@@ -120,10 +147,12 @@ public class Seed
                         Street = "2 Somewhere Av.",
                     },
                     AdminId = admin.Id,
-                    Category = (RaceCategory)((i-1)%5),
+                    Category = raceCategory,
+                    Length = length,
                     ClubId = clubs[(i-1)%clubs.Count].Id,
                     MaxMembersNumber = 10,
                     StartDate = DateTime.UtcNow.AddHours(Random.Shared.Next(1,15)),
+                    
                 });
         }
         await racesRepository.AddManyRacesAsync(racesToAdd);

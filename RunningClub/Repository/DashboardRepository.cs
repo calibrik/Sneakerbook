@@ -19,7 +19,7 @@ public class DashboardRepository
 
     public async Task<List<Race>> GetUserRacesAsyncRO(string userId)
     {
-        return await _raceRepository.GetUserRacesAsyncRO(userId);
+        return await _raceRepository.GetUserUpcomingRacesAsyncRO(userId);
     }
     public async Task<List<Club>> GetUserClubsAsyncRO(string userId)
     {
@@ -33,6 +33,11 @@ public class DashboardRepository
 
     public async Task<List<Race>> GetUserAdminRacesAsyncRO(string userId)
     {
-        return await _raceRepository.GetUserAdminRacesAsyncRO(userId);
+        return await _raceRepository.GetUserAdminUpcomingRacesAsyncRO(userId);
+    }
+
+    public async Task<List<Race>> GetUserCompletedRacesAsyncRO(string userId)
+    {
+        return await _raceRepository.GetUserCompletedRacesAsyncRO(userId);
     }
 }

@@ -36,7 +36,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Sign out</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index" asp-route-userId="@User.GetUserId()">Dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index" asp-route-userId="@User.GetUserId()">@User.Identity.Name</a>
                             </li>
                         }
                         else

@@ -16,6 +16,7 @@ public class DetailRaceViewModel
     public DateTime StartDate { get; set; }
     public bool IsJoined { get; set; }
     public bool IsAdmin { get; set; }
+    public bool IsCompleted { get; set; }
     
     public List<AppUser> Members { get; set; }
 
@@ -32,5 +33,6 @@ public class DetailRaceViewModel
         Category = race.Category;
         Club = race.Club;
         StartDate = race.StartDate.ToLocalTime();
+        IsCompleted = race.IsCompleted;
     }
 }
