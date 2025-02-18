@@ -65,7 +65,8 @@ public class Seed
 
     public static async Task InitializeClubs(UserManager<AppUser> userManager,ClubRepository clubRepository,int clubAmount)
     {
-        AppUser? admin = await userManager.Users.FirstOrDefaultAsync();
+        string adminEmail = "test@gmail.com";
+        AppUser? admin = await userManager.FindByEmailAsync(adminEmail);
         if (admin == null)
             return;
         if (await clubRepository.IsAnythingInTable())
@@ -98,7 +99,8 @@ public class Seed
 
     public async static Task InitializeRaces(UserManager<AppUser> userManager, RaceRepository racesRepository,ClubRepository clubRepository,int raceAmount)
     {
-        AppUser? admin = await userManager.Users.FirstOrDefaultAsync();
+        string adminEmail = "test@gmail.com";
+        AppUser? admin = await userManager.FindByEmailAsync(adminEmail);
         if (admin == null)
             return;
         if (await racesRepository.IsAnythingInTable())
@@ -113,22 +115,22 @@ public class Seed
             {
                 case RaceCategory.Sprint:
                 {
-                    length=Math.Round(Random.Shared.NextDouble()*5+0.1,1);
+                    length=Math.Round(Random.Shared.NextDouble()*4.9+0.1,1);
                     break;
                 }
                 case RaceCategory.Marathon:
                 {
-                    length=Math.Round(Random.Shared.NextDouble()*42+0.1,1);
+                    length=Math.Round(Random.Shared.NextDouble()*20.9+21.1,1);
                     break;
                 }
                 case RaceCategory.HalfMarathon:
                 {
-                    length=Math.Round(Random.Shared.NextDouble()*21+0.1,1);
+                    length=Math.Round(Random.Shared.NextDouble()*15.9+5.1,1);
                     break;
                 }
                 case RaceCategory.Ultramarathon:
                 {
-                    length=Math.Round(Random.Shared.NextDouble()*80+0.1,1);
+                    length=Math.Round(Random.Shared.NextDouble()*37.9+42.1,1);
                     break;
                 }
                 default:

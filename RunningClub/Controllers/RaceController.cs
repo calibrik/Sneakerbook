@@ -104,7 +104,7 @@ public class RaceController: Controller
         return View(model);
     }
     [HttpPost]
-    public async Task<IActionResult> Create(CreateRaceViewModel createRaceModel)
+    public async Task<IActionResult> Create(CreateRaceViewModel createRaceModel)//TODO race creation in deploy is cooked idk why
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
@@ -149,7 +149,7 @@ public class RaceController: Controller
             {
                 if (createRaceModel.Length <= 5 || createRaceModel.Length > 21)
                 {
-                    ModelState.AddModelError("Length", "Length for sprint category must be between 5km and 21km.");
+                    ModelState.AddModelError("Length", "Length for HalfMarathon category must be between 5km and 21km.");
                     return View("Create",createRaceModel);
                 }
                 break;
@@ -158,7 +158,7 @@ public class RaceController: Controller
             {
                 if (createRaceModel.Length <= 42 || createRaceModel.Length > 80)
                 {
-                    ModelState.AddModelError("Length", "Length for sprint category must be between 42km and 80km.");
+                    ModelState.AddModelError("Length", "Length for UltraMarathon category must be between 42km and 80km.");
                     return View("Create",createRaceModel);
                 }
                 break;

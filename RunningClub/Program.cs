@@ -20,7 +20,11 @@ builder.Services.AddScoped<DashboardRepository>();
 builder.Services.AddScoped<ClubRepository, ClubRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    #if DEBUG
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection"));
+    #else
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection"));//TODO how tf does this work bro it's in secret
+    #endif  
 });
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddMemoryCache();

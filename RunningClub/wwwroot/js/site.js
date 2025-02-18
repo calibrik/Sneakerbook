@@ -340,3 +340,5 @@ function onChangeInClubRacesSelector(clubId)
     else
         getClubCompletedRaces(clubId);
 }
+
+//TODO load club and races on scroll

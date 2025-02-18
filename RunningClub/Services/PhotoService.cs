@@ -6,6 +6,7 @@ using SixLabors.ImageSharp.Processing;
 namespace RunningClub.Services;
 public class PhotoService
 {
+    private readonly IWebHostEnvironment _webHostEnvironment;
     public enum UploadResultCode
     {
         Success,
@@ -24,6 +25,7 @@ public class PhotoService
         public UploadResultCode Code;
         public string Path;
     }
+    //TODO bring back cloudinary
     // private readonly Cloudinary _cloudinary;
     // public PhotoService(IOptions<CloudinarySettings> config)
     // {
@@ -52,7 +54,10 @@ public class PhotoService
     //     DeletionParams deletionParams = new DeletionParams(photoId);
     //     return await _cloudinary.DestroyAsync(deletionParams);
     // }
-
+    public PhotoService(IWebHostEnvironment webHostEnvironment)
+    {
+        _webHostEnvironment = webHostEnvironment;
+    }
     public async Task<UploadResult> AddPhotoAsync(IFormFile file,string imageFolder)
     {
         List<string> allowedExt=new List<string> { ".jpg", ".png", ".gif", ".bmp" };
@@ -62,7 +67,7 @@ public class PhotoService
             {
                 Code = UploadResultCode.WrongExt
             };
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads",imageFolder);
+        string uploadsFolder = Path.Combine("wwwroot", "uploads",imageFolder);
         string fileName = Guid.NewGuid() + ext;
         string filePath = Path.Combine(uploadsFolder, fileName);
         
@@ -84,12 +89,16 @@ public class PhotoService
 
     public bool DeletePhoto(string photoPath)
     {
-        string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photoPath);
+        photoPath = photoPath.Remove(0,1);
+        string fullPath = Path.Combine(_webHostEnvironment.WebRootPath, photoPath);
         if (!File.Exists(fullPath))
         {
             Console.WriteLine($"File {fullPath} does not exist");
             return false;
         }
+
+        if (fullPath.Split('/').Last() == "defaultImage.jpg")
+            return true;
         File.Delete(fullPath);
         return true;
     }

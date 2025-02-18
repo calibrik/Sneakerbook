@@ -42,7 +42,7 @@ public class AccountController:Controller
             ModelState.AddModelError("LoginAttempt", "Invalid email or password");
             return View(loginViewModel);
         }
-        SignInResult result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.RememberMe, false);
+        SignInResult result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.RememberMe, false);//TODO remember me doesn't work (it always remembers user and for unknown time amount)
         if (result.Succeeded)
             return RedirectToAction("Index", "Dashboard",new {userId = user.Id});
         ModelState.AddModelError("LoginAttempt", "Unknown error occured.");

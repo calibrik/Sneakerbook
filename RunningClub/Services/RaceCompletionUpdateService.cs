@@ -15,20 +15,24 @@ public class RaceCompletionUpdateService:BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            RaceRepository _raceRepository = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<RaceRepository>();
-            List<Race> races = await _raceRepository.GetToBeCompletedRacesAsync();
-            foreach (Race race in races)
+            using (var scope = _scopeFactory.CreateScope())
             {
-                List<AppUser> members = await _raceRepository.GetUsersInRaceAsync(race.Id);
-                foreach (AppUser user in members)
+                RaceRepository _raceRepository = scope.ServiceProvider.GetRequiredService<RaceRepository>();
+                List<Race> races = await _raceRepository.GetToBeCompletedRacesAsync();
+                foreach (Race race in races)
                 {
-                    user.Mileage = Math.Round(user.Mileage+race.Length,1);
+                    List<AppUser> members = await _raceRepository.GetUsersInRaceAsync(race.Id);
+                    foreach (AppUser user in members)
+                    {
+                        user.Mileage = Math.Round(user.Mileage + race.Length, 1);
+                    }
+
+                    race.IsCompleted = true;
                 }
-            
-                race.IsCompleted = true;
+
+                await _raceRepository.Save();
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
-            await _raceRepository.Save();
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }
 }
