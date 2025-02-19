@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RunningClub.Misc;
@@ -42,11 +43,13 @@ public class AccountController:Controller
             ModelState.AddModelError("LoginAttempt", "Invalid email or password");
             return View(loginViewModel);
         }
-        SignInResult result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.RememberMe, false);//TODO remember me doesn't work (it always remembers user and for unknown time amount)
-        if (result.Succeeded)
-            return RedirectToAction("Index", "Dashboard",new {userId = user.Id});
-        ModelState.AddModelError("LoginAttempt", "Unknown error occured.");
-        return View(loginViewModel);
+        AuthenticationProperties authProperties = new AuthenticationProperties
+        { 
+            IsPersistent = loginViewModel.RememberMe,
+            ExpiresUtc = loginViewModel.RememberMe ? DateTimeOffset.UtcNow.AddDays(1):DateTimeOffset.UtcNow.AddMinutes(5)
+        };
+        await _signInManager.SignInAsync(user,authProperties);
+        return RedirectToAction("Index", "Dashboard", new { userId = user.Id });
     }
 
     public IActionResult Register()

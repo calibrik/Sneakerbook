@@ -20,6 +20,7 @@ public class Club
     public required string Title { get; set; }
     public string? Description { get; set; }
     public required string Image { get; set; }
+    public required string ImagePublicId { get; set; }
     public required Address Address { get; set; }
     public required string AdminId { get; set; }
     public AppUser? Admin { get; set; }

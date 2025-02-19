@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.Extensions.Options;
 using RunningClub.Misc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
@@ -6,59 +8,86 @@ using SixLabors.ImageSharp.Processing;
 namespace RunningClub.Services;
 public class PhotoService
 {
-    private readonly IWebHostEnvironment _webHostEnvironment;
     public enum UploadResultCode
     {
         Success,
         WrongExt,
-        Unknown
+        Unknown,
+        TooLong
     }
 
     public static class ImageType
     {
-        public const string Race = "race";
-        public const string Club = "club";
-        public const string Profile = "profile";
+        #if DEBUG
+        public const string Race = "racesLocalPics";
+        public const string Club = "clubsLocalPics";
+        public const string Profile = "profilesLocalPics";
+        #else
+        public const string Race = "racesAzurePics";
+        public const string Club = "clubsAzurePics";
+        public const string Profile = "profilesAzurePics";
+        #endif
     }
     public struct UploadResult
     {
         public UploadResultCode Code;
         public string Path;
+        public string PublicId;
     }
-    //TODO bring back cloudinary
-    // private readonly Cloudinary _cloudinary;
-    // public PhotoService(IOptions<CloudinarySettings> config)
-    // {
-    //     Account acc = new Account(
-    //         config.Value.CloudName,
-    //         config.Value.ApiKey,
-    //         config.Value.ApiSecret
-    //     );
-    //     _cloudinary = new Cloudinary(acc);
-    // }
-    // public async Task<ImageUploadResult> AddPhotoToCloudinaryAsync(IFormFile file)
-    // {
-    //     if (file.Length == 0)
-    //         return new ImageUploadResult();
-    //     await using var stream = file.OpenReadStream();
-    //     ImageUploadParams uploadParams = new ImageUploadParams
-    //     {
-    //         File = new FileDescription(file.FileName, stream),
-    //         Transformation = new Transformation().Height(600).Height(600).Crop("fill").Gravity("face")
-    //     };
-    //     return await _cloudinary.UploadAsync(uploadParams);
-    // }
-    //
-    // public async Task<DeletionResult> DeletePhotoFromCloudinaryAsync(string photoId)
-    // {
-    //     DeletionParams deletionParams = new DeletionParams(photoId);
-    //     return await _cloudinary.DestroyAsync(deletionParams);
-    // }
-    public PhotoService(IWebHostEnvironment webHostEnvironment)
+    private readonly Cloudinary _cloudinary;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    public PhotoService(IOptions<CloudinarySettings> config,IWebHostEnvironment webHostEnvironment)
     {
+        Account acc = new Account(
+            config.Value.CloudName,
+            config.Value.ApiKey,
+            config.Value.ApiSecret
+        );
+        _cloudinary = new Cloudinary(acc);
         _webHostEnvironment = webHostEnvironment;
     }
-    public async Task<UploadResult> AddPhotoAsync(IFormFile file,string imageFolder)
+    public async Task<UploadResult> AddPhotoToCloudinaryAsync(IFormFile file,string folder)
+    {
+        if (file.Length >10000000)
+            return new UploadResult { Code = UploadResultCode.TooLong };
+        List<string> allowedExt=new List<string> { ".jpg", ".png", ".gif", ".bmp" };
+        string ext = Path.GetExtension(file.FileName).ToLower();
+        if (!allowedExt.Contains(ext))
+            return new UploadResult
+            {
+                Code = UploadResultCode.WrongExt
+            };
+        string fileName = Guid.NewGuid()+ext;
+        await using Stream stream = file.OpenReadStream();
+        ImageUploadParams uploadParams = new ImageUploadParams
+        {
+            Folder = folder,
+            File = new FileDescription(fileName, stream),
+            Transformation = new Transformation().Height(470).Width(800).Crop("scale")
+        };
+        ImageUploadResult res= await _cloudinary.UploadAsync(uploadParams);
+        if (res.StatusCode != System.Net.HttpStatusCode.OK)
+            return new UploadResult()
+            {
+                Code = UploadResultCode.Unknown,
+            };
+        return new UploadResult()
+        {
+            Code = UploadResultCode.Success,
+            Path = res.Url.ToString(),
+            PublicId = res.PublicId
+        };
+    }
+    
+    public async Task<bool> DeletePhotoFromCloudinaryAsync(string photoId)
+    {
+        if (photoId == "defaultImage")
+            return true;
+        DeletionParams deletionParams = new DeletionParams(photoId);
+        DeletionResult res= await _cloudinary.DestroyAsync(deletionParams);
+        return res.StatusCode == System.Net.HttpStatusCode.OK;
+    }
+    public async Task<UploadResult> AddPhotoToLocalAsync(IFormFile file,string imageFolder)
     {
         List<string> allowedExt=new List<string> { ".jpg", ".png", ".gif", ".bmp" };
         string ext = Path.GetExtension(file.FileName).ToLower();
@@ -68,8 +97,8 @@ public class PhotoService
                 Code = UploadResultCode.WrongExt
             };
         string uploadsFolder = Path.Combine("wwwroot", "uploads",imageFolder);
-        string fileName = Guid.NewGuid() + ext;
-        string filePath = Path.Combine(uploadsFolder, fileName);
+        string fileName = Guid.NewGuid().ToString();
+        string filePath = Path.Combine(uploadsFolder, fileName+$".{ext}");
         
         using (Image image = await Image.LoadAsync(file.OpenReadStream()))
         {
@@ -83,11 +112,12 @@ public class PhotoService
         return new UploadResult
         {
             Code = UploadResultCode.Success,
-            Path=Path.Combine("/uploads",imageFolder,fileName)
+            Path=Path.Combine("/uploads",imageFolder,fileName),
+            PublicId = fileName
         };
     }
 
-    public bool DeletePhoto(string photoPath)
+    public bool DeletePhotoFromLocal(string photoPath)
     {
         photoPath = photoPath.Remove(0,1);
         string fullPath = Path.Combine(_webHostEnvironment.WebRootPath, photoPath);

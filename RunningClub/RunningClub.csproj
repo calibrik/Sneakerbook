@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CloudinaryDotNet" Version="1.27.4" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.12" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
@@ -16,12 +17,6 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\uploads\club\" />
-      <Folder Include="wwwroot\uploads\profile\" />
-      <Folder Include="wwwroot\uploads\race\" />
     </ItemGroup>
 
 </Project>

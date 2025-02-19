@@ -16,7 +16,7 @@ builder.Services.AddScoped<RaceRepository>();
 builder.Services.AddScoped<PhotoService>();
 builder.Services.AddScoped<HttpContextAccessor>();
 builder.Services.AddScoped<DashboardRepository>();
-// builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<ClubRepository, ClubRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -30,6 +30,14 @@ builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<Ap
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.SlidingExpiration = true;
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

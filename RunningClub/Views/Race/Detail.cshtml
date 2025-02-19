@@ -63,7 +63,7 @@
                     <p class="card-text"><strong>Number of Participants: </strong><span id="membersCount">@Model.Members.Count</span>/@Model.MaxMembersNumber</p>
                     <p class="card-text"><strong>Created by: </strong><a asp-controller="Dashboard" asp-action="Index" asp-route-userId="@Model.Admin.Id" class="link-primary">@Model.Admin.UserName</a></p>
                     <p class="card-text"><strong>Hosting Club: </strong><a asp-action="Detail" asp-controller="Club" asp-route-clubId="@Model.Club.Id" class="link-primary">@Model.Club.Title</a></p>
-                    <p class="text-muted"><strong>Starts on @Model.StartDate.ShowDateTime()</strong></p>
+                    <p class="text-muted"><strong>@(Model.IsCompleted?"Finished":"Starts") on @Model.StartDate.ShowDateTime()</strong></p>
 
                     <!-- Button or any additional info -->
                     @if (Model.IsCompleted)

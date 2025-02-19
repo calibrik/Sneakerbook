@@ -65,18 +65,23 @@ public class RaceController: Controller
         }
         return View(model);
     }
-    async Task<string?> ProcessImageAdd(IFormFile file)
+    async Task<PhotoService.UploadResult?> ProcessImageAdd(IFormFile file)
     {
-        PhotoService.UploadResult res= await _photoService.AddPhotoAsync(file,PhotoService.ImageType.Race);
+        PhotoService.UploadResult res= await _photoService.AddPhotoToCloudinaryAsync(file,PhotoService.ImageType.Race);
         switch (res.Code)
         {
             case PhotoService.UploadResultCode.Success:
             {
-                return res.Path;
+                return res;
             }
             case PhotoService.UploadResultCode.WrongExt:
             {
                 ModelState.AddModelError("Image","Only .jpg, .png, .gif, .bmp allowed");
+                break;
+            }
+            case PhotoService.UploadResultCode.TooLong:
+            {
+                ModelState.AddModelError("Image", "File is too long (10MB max)");
                 break;
             }
             case PhotoService.UploadResultCode.Unknown:
@@ -90,10 +95,10 @@ public class RaceController: Controller
     }
     public async Task<IActionResult> Create(int clubId)
     {
-        if (!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId)&&!User.IsInRole("Admin"))
-            return RedirectToAction("Detail","Club", new { id = clubId });
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
+        if (!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId)&&!User.IsInRole("Admin"))
+            return RedirectToAction("Detail","Club", new { id = clubId });
         DateTime date = DateTime.Now.ToLocalTime();
         CreateRaceViewModel model = new CreateRaceViewModel()
         {
@@ -167,8 +172,8 @@ public class RaceController: Controller
                 throw new ArgumentOutOfRangeException();
         }
         
-        string? path = await ProcessImageAdd(createRaceModel.Image);
-        if (path==null)
+        PhotoService.UploadResult? res = await ProcessImageAdd(createRaceModel.Image);
+        if (res==null)
             return View(createRaceModel);
         
         Race race = new Race
@@ -176,7 +181,8 @@ public class RaceController: Controller
             AdminId = User.GetUserId(),
             Title = createRaceModel.Title,
             Description = createRaceModel.Description,
-            Image = path,
+            Image = res.Value.Path,
+            ImagePublicId = res.Value.PublicId,
             Address = createRaceModel.Address,
             Category = createRaceModel.Category,
             MaxMembersNumber = createRaceModel.MaxMembersNumber,
@@ -293,11 +299,12 @@ public class RaceController: Controller
                 ModelState.AddModelError("Image","Please choose a image");
                 return View(editRaceModel);
             }
-            string? path = await ProcessImageAdd(editRaceModel.Image);
-            if (path == null)
+            PhotoService.UploadResult? res = await ProcessImageAdd(editRaceModel.Image);
+            if (res == null)
                 return View(editRaceModel);
-            _photoService.DeletePhoto(race.Image);
-            race.Image = path;
+            await _photoService.DeletePhotoFromCloudinaryAsync(race.ImagePublicId);
+            race.Image = res.Value.Path;
+            race.ImagePublicId = res.Value.PublicId;
         }
         race.Title = editRaceModel.Title;
         race.Description = editRaceModel.Description;

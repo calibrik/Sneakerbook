@@ -74,18 +74,23 @@ public class ClubController:Controller
         return View(model);
     }
 
-    async Task<string?> ProcessImageAdd(IFormFile file)
+    async Task<PhotoService.UploadResult?> ProcessImageAdd(IFormFile file)
     {
-        PhotoService.UploadResult res= await _photoService.AddPhotoAsync(file,PhotoService.ImageType.Club);
+        PhotoService.UploadResult res= await _photoService.AddPhotoToCloudinaryAsync(file,PhotoService.ImageType.Club);
         switch (res.Code)
         {
             case PhotoService.UploadResultCode.Success:
             {
-                return res.Path;
+                return res;
             }
             case PhotoService.UploadResultCode.WrongExt:
             {
                 ModelState.AddModelError("Image","Only .jpg, .png, .gif, .bmp allowed");
+                break;
+            }
+            case PhotoService.UploadResultCode.TooLong:
+            {
+                ModelState.AddModelError("Image", "File is too long (10MB max)");
                 break;
             }
             case PhotoService.UploadResultCode.Unknown:
@@ -104,14 +109,15 @@ public class ClubController:Controller
             return RedirectToAction("Login", "Account");
         if (!ModelState.IsValid) 
             return View(createClubModel);
-        string? path = await ProcessImageAdd(createClubModel.Image);
-        if (path == null)
+        PhotoService.UploadResult? res = await ProcessImageAdd(createClubModel.Image);
+        if (res == null)
             return View(createClubModel);
         Club club = new Club
         {
             Title = createClubModel.Title,
             Description = createClubModel.Description,
-            Image = path,
+            Image = res.Value.Path,
+            ImagePublicId = res.Value.PublicId,
             Address = createClubModel.Address,
             Category = createClubModel.Category,
             AdminId = User.GetUserId(),
@@ -158,11 +164,12 @@ public class ClubController:Controller
                 ModelState.AddModelError("Image","Please choose a image");
                 return View(editClubModel);
             }
-            string? path = await ProcessImageAdd(editClubModel.Image);
-            if (path == null)
+            PhotoService.UploadResult? res = await ProcessImageAdd(editClubModel.Image);
+            if (res == null)
                 return View(editClubModel);
-            _photoService.DeletePhoto(club.Image);
-            club.Image = path;
+            await _photoService.DeletePhotoFromCloudinaryAsync(club.ImagePublicId);
+            club.Image = res.Value.Path;
+            club.ImagePublicId = res.Value.PublicId;
         }
         club.Title = editClubModel.Title;
         club.Description = editClubModel.Description;

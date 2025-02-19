@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RunningClub.Misc;
 using RunningClub.Models;
 using RunningClub.Repository;
+using RunningClub.Services;
 using RunningClub.ViewModels.ClubApi;
 
 namespace RunningClub.Controllers;
@@ -15,12 +16,14 @@ public class ClubApiController : ControllerBase
     private readonly ClubRepository _clubRepo;
     private readonly RaceRepository _raceRepo;
     private readonly UserManager<AppUser> _userManager;
+    private readonly PhotoService _photoService;
 
-    public ClubApiController(ClubRepository clubRepo, RaceRepository raceRepo, UserManager<AppUser> userManager)
+    public ClubApiController(ClubRepository clubRepo, RaceRepository raceRepo, UserManager<AppUser> userManager, PhotoService photoService)
     {
         _clubRepo = clubRepo;
         _raceRepo = raceRepo;
         _userManager = userManager;
+        _photoService = photoService;
     }
     
     [HttpPost("")]
@@ -33,6 +36,7 @@ public class ClubApiController : ControllerBase
         Club? club = await _clubRepo.GetClubByIdAsyncRO(clubId);
         if (club == null)
             return NotFound(new { message = "Club is not found" });
+        await _photoService.DeletePhotoFromCloudinaryAsync(club.ImagePublicId);
         await _clubRepo.DeleteClub(club);
         return Ok(new { message = "Club successfully deleted" });
     }
