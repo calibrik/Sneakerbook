@@ -1,4 +1,5 @@
 RunningClub/bin/
 RunningClub/obj/
 .idea/
-*.xml
+
+/.idea
