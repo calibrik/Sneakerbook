@@ -13,5 +13,4 @@ public class AppUser : IdentityUser
 
     public List<Race> AdminRaces { get; set; } = new();
     public List<Club> AdminClubs { get; set; } = new();
-    // public List<Race> CompletedRaces { get; set; } = new List<Race>();
 }

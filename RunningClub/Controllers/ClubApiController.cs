@@ -86,17 +86,21 @@ public class ClubApiController : ControllerBase
             return NotFound(new { message = "Club is not found" });
         if (!await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), clubId))
             return BadRequest(new { message = "You aren't in this club" });
+        if (await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId))
+            return BadRequest(new { message = "Admin can't leave club" });
         await _clubRepo.RemoveUserFromClubAsync(User.GetUserId(), clubId);
         return Ok(new { message = "You successfully left",memberCount=await _clubRepo.GetClubMemberCountAsyncRO(clubId) });
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetCompletedRaces([FromQuery] int clubId)
+    public async Task<IActionResult> GetCompletedRacesForClub([FromQuery] int clubId)//TODO this is cooked in prod
     {
         if (await _clubRepo.GetClubByIdAsyncRO(clubId) == null)
             return NotFound(new { message = "Club is not found" });
         List<Race> races=await _raceRepo.GetClubCompletedRacesAsyncRO(clubId);
-        HashSet<int> joinedRaces=await _raceRepo.GetUserRacesIdsInClubAsyncRO(User.GetUserId(),clubId);
+        HashSet<int> joinedRaces = new();
+        if (User.Identity.IsAuthenticated)
+            joinedRaces=await _raceRepo.GetUserRacesIdsInClubAsyncRO(User.GetUserId(),clubId);
         List<DetailClubApiRaceViewModel> model = new List<DetailClubApiRaceViewModel>();
         foreach (Race race in races)
         {
@@ -110,12 +114,14 @@ public class ClubApiController : ControllerBase
         return Ok(model);
     }
     [HttpGet("")]
-    public async Task<IActionResult> GetUpcomingRaces([FromQuery] int clubId)
+    public async Task<IActionResult> GetUpcomingRacesForClub([FromQuery] int clubId)
     {
         if (await _clubRepo.GetClubByIdAsyncRO(clubId) == null)
             return NotFound(new { message = "Club is not found" });
         List<Race> races=await _raceRepo.GetClubUpcomingRacesAsyncRO(clubId);
-        HashSet<int> joinedRaces=await _raceRepo.GetUserRacesIdsInClubAsyncRO(User.GetUserId(),clubId);
+        HashSet<int> joinedRaces = new();
+        if (User.Identity.IsAuthenticated)
+            joinedRaces=await _raceRepo.GetUserRacesIdsInClubAsyncRO(User.GetUserId(),clubId);
         List<DetailClubApiRaceViewModel> model = new List<DetailClubApiRaceViewModel>();
         foreach (Race race in races)
         {
@@ -125,6 +131,58 @@ public class ClubApiController : ControllerBase
                 IsJoined = joinedRaces.Contains(race.Id),
                 Link = Url.Action("Detail", "Race", new { raceId = race.Id }),
             });
+        }
+        return Ok(model);
+    }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetClubs()
+    {
+        List<Club> clubs = await _clubRepo.GetClubsAsyncRO();
+        HashSet<int> joinedClubs = new();
+        if (User.Identity.IsAuthenticated)
+            joinedClubs = await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
+        IndexClubApiViewModel model = new IndexClubApiViewModel();
+        foreach (Club club in clubs)
+        {
+            model.Clubs.Add(new IndexClubApiViewModel.IndexClubModel(club)
+            {
+                IsJoined = joinedClubs.Contains(club.Id),
+                MemberCount = await _clubRepo.GetClubMemberCountAsyncRO(club.Id),
+                Link = Url.Action("Detail", "Club", new { clubId = club.Id }),
+                AdminLink = Url.Action("Index", "Dashboard", new { userId = club.Admin.Id }),
+                AdminUsername = club.Admin.UserName,
+            });
+        }
+        return Ok(model);
+    }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetClub([FromQuery] int clubId)
+    {
+        Club? club = await _clubRepo.GetClubByIdAsyncRO(clubId);
+        if (club==null)
+            return NotFound(new { message = "Club is not found" });
+        List<AppUser> members = await _clubRepo.GetUsersInClubAsyncRO(clubId);
+        DetailClubApiViewModel model = new DetailClubApiViewModel(club)
+        {
+            AdminUsername = club.Admin.UserName,
+            AdminLink = Url.Action("Index", "Dashboard", new { userId = club.Admin.Id }),
+        };
+        foreach (AppUser member in members)
+        {
+            model.Members.Add(new DetailClubApiViewModel.DetailClubUser()
+            {
+                Id = member.Id,
+                IsAdmin = member.Id == club.Admin.Id,
+                Link = Url.Action("Detail", "User", new { userId = member.Id }),
+                Username = member.UserName,
+            });
+        }
+        if (User.Identity.IsAuthenticated)
+        {
+            model.IsAdmin = await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId) || User.IsInRole(UserRoles.Admin);
+            model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), clubId);
         }
         return Ok(model);
     }

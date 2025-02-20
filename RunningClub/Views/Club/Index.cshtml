@@ -1,7 +1,4 @@
-﻿@using RunningClub.Misc
-@using RunningClub.ViewModels
-@model RunningClub.ViewModels.IndexClubViewModel
-@{
+﻿@{
     ViewData["Title"] = "Clubs";
 }
 @if (User.Identity.IsAuthenticated)
@@ -13,37 +10,11 @@
     </div>
 }
 <h1 class="text-center mb-3">Clubs</h1>
-<div class="container my-5">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @{
-            foreach (IndexClubViewModel.IndexClubModel club in Model.Clubs)
-            {
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="d-flex justify-content-center">
-                            <div id="spinner @club.Id" class="spinner-border m-5" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                        <img id="image @club.Id" style="display: none" src="@club.Image" class="card-img-top card-img-custom" alt="Image @club.Id" onload="onImageLoadById(@club.Id)">
-        
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">@club.Title</h5>
-                            <h6 class="text-muted">@club.Category</h6>
-                            <p class="text-warning">@(Model.JoinedClubs.Contains(club.Id)?"Joined":"")</p>
-                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                <a class="btn btn-sm btn-outline-primary w-25" asp-action="Detail" asp-controller="Club" asp-route-clubId="@club.Id">View</a>
-                                <p class="text-muted mb-0">@club.MemberCount @(club.MemberCount == 1 ? "follower" : "followers")</p>
-                            </div>
-                        </div>
+<div id="clubList" class="container my-5">
 
-                        <div class="card-footer">
-                            <small class="text-muted">Created by <a class="link-info" asp-action="Index" asp-controller="Dashboard" asp-route-userId="@club.Admin.Id">@club.Admin.UserName</a></small>
-                        </div>
-                    </div>
-                </div>
-
-            }
-        }
-    </div>
 </div>
+<script>
+    window.onload = function() {
+        getClubs();
+    };
+</script>

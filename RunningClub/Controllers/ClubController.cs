@@ -21,18 +21,18 @@ public class ClubController:Controller
     }
     public async Task<IActionResult> Index()
     {
-        IndexClubViewModel model = new IndexClubViewModel();
-        List<Club> clubs = await _clubRepo.GetClubsAsyncRO();
-        foreach (Club club in clubs)
-        {
-            model.Clubs.Add(new IndexClubViewModel.IndexClubModel(club)
-            {
-                MemberCount = await _clubRepo.GetClubMemberCountAsyncRO(club.Id)
-            });
-        }
-        if (User.Identity.IsAuthenticated)
-            model.JoinedClubs = await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
-        return View(model);
+        // IndexClubViewModel model = new IndexClubViewModel();
+        // List<Club> clubs = await _clubRepo.GetClubsAsyncRO();
+        // foreach (Club club in clubs)
+        // {
+        //     model.Clubs.Add(new IndexClubViewModel.IndexClubModel(club)
+        //     {
+        //         MemberCount = await _clubRepo.GetClubMemberCountAsyncRO(club.Id)
+        //     });
+        // }
+        // if (User.Identity.IsAuthenticated)
+        //     model.JoinedClubs = await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
+        return View();
     }
     public IActionResult Create()
     {
@@ -45,32 +45,9 @@ public class ClubController:Controller
         Club? club = await _clubRepo.GetClubByIdAsyncRO(clubId);
         if (club==null)
             return RedirectToAction("Index");
-        DetailClubViewModel model = new DetailClubViewModel(club)
-        {
-            Members = await _clubRepo.GetUsersInClubAsyncRO(clubId),
-        };
-        List<Race> races = await _raceRepo.GetClubUpcomingRacesAsyncRO(clubId);
-        foreach (Race race in races)
-        {
-            model.Races.Add(new DetailClubViewModel.DetailClubRaceModel(race)
-            {
-                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id)
-            });
-        }
+        DetailClubViewModel model = new DetailClubViewModel(club);
         if (User.Identity.IsAuthenticated)
-        {
-            model.JoinedRaces=await _raceRepo.GetUserUpcomingRacesIdsAsyncRO(User.GetUserId());
             model.IsAdmin=await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(),clubId);
-            if (model.IsAdmin)
-                model.IsJoined = true;
-            else
-                model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), clubId);
-        }
-        else
-        {
-            model.IsJoined = false;
-            model.IsAdmin = false;
-        }
         return View(model);
     }
 

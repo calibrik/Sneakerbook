@@ -109,7 +109,7 @@ public class RaceController: Controller
         return View(model);
     }
     [HttpPost]
-    public async Task<IActionResult> Create(CreateRaceViewModel createRaceModel)//TODO race creation in deploy is cooked idk why
+    public async Task<IActionResult> Create(CreateRaceViewModel createRaceModel)
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
