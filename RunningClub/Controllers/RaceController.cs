@@ -27,22 +27,10 @@ public class RaceController: Controller
         Race? race = await _raceRepo.GetRaceByIdAsyncRO(raceId);
         if (race == null)
             return RedirectToAction("Index","Home");
-        DetailRaceViewModel model = new DetailRaceViewModel(race)
-        {
-            Members = await _raceRepo.GetUsersInRaceAsyncRO(raceId),
-        };
+        DetailRaceViewModel model = new DetailRaceViewModel(race);
         if (User.Identity.IsAuthenticated)
         {
-            model.IsAdmin=await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(),raceId);
-            if (model.IsAdmin)
-                model.IsJoined = true;
-            else
-                model.IsJoined = await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), raceId);
-        }
-        else
-        {
-            model.IsJoined = false;
-            model.IsAdmin = false;
+            model.IsAdmin=await _raceRepo.IsUserAdminInRaceAsync(User.GetUserId(),raceId)||User.IsInRole("Admin");
         }
         return View(model);
     }
@@ -50,20 +38,7 @@ public class RaceController: Controller
     {
         if (!User.Identity.IsAuthenticated)
             return RedirectToAction("Login", "Account");
-        HashSet<int> userClubs=await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
-        IndexRaceViewModel model = new IndexRaceViewModel()
-        {
-            JoinedRaces = await _raceRepo.GetUserUpcomingRacesIdsAsyncRO(User.GetUserId()),
-        };
-        List<Race> races = await _raceRepo.GetClubsUpcomingRacesAsyncRO(userClubs);
-        foreach (Race race in races)
-        {
-            model.Races.Add(new IndexRaceViewModel.IndexRaceModel(race)
-            {
-                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id)
-            });
-        }
-        return View(model);
+        return View();
     }
     async Task<PhotoService.UploadResult?> ProcessImageAdd(IFormFile file)
     {
@@ -99,7 +74,7 @@ public class RaceController: Controller
             return RedirectToAction("Login", "Account");
         if (!await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId)&&!User.IsInRole("Admin"))
             return RedirectToAction("Detail","Club", new { id = clubId });
-        DateTime date = DateTime.Now.ToLocalTime();
+        DateTime date = DateTime.UtcNow;
         CreateRaceViewModel model = new CreateRaceViewModel()
         {
             ClubId = clubId,
@@ -117,7 +92,7 @@ public class RaceController: Controller
             return RedirectToAction("Detail","Club", new { clubId = createRaceModel.ClubId });
         if (!ModelState.IsValid) 
             return View(createRaceModel);
-        DateTime todayDate = DateTime.Now.ToLocalTime();
+        DateTime todayDate = DateTime.UtcNow;
         DateTime startDate = (createRaceModel.StartDate+createRaceModel.StartTime.TimeOfDay);
         if (startDate.Date < todayDate.Date)
         {
@@ -187,7 +162,7 @@ public class RaceController: Controller
             Category = createRaceModel.Category,
             MaxMembersNumber = createRaceModel.MaxMembersNumber,
             ClubId = createRaceModel.ClubId,
-            StartDate = startDate.ToUniversalTime(),
+            StartDate = startDate,
             Length = createRaceModel.Length,
         };
         await _raceRepo.AddRace(race);
@@ -204,7 +179,7 @@ public class RaceController: Controller
         Race? race = await _raceRepo.GetRaceByIdAsyncRO(raceId);
         if (race==null)
             return View("Error");
-        DateTime date = race.StartDate.ToLocalTime();
+        DateTime date = race.StartDate;
         EditRaceViewModel editClubModel = new EditRaceViewModel
         {
             Id = race.Id,
@@ -313,7 +288,7 @@ public class RaceController: Controller
         race.Address.Street = editRaceModel.Address.Street;
         race.Category = editRaceModel.Category;
         race.MaxMembersNumber = editRaceModel.MaxMembersNumber;
-        race.StartDate = startDate.ToUniversalTime();
+        race.StartDate = startDate;
         race.Length = editRaceModel.Length;
         await _raceRepo.Save();
         return RedirectToAction("Detail",new {raceId=race.Id});

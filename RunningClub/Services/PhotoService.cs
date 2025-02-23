@@ -1,4 +1,5 @@
-﻿using CloudinaryDotNet;
+﻿using System.Linq.Expressions;
+using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
 using RunningClub.Misc;
@@ -8,6 +9,7 @@ using SixLabors.ImageSharp.Processing;
 namespace RunningClub.Services;
 public class PhotoService
 {
+    private static readonly HashSet<string> AllowedExt=new HashSet<string> { ".jpg", ".png", ".gif", ".bmp" };
     public enum UploadResultCode
     {
         Success,
@@ -48,15 +50,11 @@ public class PhotoService
     }
     public async Task<UploadResult> AddPhotoToCloudinaryAsync(IFormFile file,string folder)
     {
-        if (file.Length >10000000)
+        if (file.Length > 10000000)
             return new UploadResult { Code = UploadResultCode.TooLong };
-        List<string> allowedExt=new List<string> { ".jpg", ".png", ".gif", ".bmp" };
         string ext = Path.GetExtension(file.FileName).ToLower();
-        if (!allowedExt.Contains(ext))
-            return new UploadResult
-            {
-                Code = UploadResultCode.WrongExt
-            };
+        if (!AllowedExt.Contains(ext))
+            return new UploadResult { Code = UploadResultCode.WrongExt };
         string fileName = Guid.NewGuid()+ext;
         await using Stream stream = file.OpenReadStream();
         ImageUploadParams uploadParams = new ImageUploadParams
@@ -67,10 +65,7 @@ public class PhotoService
         };
         ImageUploadResult res= await _cloudinary.UploadAsync(uploadParams);
         if (res.StatusCode != System.Net.HttpStatusCode.OK)
-            return new UploadResult()
-            {
-                Code = UploadResultCode.Unknown,
-            };
+            return new UploadResult() { Code = UploadResultCode.Unknown, };
         return new UploadResult()
         {
             Code = UploadResultCode.Success,

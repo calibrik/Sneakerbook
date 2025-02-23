@@ -2,15 +2,15 @@ using RunningClub.Models;
 
 namespace RunningClub.ViewModels.ClubApi;
 
+public class DetailRaceClubApiUser
+{
+    public string Username { get; set; }
+    public string Link { get; set; }
+    public bool IsAdmin { get; set; }
+    public string Id { get; set; }
+}
 public class DetailClubApiViewModel
 {
-    public class DetailClubUser
-    {
-        public string Username { get; set; }
-        public string Link { get; set; }
-        public bool IsAdmin { get; set; }
-        public string Id { get; set; }
-    }
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
@@ -22,7 +22,7 @@ public class DetailClubApiViewModel
     public string Category { get; set; }
     public bool IsJoined { get; set; } = false;
     public bool IsAdmin { get; set; }= false;
-    public List<DetailClubUser> Members { get; set; }= new();
+    public List<DetailRaceClubApiUser> Members { get; set; }= new();
     
     public DetailClubApiViewModel(Club club)
     {

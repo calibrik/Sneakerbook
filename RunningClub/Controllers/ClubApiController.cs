@@ -171,11 +171,11 @@ public class ClubApiController : ControllerBase
         };
         foreach (AppUser member in members)
         {
-            model.Members.Add(new DetailClubApiViewModel.DetailClubUser()
+            model.Members.Add(new DetailRaceClubApiUser()
             {
                 Id = member.Id,
                 IsAdmin = member.Id == club.Admin.Id,
-                Link = Url.Action("Detail", "User", new { userId = member.Id }),
+                Link = Url.Action("Index", "Dashboard", new { userId = member.Id }),
                 Username = member.UserName,
             });
         }

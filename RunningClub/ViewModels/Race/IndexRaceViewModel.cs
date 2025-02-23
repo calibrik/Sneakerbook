@@ -26,7 +26,7 @@ public class IndexRaceViewModel
             Club = race.Club;
             Image = race.Image;
             MaxMemberCount = race.MaxMembersNumber;
-            StartDate = race.StartDate.ToLocalTime();
+            StartDate = race.StartDate;
             Length = race.Length;
         }
     }

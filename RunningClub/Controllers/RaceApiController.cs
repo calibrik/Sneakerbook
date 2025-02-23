@@ -114,4 +114,54 @@ public class RaceApiController : ControllerBase
         await _raceRepo.RemoveUserFromRaceAsync(model.UserId, model.RaceId);
         return Ok(new { message = "User successfully kicked", memberCount=await _raceRepo.GetRaceMemberCountAsyncRO(model.RaceId) });
     }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetRaces()
+    {
+        if (!User.Identity.IsAuthenticated)
+            return Unauthorized(new { message = "You do not have permission for this action" });
+        HashSet<int> joinedClubs=await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
+        List<Race> races=await _raceRepo.GetClubsUpcomingRacesAsyncRO(joinedClubs);
+        List<IndexRaceApiViewModel> model = new List<IndexRaceApiViewModel>();
+        foreach (Race race in races)
+        {
+            model.Add(new IndexRaceApiViewModel(race)
+            {
+                ClubLink = Url.Action("Detail","Club", new { clubId = race.ClubId }),
+                MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id),
+                RaceLink = Url.Action("Detail", "Race", new { raceId = race.Id }),
+            });
+        }
+        return Ok(model);
+    }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetRace([FromQuery] int raceId)
+    {
+        Race? race = await _raceRepo.GetRaceByIdAsyncRO(raceId);
+        if (race == null)
+            return NotFound(new { message = "Race is not found" });
+        DetailRaceApiViewModel model = new DetailRaceApiViewModel(race)
+        {
+            ClubLink = Url.Action("Detail", "Club", new { clubId = race.ClubId }),
+            ClubTitle = race.Club.Title,
+            AdminLink = Url.Action("Index", "Dashboard", new { userId = race.AdminId }),
+            AdminUsername = race.Admin.UserName,
+        };
+        List<AppUser> users=await _raceRepo.GetUsersInRaceAsyncRO(raceId);
+        foreach (AppUser user in users)
+        {
+            model.Members.Add(new DetailRaceClubApiUser()
+            {
+                Id = user.Id,
+                IsAdmin = user.Id == race.Admin.Id,
+                Username = user.UserName,
+            });
+        }
+        if (!User.Identity.IsAuthenticated)
+            return Ok(model);
+        model.IsJoined=await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), raceId);
+        model.IsAdmin =User.IsInRole(UserRoles.Admin) || User.GetUserId()==race.Admin.Id;
+        return Ok(model);
+    }
 }

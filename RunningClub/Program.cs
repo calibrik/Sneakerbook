@@ -21,9 +21,15 @@ builder.Services.AddScoped<ClubRepository, ClubRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     #if DEBUG
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection"),sqlOptions => sqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 5,
+        maxRetryDelay: TimeSpan.FromSeconds(10),
+        errorNumbersToAdd: null));
     #else
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection"));//TODO how tf does this work bro it's in secret
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection"),sqlOptions => sqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 5,
+        maxRetryDelay: TimeSpan.FromSeconds(10),
+        errorNumbersToAdd: null));//TODO how tf does this work bro it's in secret
     #endif  
 });
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
