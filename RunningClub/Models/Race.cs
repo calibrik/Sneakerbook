@@ -22,8 +22,6 @@ public class Race
     public required Address Address { get; set; }
     public required string AdminId { get; set; }
     public required DateTime StartDate { get; set; }
-    //TODO Move conversion local time to frontend
-    //TODO Skeleton loading of races and clubs lists and details
     public required double Length { get; set; }
     public bool IsCompleted { get; set; } = false;
     public AppUser? Admin { get; set; }

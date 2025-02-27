@@ -35,4 +35,8 @@ public class EditRaceViewModel
     [Range(0.1,80.0,ErrorMessage = "Race length should be bigger than 0km")]
     [DisplayFormat(DataFormatString = "{0:0.0}", ApplyFormatInEditMode = true)]
     public double Length { get; set; }
+    [DataType(DataType.DateTime)]
+    public DateTime FullStartDate { get; set; }
+    [Required]
+    public string TimeZoneID { get; set; }
 }

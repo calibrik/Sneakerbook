@@ -54,13 +54,15 @@
             <label asp-for="MaxMembersNumber"></label>
             <span asp-validation-for="MaxMembersNumber" class="text-danger"></span>
         </div>
+        <input id="timezoneInput" hidden asp-for="TimeZoneID"/>
+        <input id="fullDate" asp-for="FullStartDate" hidden value="@Model.FullStartDate.ToString("yyyy-MM-ddThh:mm")"/>
         <div class="col-md-2 form-floating mb-3">
-            <input class="form-control" asp-for="StartDate"/>
+            <input class="dateInput form-control" asp-for="StartDate"/>
             <label asp-for="StartDate"></label>
             <span asp-validation-for="StartDate" class="text-danger"></span>
         </div>
         <div class="col-md-2 form-floating mb-3">
-            <input class="form-control" asp-for="StartTime"/>
+            <input class="timeInput form-control" asp-for="StartTime"/>
             <label asp-for="StartTime"></label>
             <span asp-validation-for="StartTime" class="text-danger"></span>
         </div>
@@ -78,3 +80,8 @@
         </div>
     </form>
 </div>
+<script>
+    convertTimeToLocalForInputs();
+    convertDateToLocalForInputs();
+    getTimezone();
+</script>

@@ -93,7 +93,7 @@ public class ClubApiController : ControllerBase
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetCompletedRacesForClub([FromQuery] int clubId)//TODO this is cooked in prod
+    public async Task<IActionResult> GetCompletedRacesForClub([FromQuery] int clubId)
     {
         if (await _clubRepo.GetClubByIdAsyncRO(clubId) == null)
             return NotFound(new { message = "Club is not found" });

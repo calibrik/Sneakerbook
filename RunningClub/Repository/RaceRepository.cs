@@ -49,7 +49,7 @@ public class RaceRepository
     }
     public async Task<List<Race>> GetUserUpcomingRacesAsyncRO(string userId)
     {
-        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId&&!mr.Race.IsCompleted).Include(mr=>mr.Race.Club).OrderBy(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
+        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId&&!mr.Race.IsCompleted&&mr.Race.AdminId!=userId).Include(mr=>mr.Race.Club).OrderBy(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
     }
 
     public async Task<List<Race>> GetToBeCompletedRacesAsync()

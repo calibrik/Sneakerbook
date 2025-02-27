@@ -29,7 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection"),sqlOptions => sqlOptions.EnableRetryOnFailure(
         maxRetryCount: 5,
         maxRetryDelay: TimeSpan.FromSeconds(10),
-        errorNumbersToAdd: null));//TODO how tf does this work bro it's in secret
+        errorNumbersToAdd: null));
     #endif  
 });
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();

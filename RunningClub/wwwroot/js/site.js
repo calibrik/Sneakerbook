@@ -1,4 +1,33 @@
-﻿function showLocalTime(utcDateTime)
+﻿function getTimezone()
+{
+    document.getElementById("timezoneInput").value=Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+function convertTimeToLocalForInputs()
+{
+    let utcDate= document.getElementById("fullDate").value;
+    let localDate=new Date(utcDate+"Z");
+    let inputs=Array.from(document.getElementsByClassName("timeInput"));
+    inputs.forEach((element)=>{
+        const hours = String(localDate.getHours()).padStart(2, '0');
+        const minutes = String(localDate.getMinutes()).padStart(2, '0');
+        element.value= `${hours}:${minutes}:00.000`;
+    });
+}
+function convertDateToLocalForInputs()
+{
+    let utcDate= document.getElementById("fullDate").value;
+    let localDate=new Date(utcDate+"Z");
+    let inputs=Array.from(document.getElementsByClassName("dateInput"));
+    inputs.forEach((element)=>{
+        const year = localDate.getFullYear();
+        const month = String(localDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(localDate.getDate()).padStart(2, '0');
+        console.log(localDate);
+        element.value= `${year}-${month}-${day}`;
+        console.log(element.value);
+    });
+}
+function showLocalTime(utcDateTime)
 {
     const localTime = new Date(utcDateTime+'Z');
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -215,9 +244,6 @@ async function performGet(action, controller, queryParams="")
                 headers: {'Content-Type': 'application/json'},
             });
         let data =await response.json();
-        if (!response.ok) {
-            showError(data.message);
-        }
         return {response,data};
     }
     catch(error) {
@@ -364,6 +390,51 @@ function getClubs()
             buildClubsListForClubIndex(data.clubs);
         })
 }
+function buildRacesList(data)
+{
+    let raceList=document.getElementById("raceList");
+    raceList.innerHTML="";
+    data.forEach((race)=>{
+        raceList.innerHTML += `
+<div class="card mb-4 d-flex flex-column" style="height: 15%;">
+        <div class="row g-0 h-100">
+        <div class="col-md-4 d-flex">
+        <div class="d-flex justify-content-center">
+        <div id="spinner ${race.id}" class="spinner-border m-5" role="status">
+        <span class="visually-hidden">Loading...</span>
+</div>
+    <img id="image ${race.id}" style="display: none" src="${race.image}" class="img-fluid" alt="Image ${race.id}" onload="onImageLoadById('${race.id}')">
+    </div>
+</div>
+    <div class="col-md-8 d-flex">
+        <div class="card-body d-flex flex-column">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title">${race.title}</h5>
+                <span class="text-muted">Distance: ${race.length} km</span>
+            </div>
+
+            <h6 class="text-muted">${race.category}</h6>
+            <p class="card-text">${race.description}</p>
+            <p class="text-muted"><small>Starts on ${showLocalTime(race.startDate)}</small></p>
+
+            <div class="mt-auto d-flex flex-column">
+                <small class="text-muted">
+                    Created by <a class="link-info" href="${race.clubLink}">${race.clubTitle}</a>
+                </small>
+                <a class="btn w-25 btn-sm btn-primary mt-2" href="${race.raceLink}">View</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Footer remains for participants count -->
+    <div class="card-footer d-flex justify-content-end">
+        <small class="text-muted">Participants ${race.memberCount}/${race.maxMemberCount}</small>
+    </div>
+</div>`;
+    });
+}
 function buildMemberList(data,kickFunction)
 {
     let memberList=document.getElementById("memberList");
@@ -460,47 +531,7 @@ function getRaces()
                 raceList.innerHTML = `<p class="text-muted text-center">No available races at the moment. Join more clubs to see more races!</p>`
                 return;
             }
-            data.forEach((race)=>{
-                raceList.innerHTML += `
-<div class="card mb-4 d-flex flex-column" style="height: 15%;">
-        <div class="row g-0 h-100">
-        <div class="col-md-4 d-flex">
-        <div class="d-flex justify-content-center">
-        <div id="spinner ${race.id}" class="spinner-border m-5" role="status">
-        <span class="visually-hidden">Loading...</span>
-</div>
-    <img id="image ${race.id}" style="display: none" src="${race.image}" class="img-fluid" alt="Image ${race.id}" onload="onImageLoadById('${race.id}')">
-    </div>
-</div>
-    <div class="col-md-8 d-flex">
-        <div class="card-body d-flex flex-column">
-
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">${race.title}</h5>
-                <span class="text-muted">Distance: ${race.length} km</span>
-            </div>
-
-            <h6 class="text-muted">${race.category}</h6>
-            <p class="card-text">${race.description}</p>
-            <p class="text-muted"><small>Starts on ${showLocalTime(race.startDate)}</small></p>
-
-            <div class="mt-auto d-flex flex-column">
-                <small class="text-muted">
-                    Created by <a class="link-info" href="${race.clubLink}">${race.clubTitle}</a>
-                </small>
-                <a class="btn w-25 btn-sm btn-primary mt-2" href="${race.raceLink}">View</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Footer remains for participants count -->
-    <div class="card-footer d-flex justify-content-end">
-        <small class="text-muted">Participants ${race.memberCount}/${race.maxMemberCount}</small>
-    </div>
-</div>`;
-            });
-            
+            buildRacesList(data);
         });
 }
 
@@ -550,4 +581,161 @@ function getRaceInfo(raceId)
     })
 }
 
+function getUserInfo(userId)
+{
+    let userInfo=document.getElementById("userInfo");
+    userInfo.innerHTML=spinner();
+    performGet("GetUserInfo","DashboardApi",new URLSearchParams({ userId: userId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok)
+            {
+                userInfo.innerHTML=`<span class="text-danger text-center"><strong>${data.message}</strong></span>`;
+                return;
+            }
+            userInfo.innerHTML=`
+<h2 class="card-title text-center mb-4">${data.username}</h2>
+    <p><strong>Name:</strong> ${data.fName} ${data.lName}</p>
+    <p><strong>Email:</strong> ${data.email}</p>
+    <p><strong>Mileage:</strong> ${data.mileage} km</p>
+    ${data.isAdmin?`<p><strong class="text-danger">Admin</strong></p>`:""}
+    ${data.isSelf?`
+        <a href="${data.changePasswordLink}" class="mt-3 btn btn-outline-secondary w-25">Change Password</a>
+        <div class="mt-auto d-flex justify-content-center">
+            <a href="${data.editProfileLink}" class="btn btn-primary w-50">Edit Profile</a>
+        </div>`
+                :""}`
+            
+        });
+}
+
+function getUserUpcomingRaces(userId)
+{
+    let raceList=document.getElementById("raceList");
+    raceList.innerHTML=spinner();
+    performGet("GetUsersUpcomingRaces","DashboardApi",new URLSearchParams({ userId: userId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok)
+            {
+                raceList.innerHTML="";
+                return;
+            }
+            if (data.length==0)
+            {
+                raceList.innerHTML=`<p class="text-muted text-center">No upcoming races at the moment.</p>`;
+                return;
+            }
+            buildRacesList(data);
+        })
+}
+function getUserAdminRaces(userId)
+{
+    let raceList=document.getElementById("raceList");
+    raceList.innerHTML=spinner();
+    performGet("GetUsersAdminRaces","DashboardApi",new URLSearchParams({ userId: userId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok)
+            {
+                raceList.innerHTML="";
+                return;
+            }
+            if (data.length==0)
+            {
+                raceList.innerHTML=`<p class="text-muted text-center">You didn't create any races so far.</p>`;
+                return;
+            }
+            buildRacesList(data);
+        })
+}
+function getUserCompletedRaces(userId)
+{
+    let raceList=document.getElementById("raceList");
+    raceList.innerHTML=spinner();
+    performGet("GetUsersCompletedRaces","DashboardApi",new URLSearchParams({ userId: userId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok)
+            {
+                raceList.innerHTML="";
+                return;
+            }
+            if (data.length==0)
+            {
+                raceList.innerHTML=`<p class="text-muted text-center">You didn't complete any races so far.</p>`;
+                return;
+            }
+            buildRacesList(data);
+        })
+}
+function buildClubsList(data)
+{
+    let clubList=document.getElementById("clubList");
+    clubList.innerHTML="";
+    data.forEach((club)=>{
+        clubList.innerHTML+=`
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <div class="d-flex justify-content-center">
+                <div id="spinner ${club.id}" class="spinner-border m-5" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <img id="image ${club.id}" style="display: none" src=${club.image} class="img-fluid" alt="Club Image" onload="onImageLoadById('${club.id}')">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">${club.title}</h5>
+                <p class="text-muted">${club.category}</p>
+                <p class="card-text">${club.description}</p>
+                <div class="mt-auto d-flex flex-column">
+                    <small class="text-muted">
+                        Created by <a class="link-info" href="${club.adminLink}">${club.adminUsername}</a>
+                    </small>
+                    <a href="${club.clubLink}" class="btn w-25 btn-sm btn-primary mt-2">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`
+    });
+}
+
+function getUserClubs(userId)
+{
+    let clubList=document.getElementById("clubList");
+    clubList.innerHTML=spinner();
+    performGet("GetUserClubs","DashboardApi",new URLSearchParams({ userId: userId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok)
+            {
+                clubList.innerHTML="";
+                return;
+            }
+            if (data.length==0)
+            {
+                clubList.innerHTML=`<p class="text-muted text-center">You aren't a participant in any club</p>`;
+                return;
+            }
+            buildClubsList(data);
+        })
+}
+
+function getUserAdminClubs(userId)
+{
+    let clubList=document.getElementById("clubList");
+    clubList.innerHTML=spinner();
+    performGet("GetUserAdminClubs","DashboardApi",new URLSearchParams({ userId: userId }).toString())
+        .then(({response,data})=>{
+            if (!response.ok)
+            {
+                clubList.innerHTML="";
+                return;
+            }
+            if (data.length==0)
+            {
+                clubList.innerHTML=`<p class="text-muted text-center">You aren't an admin in any club</p>`;
+                return;
+            }
+            buildClubsList(data);
+        })
+}
 //TODO load club and races on scroll

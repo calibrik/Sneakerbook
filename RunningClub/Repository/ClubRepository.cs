@@ -23,12 +23,12 @@ public class ClubRepository
     }
     public async Task<List<Club>> GetUserClubsAsyncRO(string userId)
     {
-        return await _context.MemberClubs.AsNoTracking().Where(mc => mc.MemberId==userId).Select(mc => mc.Club).ToListAsync();
+        return await _context.MemberClubs.AsNoTracking().Include(mc=>mc.Club.Admin).Where(mc => mc.MemberId==userId&&mc.Club.AdminId!=userId).Select(mc => mc.Club).ToListAsync();
     }
 
     public async Task<List<Club>> GetUserAdminsClubsAsyncRO(string userId)
     {
-        return await _context.Clubs.AsNoTracking().Where(c=>c.AdminId==userId).ToListAsync();
+        return await _context.Clubs.AsNoTracking().Include(c=>c.Admin).Where(c=>c.AdminId==userId).ToListAsync();
     }
     public async Task<HashSet<int>> GetUserClubsIdsAsyncRO(string userId)
     {

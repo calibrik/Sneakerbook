@@ -18,17 +18,10 @@ public class DashboardController:Controller
     }
     public async Task<IActionResult> Index(string userId)
     {
-        AppUser? user = await _userManager.FindByIdAsync(userId);
-        if (user == null)
-            return RedirectToAction("Index", "Home");
-        DashboardViewModel model=new DashboardViewModel(user)
+        DashboardViewModel model=new DashboardViewModel
         {
-            Races = await _dashboardRepository.GetUserRacesAsyncRO(userId)
+            Id = userId
         };
-        foreach (Race race in model.Races)
-        {
-            race.StartDate=race.StartDate.ToLocalTime();
-        }
         return View(model);
     }
 
@@ -108,56 +101,36 @@ public class DashboardController:Controller
     }
     public async Task<IActionResult> MyClubs(string userId)
     {
-        AppUser? user = await _userManager.FindByIdAsync(userId);
-        if (user == null)
-            return RedirectToAction("Index", "Home");
-        DashboardViewModel model = new DashboardViewModel(user)
+        DashboardViewModel model = new DashboardViewModel()
         {
-            Clubs = await _dashboardRepository.GetUserClubsAsyncRO(userId)
+            Id = userId
         };
         return View(model);
     }
 
     public async Task<IActionResult> ManageClubs(string userId)
     {
-        AppUser? user = await _userManager.FindByIdAsync(userId);
-        if (user == null)
-            return RedirectToAction("Index", "Home");
-        DashboardViewModel model = new DashboardViewModel(user)
+        DashboardViewModel model = new DashboardViewModel()
         {
-            Clubs = await _dashboardRepository.GetUserAdminClubsAsyncRO(userId)
+            Id = userId
         };
         return View(model);
     }
     public async Task<IActionResult> ManageRaces(string userId)
     {
-        AppUser? user = await _userManager.FindByIdAsync(userId);
-        if (user == null)
-            return RedirectToAction("Index", "Home");
-        DashboardViewModel model = new DashboardViewModel(user)
+        DashboardViewModel model = new DashboardViewModel()
         {
-            Races = await _dashboardRepository.GetUserAdminRacesAsyncRO(userId)
+            Id = userId
         };
-        foreach (Race race in model.Races)
-        {
-            race.StartDate=race.StartDate.ToLocalTime();
-        }
         return View(model);
     }
 
     public async Task<IActionResult> CompletedRaces(string userId)
     {
-        AppUser? user = await _userManager.FindByIdAsync(userId);
-        if (user == null)
-            return RedirectToAction("Index", "Home");
-        DashboardViewModel model = new DashboardViewModel(user)
+        DashboardViewModel model = new DashboardViewModel()
         {
-            Races = await _dashboardRepository.GetUserCompletedRacesAsyncRO(userId)
+            Id = userId
         };
-        foreach (Race race in model.Races)
-        {
-            race.StartDate=race.StartDate.ToLocalTime();
-        }
         return View(model);
     }
 }

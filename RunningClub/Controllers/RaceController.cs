@@ -80,6 +80,7 @@ public class RaceController: Controller
             ClubId = clubId,
             StartDate = date.Date,
             StartTime = new DateTime(2000,1,1,date.Hour,date.Minute,0),
+            FullStartDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
         };
         return View(model);
     }
@@ -94,6 +95,8 @@ public class RaceController: Controller
             return View(createRaceModel);
         DateTime todayDate = DateTime.UtcNow;
         DateTime startDate = (createRaceModel.StartDate+createRaceModel.StartTime.TimeOfDay);
+        TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(createRaceModel.TimeZoneID);
+        startDate=TimeZoneInfo.ConvertTimeToUtc(startDate, timeZoneInfo);
         if (startDate.Date < todayDate.Date)
         {
             ModelState.AddModelError("StartDate", "Start date should be not sooner than today.");
@@ -191,6 +194,7 @@ public class RaceController: Controller
             StartDate = date.Date,
             StartTime = new DateTime(2000,1,1,date.Hour,date.Minute,0),
             Length = race.Length,
+            FullStartDate = race.StartDate,
         };
         return View(editClubModel);
     }
@@ -206,8 +210,10 @@ public class RaceController: Controller
             return RedirectToAction("Detail", new { id = editRaceModel.Id });
         if (!ModelState.IsValid)
             return View("Edit",editRaceModel);
-        DateTime todayDate = DateTime.Now.ToLocalTime();
+        DateTime todayDate = DateTime.UtcNow;
         DateTime startDate = (editRaceModel.StartDate+editRaceModel.StartTime.TimeOfDay);
+        TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById(editRaceModel.TimeZoneID);
+        startDate = TimeZoneInfo.ConvertTimeToUtc(startDate,timeZone);
         if (startDate.Date < todayDate.Date)
         {
             ModelState.AddModelError("StartDate", "Start date should be not sooner than today.");

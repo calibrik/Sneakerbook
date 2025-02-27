@@ -3,7 +3,7 @@ using RunningClub.Models;
 
 namespace RunningClub.ViewModels;
 
-public class IndexRaceApiViewModel
+public class RaceApiViewModel
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -19,7 +19,7 @@ public class IndexRaceApiViewModel
     public double Length { get; set; }
     public string RaceLink { get; set; }
 
-    public IndexRaceApiViewModel(Race race)
+    public RaceApiViewModel(Race race)
     {
         Id = race.Id;
         Title = race.Title;

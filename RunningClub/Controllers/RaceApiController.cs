@@ -122,10 +122,13 @@ public class RaceApiController : ControllerBase
             return Unauthorized(new { message = "You do not have permission for this action" });
         HashSet<int> joinedClubs=await _clubRepo.GetUserClubsIdsAsyncRO(User.GetUserId());
         List<Race> races=await _raceRepo.GetClubsUpcomingRacesAsyncRO(joinedClubs);
-        List<IndexRaceApiViewModel> model = new List<IndexRaceApiViewModel>();
+        HashSet<int> joinedRaces=await _raceRepo.GetUserUpcomingRacesIdsAsyncRO(User.GetUserId());
+        List<RaceApiViewModel> model = new List<RaceApiViewModel>();
         foreach (Race race in races)
         {
-            model.Add(new IndexRaceApiViewModel(race)
+            if (joinedRaces.Contains(race.Id))
+                continue;
+            model.Add(new RaceApiViewModel(race)
             {
                 ClubLink = Url.Action("Detail","Club", new { clubId = race.ClubId }),
                 MemberCount = await _raceRepo.GetRaceMemberCountAsyncRO(race.Id),

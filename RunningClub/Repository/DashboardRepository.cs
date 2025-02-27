@@ -17,7 +17,7 @@ public class DashboardRepository
         _dbContext=dbContext;
     }
 
-    public async Task<List<Race>> GetUserRacesAsyncRO(string userId)
+    public async Task<List<Race>> GetUserUpcomingRacesAsyncRO(string userId)
     {
         return await _raceRepository.GetUserUpcomingRacesAsyncRO(userId);
     }
