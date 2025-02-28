@@ -60,7 +60,7 @@
             <span asp-validation-for="StartDate" class="text-danger"></span>
         </div>
         <input id="timezoneInput" hidden asp-for="TimeZoneID"/>
-        <input id="fullDate" asp-for="FullStartDate" hidden value="@Model.FullStartDate.ToString("yyyy-MM-ddThh:mm")"/>
+        <input id="fullDate" asp-for="FullStartDate" hidden value="@Model.FullStartDate.ToString("yyyy-MM-ddTHH:mm")"/>
         <div class="col-md-2 form-floating mb-3">
             <input class="timeInput form-control" asp-for="StartTime"/>
             <label asp-for="StartTime"></label>

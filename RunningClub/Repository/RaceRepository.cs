@@ -12,6 +12,10 @@ public class RaceRepository
         _context = context;
     }
 
+    public async Task<List<string>> GetClubRacesImagePublicIDsAsyncRO(int clubId)
+    {
+        return await _context.Races.AsNoTracking().Where(r => r.ClubId == clubId).Select(r=>r.ImagePublicId).ToListAsync();
+    }
     public async Task<bool> IsUserMemberInRaceAsync(string userId, int raceId)
     {
         MemberRace? mr=await _context.MemberRaces.AsNoTracking().Where(mr => mr.RaceId == raceId&&mr.MemberId==userId).FirstOrDefaultAsync();
@@ -92,7 +96,7 @@ public class RaceRepository
 
     public async Task<List<Race>> GetUserCompletedRacesAsyncRO(string userId)
     {
-        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId&&mr.Race.IsCompleted).Include(mr=>mr.Race.Club).OrderBy(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
+        return await _context.MemberRaces.AsNoTracking().Where(mr=>mr.MemberId==userId&&mr.Race.IsCompleted).Include(mr=>mr.Race.Club).OrderByDescending(mr=>mr.Race.StartDate).Select(mr=>mr.Race).ToListAsync();
     }
     public async Task<bool> AddRace(Race race)
     {

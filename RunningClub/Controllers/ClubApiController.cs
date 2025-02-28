@@ -36,6 +36,11 @@ public class ClubApiController : ControllerBase
         Club? club = await _clubRepo.GetClubByIdAsyncRO(clubId);
         if (club == null)
             return NotFound(new { message = "Club is not found" });
+        List<string> raceImages = await _raceRepo.GetClubRacesImagePublicIDsAsyncRO(clubId);
+        foreach (string imageId in raceImages)
+        {
+            await _photoService.DeletePhotoFromCloudinaryAsync(imageId);
+        }
         await _photoService.DeletePhotoFromCloudinaryAsync(club.ImagePublicId);
         await _clubRepo.DeleteClub(club);
         return Ok(new { message = "Club successfully deleted" });

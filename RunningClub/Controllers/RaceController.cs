@@ -95,8 +95,9 @@ public class RaceController: Controller
             return View(createRaceModel);
         DateTime todayDate = DateTime.UtcNow;
         DateTime startDate = (createRaceModel.StartDate+createRaceModel.StartTime.TimeOfDay);
-        TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(createRaceModel.TimeZoneID);
-        startDate=TimeZoneInfo.ConvertTimeToUtc(startDate, timeZoneInfo);
+        TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById(createRaceModel.TimeZoneID);
+        createRaceModel.FullStartDate = TimeZoneInfo.ConvertTimeToUtc(startDate,timeZone);
+        todayDate=TimeZoneInfo.ConvertTime(todayDate, timeZone);
         if (startDate.Date < todayDate.Date)
         {
             ModelState.AddModelError("StartDate", "Start date should be not sooner than today.");
@@ -165,7 +166,7 @@ public class RaceController: Controller
             Category = createRaceModel.Category,
             MaxMembersNumber = createRaceModel.MaxMembersNumber,
             ClubId = createRaceModel.ClubId,
-            StartDate = startDate,
+            StartDate = createRaceModel.FullStartDate,
             Length = createRaceModel.Length,
         };
         await _raceRepo.AddRace(race);
@@ -213,7 +214,8 @@ public class RaceController: Controller
         DateTime todayDate = DateTime.UtcNow;
         DateTime startDate = (editRaceModel.StartDate+editRaceModel.StartTime.TimeOfDay);
         TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById(editRaceModel.TimeZoneID);
-        startDate = TimeZoneInfo.ConvertTimeToUtc(startDate,timeZone);
+        editRaceModel.FullStartDate = TimeZoneInfo.ConvertTimeToUtc(startDate,timeZone);
+        todayDate=TimeZoneInfo.ConvertTime(todayDate, timeZone);
         if (startDate.Date < todayDate.Date)
         {
             ModelState.AddModelError("StartDate", "Start date should be not sooner than today.");
@@ -224,6 +226,7 @@ public class RaceController: Controller
             ModelState.AddModelError("StartTime", "Start time should be not sooner than right now.");
             return View("Edit",editRaceModel);
         }
+
         switch (editRaceModel.Category)
         {
             case RaceCategory.Sprint:
@@ -294,7 +297,7 @@ public class RaceController: Controller
         race.Address.Street = editRaceModel.Address.Street;
         race.Category = editRaceModel.Category;
         race.MaxMembersNumber = editRaceModel.MaxMembersNumber;
-        race.StartDate = startDate;
+        race.StartDate = editRaceModel.FullStartDate;
         race.Length = editRaceModel.Length;
         await _raceRepo.Save();
         return RedirectToAction("Detail",new {raceId=race.Id});

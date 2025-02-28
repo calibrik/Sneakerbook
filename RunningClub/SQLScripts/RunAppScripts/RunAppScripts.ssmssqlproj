@@ -18,6 +18,21 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName />
         </ConnectionNode>
+        <ConnectionNode Name="sqlserver-20250218190254.database.windows.net:Matt">
+          <Created>2025-02-28T16:14:55.9149619+11:00</Created>
+          <Type>SQL</Type>
+          <Server>sqlserver-20250218190254.database.windows.net</Server>
+          <UserName>Matt</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>Sneakerbook</InitialDB>
+          <LoginTimeout>30</LoginTimeout>
+          <TrustServerCertificate>False</TrustServerCertificate>
+          <HostNameInServerCertificate />
+          <EncryptionOption>True</EncryptionOption>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
@@ -35,9 +50,9 @@
           <FullPath>DeleteRaces.sql</FullPath>
         </FileNode>
         <FileNode Name="DeleteUsers.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:sqlserver-20250218190254.database.windows.net:False:Matt</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>sqlserver-20250218190254.database.windows.net</AssociatedConnSrvName>
+          <AssociatedConnUserName>Matt</AssociatedConnUserName>
           <FullPath>DeleteUsers.sql</FullPath>
         </FileNode>
         <FileNode Name="PopulateClubs.sql">
@@ -51,6 +66,12 @@
           <AssociatedConnSrvName>DESKTOP-9S8KRR3</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>PopulateRaces.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ResetDB.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:sqlserver-20250218190254.database.windows.net:False:Matt</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>sqlserver-20250218190254.database.windows.net</AssociatedConnSrvName>
+          <AssociatedConnUserName>Matt</AssociatedConnUserName>
+          <FullPath>ResetDB.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

@@ -31,15 +31,18 @@ function showLocalTime(utcDateTime)
 {
     const localTime = new Date(utcDateTime+'Z');
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const dayOfWeek = weekdays[localTime.getDay()];
     const day = localTime.getDate().toString();
+    const month = months[localTime.getMonth()];
+    const year = localTime.getFullYear();
     let hours = localTime.getHours();
     const minutes = localTime.getMinutes().toString().padStart(2, '0');
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = !hours&&ampm=="PM" ? 12 : hours;
     hours=hours.toString();
-    return `${dayOfWeek} ${day}, at ${hours}:${minutes} ${ampm}`;
+    return `${dayOfWeek} ${day} ${month} ${year}, at ${hours}:${minutes} ${ampm}`;
 }
 function onImageLoad()
 {
