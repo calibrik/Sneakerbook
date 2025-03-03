@@ -164,7 +164,7 @@ public class RaceApiController : ControllerBase
         if (!User.Identity.IsAuthenticated)
             return Ok(model);
         model.IsJoined=await _raceRepo.IsUserMemberInRaceAsync(User.GetUserId(), raceId);
-        model.IsAdmin =User.IsInRole(UserRoles.Admin) || User.GetUserId()==race.Admin.Id;
+        model.IsAdmin =User.GetUserId()==race.Admin.Id;
         return Ok(model);
     }
 }

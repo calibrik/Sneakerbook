@@ -186,7 +186,7 @@ public class ClubApiController : ControllerBase
         }
         if (User.Identity.IsAuthenticated)
         {
-            model.IsAdmin = await _clubRepo.IsUserAdminInClubAsync(User.GetUserId(), clubId) || User.IsInRole(UserRoles.Admin);
+            model.IsAdmin = User.GetUserId()==club.AdminId;
             model.IsJoined = await _clubRepo.IsUserMemberInClubAsync(User.GetUserId(), clubId);
         }
         return Ok(model);

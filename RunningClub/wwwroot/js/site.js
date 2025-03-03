@@ -481,9 +481,9 @@ function getClubInfo(clubId)
                 return;
             }
             let button="";
-            if (data.isAdmin)
+            if (data.isAdmin) 
             {
-                button=`<a id="deleteButton" onclick="deleteClub('${data.id}')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Club</a>`;
+                button = `<a id="deleteButton" onclick="deleteClub('${data.id}')" class="btn btn-lg w-25 btn-outline-danger mt-auto">Delete Club</a>`;
             }
             else if (data.isJoined)
             {
